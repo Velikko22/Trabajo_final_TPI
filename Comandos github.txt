@@ -1,0 +1,59 @@
+Comandos para github
+--------------------
+
+Configurar identidad:
+--------------------
+
+git config --global user.nomas "Ingrese nombre"
+git config --global user.email "ingrese email"
+
+Comandos basicos:
+-----------------
+
+* Iniciar repositorio ------> git init
+
+* clonar repositorio -------> git clone linkcode
+
+* verificar repositorio ----> git status
+
+* agregar archivos ---------> git add archivo (archivo unico) / git add . (agrega todos los archivos)
+
+* confirmar cambios --------> git commit -m "mensaje"
+
+* ver historial de cambios -> git log
+
+Trabajando con ramas:	      
+---------------------	      
+			      
+* crear nueva rama ---------> git branch nombre-rama
+
+* cambiar a una rama -------> git checkout nombre-rama
+
+* crear y cambiar rama -----> git checkout -b nombre-rama
+
+* fusionar rama con actual -> git merge nombre-rama
+
+Trabajando con Remotos:
+-----------------------
+
+* repositorio remoto -------> git remote add origin linkcode
+
+* verificar remoto ---------> git remote -v
+
+* obtener cambios de rep ---> git pull origin rama
+
+* enviar cambios de rep ----> git push origin rama
+
+Otros comandos utiles:
+----------------------
+
+* ver diferencia de archvio > git diff
+
+* descartar cambios --------> git checkout -- archivo
+
+* eliminar un archivo ------> git reset archivo
+
+* eliminar archivo reposi  -> git rm archivo
+
+* renombrar archivo --------> git mv archivoviejo archivonuevo 
+
