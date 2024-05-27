@@ -10,3 +10,6 @@ class Tratamientos:
         return "STR"
     def __repr__(self):
         return "REPR"
+
+if __name__=="__main__":
+    pass
