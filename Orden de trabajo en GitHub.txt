@@ -1,0 +1,18 @@
+Orden de trabajo en GitHub:
+---------------------------
+
+1) abrir git bash here
+
+2) realizar un git pull
+
+3) trabajo codigo
+
+4) realizar un segundo git pull
+
+5) realizar un git add . (para agregar todo)
+
+6) realizar un git commit -m "Actualizacion -Hora- -Fecha- -comentario-"
+
+7) realizar un git push
+
+8) realizar un git pull para revisar la subida.
