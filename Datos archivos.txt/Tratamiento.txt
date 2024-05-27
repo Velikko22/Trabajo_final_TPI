@@ -1,0 +1,3 @@
+TRATAMIENTO,DURACION
+caca,3 Dias
+caca,3 Dias
