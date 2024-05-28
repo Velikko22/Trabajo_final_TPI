@@ -1,0 +1,3 @@
+nombreVacuna,loteVacuna,numeroDosis,fechaDosis,state
+vacuna,a44,1,24/05/2024,state = 0
+vacunaExtra,a44,1,24/05/2024,state = 0
