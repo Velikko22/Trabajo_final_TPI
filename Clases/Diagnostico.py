@@ -151,10 +151,12 @@ class Tratamientos:
         return "REPR"
 
 if __name__=="__main__":
+    print('''
+    prueba = Tratamientos("NombreDelTratamiento", "DiasDelTratamiento")
+    prueba.addTratamiento("NombreDelTratamientoNuevo", "DiasDelNuevoTratamiento")
+    a=Vacuna("NombreDeLaVacuna", "LoteDeLaVacuna", NumeroDosisVacuna)
+    a.modVacuna("ParametroCambiante", "NuevoParametro")
+    Diag = Diagnostico("NombreDiagnostico", "DescripcionDiagnostico", "CuidadosDiagnostico", prueba, a).addDiagnostico("Nombre", "descripcion", "cuidados", ObjetoTratamiento, ObjetoVacuna)
+    Diag.CambiarState() 
+''')
     pass
-    #prueba = Tratamientos("Caca", "3 Dias")
-    #prueba.addTratamiento("caca", "3 Dias")
-    #a=Vacuna("vacuna", "a44", 1)
-    #a.addVacuna("vacuna", "a44", 1)
-    #a.modVacuna("a44", "b55")
-    #Diagnostico("nombre diagnostico", "sin descripcion", "cuidados Diagnostico", prueba, a).addDiagnostico("Nombre", "descripcion", "cuidados", prueba, a)
