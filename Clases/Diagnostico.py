@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 class Diagnostico:
     def __init__(self, nombreDiag, descripcionDiag, cuidadosDiag, tratamientoDiag, vacunasDiag):
         self.nombreDiag = nombreDiag
@@ -52,16 +54,16 @@ class Diagnostico:
         return "REPR"
 
 class Vacuna:
-    def __init__(self, nombreVacuna, loteVacuna, numeroDosis, fechaDosis):
+    def __init__(self, nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis):
         self.nombreVacuna = nombreVacuna
-        self.loteVacuna = loteVacuna
-        self.numeroDosis = numeroDosis
-        self.fechaDosis = fechaDosis
-        self.proximaDosis = fechaDosis# + 10 dias ejemplo
+        self.loteVacuna = int(loteVacuna)
+        self.numeroDosis = int(numeroDosis)
+        self.fechaDosis = date.today()
+        self.proximaDosis = self.fechaDosis + timedelta(days=int(diasProximaDosis))
         self.state = True
     def addVacuna(self, newnombreVacuna, newloteVacuna, newnumeroDosis, newfechaDosis):
         with open("Datos archivos.txt\Vacunas.txt", 'a') as archivo:
-            nueva_linea = newnombreVacuna + "," + newloteVacuna + "," + newnombreVacuna + "," + str(newnumeroDosis) + "," + newfechaDosis + "," + str(self.state) + "\n"
+            nueva_linea = newnombreVacuna + "," + newloteVacuna + "," + newnombreVacuna + "," + str(newnumeroDosis) + "," + str(newfechaDosis) + "," +  + str(self.state) + "\n"
             archivo.write(nueva_linea)
     def modVacuna(self, parametroCambiante, newParametro):
         with open("Datos archivos.txt\Vacunas.txt", 'r+') as archivo:
@@ -110,7 +112,7 @@ class Vacuna:
     def setFechaDosis(self, newFechaDosis):
         self.fechaDosis = newFechaDosis
     def __str__(self):
-        return "STR de la clase Vacuna,\nRecibe: Nombre de la vacuna, Lote de la vacuna, Numero de dosis de la vacuna, fecha de dosis de la vacuna\nMetodos: addVacuna: agrega un vacuna\nmodVacuna: modifica alguna vacuna existente\ndelVacuna: delVacuna no elimina el elemento, solo cambia el estado para que no aparezca\n\nAdemas cuenta con los Getters y los Setters de cada atributo"
+        return "STR de la clase Vacuna,\nRecibe: Nombre de la vacuna(STR), Lote de la vacuna(INT), Numero de dosis de la vacuna(INT), Dias faltantes para la proxima dosis(INT)\nMetodos: addVacuna: agrega un vacuna\nmodVacuna: modifica alguna vacuna existente\ndelVacuna: delVacuna no elimina el elemento, solo cambia el estado para que no aparezca\n\nAdemas cuenta con los Getters y los Setters de cada atributo"
     def __repr__(self):
         return "REPR de la clase Vacuna"
 
@@ -149,9 +151,10 @@ class Tratamientos:
         return "REPR"
 
 if __name__=="__main__":
-    prueba = Tratamientos("Caca", "3 Dias")
+    pass
+    #prueba = Tratamientos("Caca", "3 Dias")
     #prueba.addTratamiento("caca", "3 Dias")
-    a=Vacuna("vacuna", "a44", 1, "24/05/2024")
-    #a.addVacuna("vacuna", "a44", 1, "24/05/2024")
+    #a=Vacuna("vacuna", "a44", 1)
+    #a.addVacuna("vacuna", "a44", 1)
     #a.modVacuna("a44", "b55")
-    Diagnostico("nombre diagnostico", "sin descripcion", "cuidados Diagnostico", prueba, a).addDiagnostico("Nombre", "descripcion", "cuidados", prueba, a)
+    #Diagnostico("nombre diagnostico", "sin descripcion", "cuidados Diagnostico", prueba, a).addDiagnostico("Nombre", "descripcion", "cuidados", prueba, a)
