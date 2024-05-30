@@ -14,3 +14,11 @@ Nombre,descripcion,cuidados,Caca,vacuna,True
 Nombre,descripcion,cuidados,Caca,vacuna,True
 Nombre,descripcion,cuidados,Caca,vacuna,True
 Nombre,descripcion,cuidados,Caca,vacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True

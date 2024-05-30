@@ -9,18 +9,24 @@ class Diagnostico:
         self.vacunasDiag = vacunasDiag
         self.state = True
     def addDiagnostico(self, newNombreDiag, newDescripcionDiag, newCuidadosDiag, newTratamientoDiag, newVacunasDiag):
-        with open("Datos archivos.txt\Diagnosticos.txt", 'a') as archivo:
-            nombreTratamiento = newTratamientoDiag.nombreTratamiento
-            nombreVacuna = newVacunasDiag.nombreVacuna
-            nueva_linea = newNombreDiag + "," + newDescripcionDiag + "," + newCuidadosDiag + "," + nombreTratamiento + "," + nombreVacuna + "," + str(self.state) + "\n"
-            archivo.write(nueva_linea)
+        try:
+            with open("Datos archivos.txt\Diagnosticos.txt", 'a') as archivo:
+                nombreTratamiento = newTratamientoDiag.nombreTratamiento
+                nombreVacuna = newVacunasDiag.nombreVacuna
+                nueva_linea = newNombreDiag + "," + newDescripcionDiag + "," + newCuidadosDiag + "," + nombreTratamiento + "," + nombreVacuna + "," + str(self.state) + "\n"
+                archivo.write(nueva_linea)
+        except:
+            return "Error al agregar Diagnostico"
     def modDiagnostico(self):
         pass
     def delDiagnostico(self):
-        if self.state:
-            self.state = False
-        else:
-            self.state = True
+        try:
+            if self.state:
+                self.state = False
+            else:
+                self.state = True
+        except:
+            return "Error al eliminar el Diagnostico"
     def getNombreDiag(self):
         return self.nombreDiag
     def getDescripcionDiag(self):
@@ -62,39 +68,48 @@ class Vacuna:
         self.proximaDosis = self.fechaDosis + timedelta(days=int(diasProximaDosis))
         self.state = True
     def addVacuna(self, newnombreVacuna, newloteVacuna, newnumeroDosis, newfechaDosis):
-        with open("Datos archivos.txt\Vacunas.txt", 'a') as archivo:
-            nueva_linea = newnombreVacuna + "," + newloteVacuna + "," + newnombreVacuna + "," + str(newnumeroDosis) + "," + str(newfechaDosis) + "," +  + str(self.state) + "\n"
-            archivo.write(nueva_linea)
+        try:
+            with open("Datos archivos.txt\Vacunas.txt", 'a') as archivo:
+                nueva_linea = newnombreVacuna + "," + newloteVacuna + "," + newnombreVacuna + "," + str(newnumeroDosis) + "," + str(newfechaDosis) + "," +  + str(self.state) + "\n"
+                archivo.write(nueva_linea)
+        except:
+            return "Error al agregar la vacuna"
     def modVacuna(self, parametroCambiante, newParametro):
-        with open("Datos archivos.txt\Vacunas.txt", 'r+') as archivo:
-            linea = archivo.readlines()
-            for i in linea:
-                elemento = i.strip().split(",")
-                if elemento[0] == parametroCambiante:
-                    print("nombres")
-                    self.nombreVacuna = newParametro
-                elif elemento[1] == parametroCambiante:
-                    print("lote")
-                    self.loteVacuna = newParametro
-                elif elemento[2] == parametroCambiante:
-                    print("numero")
-                    self.numeroDosis = newParametro
-                elif elemento[3] == parametroCambiante:
-                    print("fecha")
-                    self.fechaDosis = newParametro
-                elif elemento[4] == parametroCambiante:
-                    print("estado")
-                    if self.state:
-                        self.state = False
+        try:
+            with open("Datos archivos.txt\Vacunas.txt", 'r+') as archivo:
+                linea = archivo.readlines()
+                for i in linea:
+                    elemento = i.strip().split(",")
+                    if elemento[0] == parametroCambiante:
+                        print("nombres")
+                        self.nombreVacuna = newParametro
+                    elif elemento[1] == parametroCambiante:
+                        print("lote")
+                        self.loteVacuna = newParametro
+                    elif elemento[2] == parametroCambiante:
+                        print("numero")
+                        self.numeroDosis = newParametro
+                    elif elemento[3] == parametroCambiante:
+                        print("fecha")
+                        self.fechaDosis = newParametro
+                    elif elemento[4] == parametroCambiante:
+                        print("estado")
+                        if self.state:
+                            self.state = False
+                        else:
+                            self.state = True
                     else:
-                        self.state = True
-                else:
-                    pass
+                        pass
+        except:
+            return "No se encontro el parametro cambiante"
     def delVacuna(self):
-        if self.state:
-            self.state = False
-        else:
-            self.state = True
+        try:
+            if self.state:
+                self.state = False
+            else:
+                self.state = True
+        except:
+            return "Error al eliminar la vacuna"
     def getNombreVacuna(self):
         return self.nombreVacuna
     def getLoteVacuna(self):
@@ -122,14 +137,20 @@ class Tratamientos:
         self.duracionTratamiento = duracionTratamiento
         self.state = True
     def addTratamiento(self, newNombre, newDuracion):
-        with open("Datos archivos.txt\Tratamiento.txt", 'a') as archivo:
-            nueva_linea = newNombre + "," + newDuracion + "," + str(self.state) + "\n"
-            archivo.write(nueva_linea)
+        try:
+            with open("Datos archivos.txt\Tratamiento.txt", 'a') as archivo:
+                nueva_linea = newNombre + "," + newDuracion + "," + str(self.state) + "\n"
+                archivo.write(nueva_linea)
+        except:
+            return "Error al guardar el Tratamiento"
     def delTratamiento(self):
-        if self.state:
-            self.state = False
-        else:
-            self.state = True
+        try:
+            if self.state:
+                self.state = False
+            else:
+                self.state = True
+        except:
+            return "Error al eliminar Tratamiento"
     def getNombreTratamiento(self):
         return self.nombreTratamiento
     def getDuracionTratamiento(self):
@@ -137,14 +158,23 @@ class Tratamientos:
     def getState(self):
         return self.state
     def cambiarState(self):
-        if self.state:
-            self.state = False
-        else:
-            self.state = True
+        try:
+            if self.state:
+                self.state = False
+            else:
+                self.state = True
+        except:
+            return "Error al cambiar el estado"
     def setNombreTratamiento(self, newNombre):
-        self.nombreTratamiento = newNombre
+        try:
+            self.nombreTratamiento = newNombre
+        except:
+            return "Error al cambiar de nombre"
     def setDuracionTratamiento(self, newDuracion):
-        self.duracionTratamiento = newDuracion
+        try:
+            self.duracionTratamiento = newDuracion
+        except:
+            return "Error al cambiar la duracion del tratamiento"
     def __str__(self):
         return "STR"
     def __repr__(self):
@@ -154,9 +184,14 @@ if __name__=="__main__":
     print('''
     prueba = Tratamientos("NombreDelTratamiento", "DiasDelTratamiento")
     prueba.addTratamiento("NombreDelTratamientoNuevo", "DiasDelNuevoTratamiento")
-    a=Vacuna("NombreDeLaVacuna", "LoteDeLaVacuna", NumeroDosisVacuna)
+    a=Vacuna("NombreDeLaVacuna", 4, 3, 10)
+    print(a.proximaDosis)
     a.modVacuna("ParametroCambiante", "NuevoParametro")
-    Diag = Diagnostico("NombreDiagnostico", "DescripcionDiagnostico", "CuidadosDiagnostico", prueba, a).addDiagnostico("Nombre", "descripcion", "cuidados", ObjetoTratamiento, ObjetoVacuna)
-    Diag.CambiarState() 
+    Diag = Diagnostico("NombreDiagnostico", "DescripcionDiagnostico", "CuidadosDiagnostico", prueba, a)
+    Diag.addDiagnostico("Nombre", "descripcion", "cuidados", prueba, a)
+    print(Diag.getState())
+    Diag.cambiarState()
+    print(Diag.getState())
+    print("OK")
 ''')
     pass
