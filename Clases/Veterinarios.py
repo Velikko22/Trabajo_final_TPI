@@ -1,6 +1,6 @@
 from Persona import Personas
 
-class veterinario(Personas):
+class Veterinario(Personas):
     
     def __init__(self,cargo):
         self.cargo = cargo
