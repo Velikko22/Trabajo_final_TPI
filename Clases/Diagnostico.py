@@ -181,17 +181,4 @@ class Tratamientos:
         return "REPR"
 
 if __name__=="__main__":
-    print('''
-    prueba = Tratamientos("NombreDelTratamiento", "DiasDelTratamiento")
-    prueba.addTratamiento("NombreDelTratamientoNuevo", "DiasDelNuevoTratamiento")
-    a=Vacuna("NombreDeLaVacuna", 4, 3, 10)
-    print(a.proximaDosis)
-    a.modVacuna("ParametroCambiante", "NuevoParametro")
-    Diag = Diagnostico("NombreDiagnostico", "DescripcionDiagnostico", "CuidadosDiagnostico", prueba, a)
-    Diag.addDiagnostico("Nombre", "descripcion", "cuidados", prueba, a)
-    print(Diag.getState())
-    Diag.cambiarState()
-    print(Diag.getState())
-    print("OK")
-''')
     pass

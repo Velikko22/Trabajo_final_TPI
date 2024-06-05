@@ -11,6 +11,13 @@ class FichaMedica:
         self.estado = True
         self.identificador = identificador
         self.fecha = datetime.datetime.now()
+    
+    def addHistorialConsulta(self):
+        pass
+    def buscarIdentificador(self):
+        pass
+    def guardarArchivo(self):
+        pass
 
     def getFecha(self):
         self.fechaformateada_dias = self.fecha.strftime("%d/%m/%Y")
