@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 perro;caniche;pequenio;molesto;corto;estomago sensible;media;15 anios;activo
+=======
+perro;caniche;chico;somnoliento;corto;sensibilidad estomago;media;16 años;activo
+>>>>>>> a0ab84d9beeecf2df235349af1796fb6bcb87619
