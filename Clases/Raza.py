@@ -1,11 +1,8 @@
-<<<<<<< HEAD
+
 import os
 
 RUTA = r'C:\Users\Usuario\PycharmProjects\TPIP2L2_2024\Trabajo_final_TPI\Datos archivos.txt\listas de razas'
 
-
-=======
->>>>>>> a0ab84d9beeecf2df235349af1796fb6bcb87619
 class Raza:
     def __init__(self, tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza,
                  esperanzaVidaRaza, state):
@@ -18,9 +15,6 @@ class Raza:
         self.energiaRaza = energiaRaza
         self.esperanzaVidaRaza = esperanzaVidaRaza
         self.state = state
-
-
-<<<<<<< HEAD
 
     def buscarRaza(self,tipo,raza):
         """
@@ -82,11 +76,6 @@ class Raza:
                     return data
         print(f"{tipo.capitalize()} y {raza.capitalize()} no encontrados")
 
-
-
-
-=======
->>>>>>> a0ab84d9beeecf2df235349af1796fb6bcb87619
     def get_tipoAnimal(self):
         return self.tipoAnimal
 
@@ -145,9 +134,5 @@ class Raza:
     def __repr__(self):
         return f" {self.tipoAnimal}, {self.nombreRaza}, {self.tamanoRaza}, {self.personalidadRaza}, {self.pelajeRaza}, {self.cuidadosRaza}, " \
                f"{self.energiaRaza}, {self.esperanzaVidaRaza}, {self.state}"
-<<<<<<< HEAD
 
 
-
-=======
->>>>>>> a0ab84d9beeecf2df235349af1796fb6bcb87619

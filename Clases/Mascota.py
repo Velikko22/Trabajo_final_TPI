@@ -1,35 +1,11 @@
-<<<<<<< HEAD
-class Mascota:
-    def __init__(self, nombre, especie, raza, propietario, historial, identificador, state):
-        self.nombre = nombre
-        self.especie = especie
-        self.raza = raza
-        self.propietario = propietario
-        self.historial = historial
-        self.identificador = identificador
-        self.state = state
-
-    def buscarMascota(self):
-        pass
-    def altaMascota(self):
-        pass
-    def modificarMascota(self):
-        pass
-
-
-
-
-    def __repr__(self):
-        return f"{self.nombre}, {self.especie}, {self.raza}, {self.propietario}, {self.historial},{self.identificador}, {self.state}"
-=======
 class Mascota():
-    def __init__(self, tipoAnimalRaza, nombreRazaAnimal,identificador,propietario, nombreAnimal,  historial, stateMascota):
+    def __init__(self, tipoAnimalRaza, nombreRazaAnimal,identificador,propietario, nombreAnimal,  detalleMascota, stateMascota):
         self.tipoAnimalRaza = tipoAnimalRaza
         self.nombreRazaAnimal = nombreRazaAnimal
         self.identificador = identificador
         self.propietario = propietario
         self.nombreAnimal = nombreAnimal
-        self.historial = historial
+        self.detalleMascota = detalleMascota
         self.stateMascota = stateMascota
 
 
@@ -51,7 +27,7 @@ class Mascota():
         return self.nombreAnimal
 
     def get_historial(self):
-        return self.historial
+        return self.detalleMascota
 
     def get_stateMascota(self):
         return self.stateMascota
@@ -71,13 +47,12 @@ class Mascota():
     def set_nombreAnimal(self, nombreAnimal):
         self.nombreAnimal = nombreAnimal
 
-    def set_historial(self, historial):
-        self.historial = historial
+    def set_historial(self, detalleMascota):
+        self.detalleMascota = detalleMascota
 
     def set_stateMascota(self, stateMascota):
         self.stateMascota = stateMascota
 
     def __repr__(self):
         return (f"{self.tipoAnimalRaza}, {self.nombreRazaAnimal}, {self.identificador}, {self.propietario}, "
-                f"{self.nombreAnimal}, {self.historial},{self.stateMascota}")
->>>>>>> a0ab84d9beeecf2df235349af1796fb6bcb87619
+                f"{self.nombreAnimal}, {self.detalleMascota},{self.stateMascota}")

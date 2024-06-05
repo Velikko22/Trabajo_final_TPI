@@ -1,4 +1,4 @@
-from Persona import Personas
+from .Persona import Personas
 
 class Veterinario(Personas):
     def __init__(self, nombre, telefono, cargo):

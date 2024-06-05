@@ -1,24 +1,4 @@
-NOMBREDIAGNOSTICOS, DESCRIPCIONDIAGNOSTICOS, CUIDADOSDIAGNOSTICOS, TRATAMIENTODIAGNOSTICO, VACUNASDIAGNOSTICO,STATE
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,Caca,vacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
-Nombre,descripcion,cuidados,NombreDelTratamiento,NombreDeLaVacuna,True
+NOMBREDIAGNOSTICOS, DESCRIPCIONDIAGNOSTICOS, CUIDADOSDIAGNOSTICOS, TRATAMIENTODIAGNOSTICO, VACUNASDIAGNOSTICO,STATEITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True
+ITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True
+ITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True
+ITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True

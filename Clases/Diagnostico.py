@@ -10,11 +10,12 @@ class Diagnostico:
         self.state = True
     def addDiagnostico(self, newNombreDiag, newDescripcionDiag, newCuidadosDiag, newTratamientoDiag, newVacunasDiag):
         try:
-            with open("Datos archivos.txt\Diagnosticos.txt", 'a') as archivo:
+            with open("Datos archivos.txt/Diagnosticos.txt", 'a') as archivo:
                 nombreTratamiento = newTratamientoDiag.nombreTratamiento
                 nombreVacuna = newVacunasDiag.nombreVacuna
                 nueva_linea = newNombreDiag + "," + newDescripcionDiag + "," + newCuidadosDiag + "," + nombreTratamiento + "," + nombreVacuna + "," + str(self.state) + "\n"
                 archivo.write(nueva_linea)
+                return "Diagnostico Agregado"
         except:
             return "Error al agregar Diagnostico"
     def modDiagnostico(self):
@@ -27,6 +28,22 @@ class Diagnostico:
                 self.state = True
         except:
             return "Error al eliminar el Diagnostico"
+    def getListadoDiagnostico():
+        listadoTotal = []
+        with open ("Datos archivos.txt/Diagnosticos.txt", "r") as diagnostico:
+            listado = diagnostico.readlines()
+            for i in listado:
+                listadoDiagnostico = i.strip().split(",")
+                if listadoDiagnostico[0] == "NOMBREDIAGNOSTICOS":
+                    pass
+                elif listadoDiagnostico[0] == " ":
+                    pass
+                else:
+                    listadoTotal.append(listadoDiagnostico[0])
+            if listadoTotal == None:
+                return "Agregar Diagnosticos"
+            else:
+                return listadoTotal
     def getNombreDiag(self):
         return self.nombreDiag
     def getDescripcionDiag(self):
@@ -69,14 +86,14 @@ class Vacuna:
         self.state = True
     def addVacuna(self, newnombreVacuna, newloteVacuna, newnumeroDosis, newfechaDosis):
         try:
-            with open("Datos archivos.txt\Vacunas.txt", 'a') as archivo:
+            with open("Datos archivos.txt/Vacunas.txt", 'a') as archivo:
                 nueva_linea = newnombreVacuna + "," + newloteVacuna + "," + newnombreVacuna + "," + str(newnumeroDosis) + "," + str(newfechaDosis) + "," +  + str(self.state) + "\n"
                 archivo.write(nueva_linea)
         except:
             return "Error al agregar la vacuna"
     def modVacuna(self, parametroCambiante, newParametro):
         try:
-            with open("Datos archivos.txt\Vacunas.txt", 'r+') as archivo:
+            with open("Datos archivos.txt/Vacunas.txt", 'r+') as archivo:
                 linea = archivo.readlines()
                 for i in linea:
                     elemento = i.strip().split(",")
@@ -138,9 +155,10 @@ class Tratamientos:
         self.state = True
     def addTratamiento(self, newNombre, newDuracion):
         try:
-            with open("Datos archivos.txt\Tratamiento.txt", 'a') as archivo:
+            with open("Datos archivos.txt/Tratamiento.txt", 'a') as archivo:
                 nueva_linea = newNombre + "," + newDuracion + "," + str(self.state) + "\n"
                 archivo.write(nueva_linea)
+                return "Tratamiento Guardado"
         except:
             return "Error al guardar el Tratamiento"
     def delTratamiento(self):
@@ -151,6 +169,22 @@ class Tratamientos:
                 self.state = True
         except:
             return "Error al eliminar Tratamiento"
+    def getListadoTratamiento():
+        listadoTotal = []
+        with open ("Datos archivos.txt/Tratamiento.txt", "r") as tratamiento:
+            listado = tratamiento.readlines()
+            for i in listado:
+                listadotratamiento = i.strip().split(",")
+                if listadotratamiento[0] == "TRATAMIENTO":
+                    pass
+                elif listadotratamiento[0] == " ":
+                    pass
+                else:
+                    listadoTotal.append(listadotratamiento[0])
+            if listadoTotal == None:
+                return "Agregar tratamiento"
+            else:
+                return listadoTotal
     def getNombreTratamiento(self):
         return self.nombreTratamiento
     def getDuracionTratamiento(self):
@@ -181,4 +215,4 @@ class Tratamientos:
         return "REPR"
 
 if __name__=="__main__":
-    pass
+    Diagnostico.getListadoDiagnostico()

@@ -1,3 +1,2 @@
 nombreVacuna,loteVacuna,numeroDosis,fechaDosis,state
-vacuna,a44,vacuna,1,24/05/2024,True
-vacuna,a44,vacuna,1,24/05/2024,True
+

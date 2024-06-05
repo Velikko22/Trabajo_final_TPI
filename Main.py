@@ -1,13 +1,224 @@
+#region ImportacionesClases
 from Clases.Mascota import Mascota
 from Clases.Raza import Raza
-
+from Clases.Veterinarios import Veterinario
+from Clases.Cliente import Cliente
+from Clases import Diagnostico
 from pathlib import Path
+#endregion
+#region Listas
+lista_personas = []
+nombresMascota = []
+tipoMascota = []
 lista_razas_objetos = []
 lista_mascota_objetos = []
 RUTA_RAZAS = Path('Datos archivos.txt//listas de razas')
 RUTA_MASCOTAS = Path('Datos archivos.txt//listas de mascotas')
+#endregion
+#region Funciones
+def ingresos_de_datos(opcion):
+    nombre = input("Ingrese nombre completo: ")
+    telefono = input("Ingrese telefono contacto: ")
 
-#Busquedas
+    if opcion == 1:
+        email = input("Ingrese email contacto: ")
+        direccion = input("Ingrese direccion: ")
+        cantidad = int(input("Ingrese la cantidad de mascotas: "))
+        #nombresMascota = []
+        #tipoMascota = []
+        for i in range(cantidad):
+            mascotanombreraza = str(input("Ingrese el nombre raza de la mascota: "))
+            mascotatipo = str(input("Ingrese el tipo de mascota: "))
+            agregarMascotaUsuario(mascotatipo, mascotanombreraza, nombre)
+#            nombresMascota.append(mascotanombreraza)
+#            tipoMascota.append(mascotatipo)
+
+        return nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota
+
+    if opcion == 3:
+        cargo = input("Ingrese Cargo del Veterinario: ")
+        return nombre, telefono, cargo
+
+def carga_de_persona(opcion):
+    if opcion == 1 or opcion == 3:
+        while True:
+            if opcion == 1:
+                nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota = ingresos_de_datos(opcion)
+                cliente = Cliente(nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota)
+                with open("Datos archivos.txt/clientes.txt", "a") as archivo:
+                    archivo.write(f"{cliente}\n")
+
+            if opcion == 3:
+                nombre, telefono, cargo = ingresos_de_datos(opcion)
+                veterinario = Veterinario(nombre, telefono, cargo)
+                with open("Datos archivos.txt/veterinarios.txt", "a") as archivo:
+                    archivo.write(f"{veterinario}\n")
+
+            while True:
+                salida = str(input("¿Desea agregar otra persona? [S][N]: "))
+                if salida.lower() == "n" or salida.lower() == "s":
+                    break
+                else:
+                    print("comando no valido.")
+            if salida.lower() == "n":
+                break
+
+    if opcion == 2:
+        with open("Datos archivos.txt/clientes.txt", "r") as archivo:
+            for linea in archivo:
+                print(linea.strip())
+
+    if opcion == 4:
+        with open("Datos archivos.txt/veterinarios.txt", "r") as archivo:
+            for linea in archivo:
+                print(linea.strip())
+
+    elif opcion == 0:
+        menu_personas_abierto = False
+#endregion
+#region Menu
+def menu_principal():
+    menu_principal_abierto = True
+    while menu_principal_abierto:
+        print("\nMenú Principal:")
+        print("1. Ver/Agregar/Modificar Raza")
+        print("2. Ver/Agregar/Modificar Mascotas")
+        print("3. Ver/Agregar/Modificar Personas")
+        print("4. Ver/Agregar/Modificar Diagnosticos")
+        print("0. Salir")
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == '1':
+            menu_razas()
+        elif opcion == '2':
+            menu_mascotas()
+        elif opcion == '3':
+            menu_personas()
+        elif opcion == '4':
+            menu_Diagnostico()
+        elif opcion == '0':
+            print("Saliendo...")
+            menu_principal_abierto = False
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+def menu_Diagnostico():
+    menu_Diagnostico_Abierto = True
+    while menu_Diagnostico_Abierto:
+        print("\nMenú Diagnostico:")
+        print("1. Ver Diagnosticos")
+        print("2. Agregar Diagnosticos")
+        print("3. Modificar Diagnosticos") #FALTA
+        print("4. Ver Tratamiento")
+        print("5. Agregar Tratamiento")
+        print("3. Modificar Tratamiento")#FALTA
+        print("1. Ver Vacunas")
+        print("2. Agregar Vacunas")
+        print("3. Modificar Vacunas")#FALTA
+        print("0. Volver al Menú Principal")
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == '1':
+            consultarDiagnostico()
+        elif opcion == '2':
+            Vacuna = agregarVacuna()
+            Tratamiento = agregarTratamiento()
+            print(Diagnostico.Diagnostico("ITU", "ITU2", "cuidarse", Tratamiento, Vacuna).addDiagnostico("ITU", "ITU2", "cuidarse", Tratamiento, Vacuna))
+        elif opcion == '3':
+            Diagnostico.Diagnostico.modDiagnostico()
+        elif opcion == '4':
+            consultarTratamiento()
+        elif opcion == '5':
+            agregarTratamiento()
+        elif opcion == '0':
+            menu_Diagnostico_Abierto = False
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+def menu_personas():
+    menu_personas_abierto = True
+    while menu_personas_abierto:
+        print("[1] - Registrar cliente")
+        print("[2] - Ver lista de clientes")
+        print("[3] - Agregar veterinario")
+        print("[4] - Ver lista de veterinarios")
+        print("[0] - Volver al Menú anterior")
+
+        opcion = int(input("Ingrese opcion: "))
+        if opcion == 1:
+            ingresos_de_datos(opcion)
+        elif opcion == 2:
+            carga_de_persona(opcion)
+        elif opcion == 3:
+            carga_de_persona(opcion)
+        elif opcion == 4:
+            carga_de_persona(opcion)
+        elif opcion == 0:
+            menu_personas_abierto = False
+
+def menu_mascotas():
+    menu_mascotas_abierto = True
+    while menu_mascotas_abierto:
+        print("\nMenú Mascotas:")
+        print("1. Ver Mascotas")
+        print("2. Agregar Mascotas")
+        print("3. Modificar Mascotas")
+        print("4. Consultar Mascotas")
+        print("0. Volver al Menú Principal")
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == '1':
+            consultarMascotasCargadas()
+        elif opcion == '2':
+            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
+            nombre_raza = input("Ingrese nombre de la raza: ").lower()
+            agregarMascota(tipo=tipo_de_animal, raza=nombre_raza)
+        elif opcion == '3':
+            id_mascota = input("Ingrese id mascota: ").lower()
+            propietario = input("Ingrese nombre propietario: ").lower()
+            modificarMascota(id_mascota, propietario)
+        elif opcion == '4':
+            id_mascota = input("Ingrese id mascota: ").lower()
+            propietario = input("Ingrese nombre propietario: ").lower()
+            consultarMascota(id_mascota, propietario)
+        elif opcion == '0':
+            menu_mascotas_abierto = False
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+def menu_razas():
+    menu_razas_abierto = True
+    while menu_razas_abierto:
+        print("\nMenú Razas:")
+        print("1. Ver Razas")
+        print("2. Agregar Raza")
+        print("3. Modificar Raza")
+        print("4. Consultar Raza")
+        print("0. Volver al Menú Principal")
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == '1':
+            consultarRazasCargadas()
+        elif opcion == '2':
+            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
+            nombre_raza = input("Ingrese nombre de la raza: ").lower()
+            agregarRaza(tipo=tipo_de_animal, raza=nombre_raza)
+        elif opcion == '3':
+            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
+            nombre_raza = input("Ingrese nombre de la raza: ").lower()
+            consultarRaza(tipo=tipo_de_animal, nombre_raza=nombre_raza)
+            modificarRaza( tipo_de_animal, nombre_raza)
+        elif opcion == '4':
+            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
+            nombre_raza = input("Ingrese nombre de la raza: ").lower()
+            consultarRaza(tipo=tipo_de_animal, nombre_raza=nombre_raza)
+        elif opcion == '0':
+            menu_razas_abierto = False
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+#endregion
+#region Busquedas
 def buscarRaza(tipo, raza):
     archivo_a_buscar = f"{tipo}_{raza}.txt"
     archivo_path = RUTA_RAZAS / archivo_a_buscar
@@ -17,26 +228,41 @@ def buscarRaza(tipo, raza):
     else:
         print("RAZA NO ENCONTRADA")
         return False
-
-#Agregar
+#endregion
+#region Agregar
 def agregarMascota(tipo, raza):
     continuar_carga = buscarRaza(tipo, raza)
     if continuar_carga:
         identificador = input("Ingrese ID mascota: ").lower()
         propietario = input("Ingrese nombre propietario: ").lower()
         nombreAnimal = input("Ingrese nombre del animal: ").lower()
-        historial = input("Ingrese historial: ").lower()
+        detalleMascota = input("Ingrese Detalle Mascota: ").lower()
         stateMascota = input("Ingrese estado de la mascota: ").lower()
 
-        linea = f"{tipo};{raza};{identificador};{propietario};{nombreAnimal};{historial};{stateMascota}"
+        linea = f"{tipo};{raza};{identificador};{propietario};{nombreAnimal};{detalleMascota};{stateMascota}"
         nombre_archivo = f"{identificador}_{propietario}.txt"
         lugar_y_nombre_archivo = RUTA_MASCOTAS / nombre_archivo
 
         with lugar_y_nombre_archivo.open("w", encoding="UTF-8") as file:
             file.write(linea)
             print("Archivo creado y guardado.")
-        file.flush()
 
+def agregarMascotaUsuario(tipo, raza, nombre):
+    continuar_carga = buscarRaza(tipo, raza)
+    if continuar_carga:
+        identificador = input("Ingrese ID mascota: ").lower()
+        propietario = nombre.lower()
+        nombreAnimal = input("Ingrese nombre del animal: ").lower()
+        detalleMascota = input("Ingrese detalles mascota: ").lower()
+        stateMascota = input("Ingrese estado de la mascota: ").lower()
+
+        linea = f"{tipo};{raza};{identificador};{propietario};{nombreAnimal};{detalleMascota};{stateMascota}"
+        nombre_archivo = f"{identificador}_{propietario}.txt"
+        lugar_y_nombre_archivo = RUTA_MASCOTAS / nombre_archivo
+
+        with lugar_y_nombre_archivo.open("w", encoding="UTF-8") as file:
+            file.write(linea)
+            print("Archivo creado y guardado.")
 
 def agregarRaza(tipo,raza):
     no_continuar_carga = buscarRaza(tipo, raza)
@@ -64,9 +290,29 @@ def agregarRaza(tipo,raza):
             file.flush()
         print("Archivo creado y guardado.")
 
+def agregarTratamiento():
+    a = Diagnostico.Tratamientos("NombreDelTratamiento", "DiasDelTratamiento")
+    print(a.addTratamiento(a.getNombreTratamiento(), a.getDuracionTratamiento()))
+    
 
-#consultas
+def agregarVacuna():
+    a=Diagnostico.Vacuna("NombreDeLaVacuna", 4, 3, 10)
+    return a
 
+def agregarDiagnostico(tratamiento, vacuna):
+    Diag = Diagnostico("NombreDiagnostico", "DescripcionDiagnostico", "CuidadosDiagnostico", tratamiento, vacuna)
+    Diag.addDiagnostico(Diag.nombreDiag, Diag.descripcionDiag, Diag.cuidadosDiag, tratamiento, vacuna)
+#endregion
+#region Validaciones
+def validarRazasCargadas():
+    archivos = list(RUTA_RAZAS.glob('*'))
+    if archivos:
+        for archivo in archivos:
+            print(archivo.name)
+    else:
+        print(f"No se encontraró la Raza, debe cargarla!")
+#endregion
+#region consultas
 def consultarMascota(id_mascota,propietario):
     archivo_a_buscar = f"{id_mascota}_{propietario}.txt"
     archivo_path = RUTA_MASCOTAS/archivo_a_buscar
@@ -83,7 +329,6 @@ def consultarMascota(id_mascota,propietario):
         lista_mascota_objetos.clear()
     else:
         print(f"El archivo {archivo_a_buscar} no existe en el directorio {RUTA_MASCOTAS}")
-
 
 def consultarRaza(tipo,nombre_raza):
     archivo_a_buscar = f"{tipo}_{nombre_raza}.txt"
@@ -102,7 +347,6 @@ def consultarRaza(tipo,nombre_raza):
     else:
         print(f"El archivo {archivo_a_buscar} no existe en el directorio {RUTA_MASCOTAS}")
 
-# Consultar Listado total
 def consultarRazasCargadas():
     archivos = list(RUTA_RAZAS.glob('*'))
     if archivos:
@@ -111,17 +355,6 @@ def consultarRazasCargadas():
             print(archivo.name)
     else:
         print(f"No se encontraron archivos en el directorio {RUTA_RAZAS}.")
-
-
-
-def validarRazasCargadas():
-    archivos = list(RUTA_RAZAS.glob('*'))
-    if archivos:
-        for archivo in archivos:
-            print(archivo.name)
-    else:
-        print(f"No se encontraró la Raza, debe cargarla!")
-
 
 def consultarMascotasCargadas():
     archivos = list(RUTA_MASCOTAS.glob('*'))
@@ -133,9 +366,21 @@ def consultarMascotasCargadas():
     else:
         print(f"No se encontraron archivos en el directorio {RUTA_MASCOTAS}.")
 
-
-#Modificar
-
+def consultarDiagnostico():
+    listadoDiag = Diagnostico.Diagnostico.getListadoDiagnostico()
+    for i in listadoDiag:
+        if i == None:
+            return "Agregar Diagnostico"
+        else:
+            print(i)
+def consultarTratamiento():
+    listadoTratamiento = Diagnostico.Tratamientos.getListadoTratamiento()
+    for i in listadoTratamiento:
+        print(i)
+def consultarVacunas():
+    Diagnostico.Diagnostico.getVacunasDiag
+#endregion
+#region Modificar
 def modificarMascota(id_mascota,propietario):
     archivo_a_buscar = f"{id_mascota}_{propietario}.txt"
     archivo_path = RUTA_MASCOTAS/archivo_a_buscar
@@ -217,7 +462,6 @@ def modificarMascota(id_mascota,propietario):
             except ValueError:
                 print("Por favor, ingrese un número válido.")
 
-
 def modificarRaza(tipoAnimal, nombreRaza):
     archivo_a_buscar = f"{tipoAnimal}_{nombreRaza}.txt"
     archivo_path = RUTA_RAZAS / archivo_a_buscar
@@ -298,95 +542,14 @@ def modificarRaza(tipoAnimal, nombreRaza):
             except ValueError:
                 print("Por favor, ingrese un número válido.")
 
-
-
-
-
-
-
-
-
-
-
-def menu_principal():
-    menu_principal_abierto = True
-    while menu_principal_abierto:
-        print("\nMenú Principal:")
-        print("1. Ver/Agregar/Modificar Raza")
-        print("2. Ver/Agregar/Modificar Mascotas")
-        print("0. Salir")
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == '1':
-            menu_razas()
-        elif opcion == '2':
-            menu_mascotas()
-        elif opcion == '0':
-            print("Saliendo...")
-            menu_principal_abierto = False
-        else:
-            print("Opción no válida. Intente de nuevo.")
-
-def menu_razas():
-    menu_razas_abierto = True
-    while menu_razas_abierto:
-        print("\nMenú Razas:")
-        print("1. Ver Razas")
-        print("2. Agregar Raza")
-        print("3. Modificar Raza")
-        print("4. Consultar Raza")
-        print("0. Volver al Menú Principal")
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == '1':
-            consultarRazasCargadas()
-        elif opcion == '2':
-            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
-            nombre_raza = input("Ingrese nombre de la raza: ").lower()
-            agregarRaza(tipo=tipo_de_animal, raza=nombre_raza)
-        elif opcion == '3':
-            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
-            nombre_raza = input("Ingrese nombre de la raza: ").lower()
-            consultarRaza(tipo=tipo_de_animal, nombre_raza=nombre_raza)
-            modificarRaza( tipo_de_animal, nombre_raza)
-        elif opcion == '4':
-            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
-            nombre_raza = input("Ingrese nombre de la raza: ").lower()
-            consultarRaza(tipo=tipo_de_animal, nombre_raza=nombre_raza)
-        elif opcion == '0':
-            menu_razas_abierto = False
-        else:
-            print("Opción no válida. Intente de nuevo.")
-
-def menu_mascotas():
-    menu_mascotas_abierto = True
-    while menu_mascotas_abierto:
-        print("\nMenú Mascotas:")
-        print("1. Ver Mascotas")
-        print("2. Agregar Mascotas")
-        print("3. Modificar Mascotas")
-        print("4. Consultar Mascotas")
-        print("0. Volver al Menú Principal")
-        opcion = input("Seleccione una opción: ")
-
-        if opcion == '1':
-            consultarMascotasCargadas()
-        elif opcion == '2':
-            tipo_de_animal = input("Ingrese tipo de animal: ").lower()
-            nombre_raza = input("Ingrese nombre de la raza: ").lower()
-            agregarMascota(tipo=tipo_de_animal, raza=nombre_raza)
-        elif opcion == '3':
-            id_mascota = input("Ingrese id mascota: ").lower()
-            propietario = input("Ingrese nombre propietario: ").lower()
-            modificarMascota(id_mascota, propietario)
-        elif opcion == '4':
-            id_mascota = input("Ingrese id mascota: ").lower()
-            propietario = input("Ingrese nombre propietario: ").lower()
-            consultarMascota(id_mascota, propietario)
-        elif opcion == '0':
-            menu_mascotas_abierto = False
-        else:
-            print("Opción no válida. Intente de nuevo.")
+def modVacuna():
+    Diagnostico.Vacuna.modVacuna()
+def modTratamiento():
+    Diagnostico.Tratamientos.setDuracionTratamiento() #Agregar Mod Tratamiento
+def modDiagnostico():
+    Diagnostico.Diagnostico.modDiagnostico()
+#endregion
 
 if __name__ == "__main__":
     menu_principal()
+
