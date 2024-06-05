@@ -1,6 +1,10 @@
 from Persona import Personas
+from Veterinarios import Veterinario
+from Cliente import Cliente
 
 lista_personas = []
+nombresMascota = []
+tipoMascota = []
 
 def menu():
     print("Bienvenido, ¿Que desea hacer?")
@@ -13,29 +17,46 @@ def menu():
     opcion = int(input("Ingrese opcion: "))
     return opcion
 
-def carga_de_persona(opcion):
+def ingresos_de_datos(opcion):
     
-    if opcion == 1 or opcion == 3:
+    nombre = input("Ingrese nombre completo: ")
+    telefono = input("Ingrese telefono contacto: ")
+    
+    if opcion == 1:
+        email = input("Ingrese email contacto: ")
+        direccion = input("Ingrese direccion: ")
+        cantidad = int(input("Ingrese la cantidad de mascotas: ")) 
+        nombresMascota = []
+        tipoMascota = []
+        for i in range(cantidad):
+            mascotanombre = str(input("Ingrese el nombre de la mascota: "))
+            mascotatipo = str(input("Ingrese el tipo de mascota: "))
+            nombresMascota.append(mascotanombre)
+            tipoMascota.append(mascotatipo)
         
+        return nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota
+    
+    if opcion == 3:
+        cargo = input("Ingrese Cargo del Veterinario: ")
+        return nombre, telefono, cargo
+
+def carga_de_persona(opcion):
+    if opcion == 1 or opcion == 3:
         while True:
-            
-            nombre = input("Ingrese nombre completo: ")
-            telefono = input("Ingrese telefono contacto: ")
-            email = input("Ingrese email contacto: ")
-            direccion = input("Ingrese direccion: ")
-            
             if opcion == 1:
-                mascota = None
+                nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota = ingresos_de_datos(opcion)
+                cliente = Cliente(nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota)
                 with open("TrabajoFinal/Trabajo_final_TPI/Datos archivos.txt/clientes.txt", "a") as archivo:
-                    archivo.write(f"{nombre},{telefono},{email},{direccion}\n")
-                    
+                    archivo.write(f"{cliente}\n")
+            
             if opcion == 3:
-                cargo = input("Ingrese Cargo del Veterinario: ")
+                nombre, telefono, cargo = ingresos_de_datos(opcion)
+                veterinario = Veterinario(nombre, telefono, cargo)
                 with open("TrabajoFinal/Trabajo_final_TPI/Datos archivos.txt/veterinarios.txt", "a") as archivo:
-                    archivo.write(f"{nombre},{telefono},{email},{direccion},{cargo}\n")
+                    archivo.write(f"{veterinario}\n")
             
             while True:
-                salida=str(input("¿Desea agregar otra persona? [S][N]: "))
+                salida = str(input("¿Desea agregar otra persona? [S][N]: "))
                 if salida.lower() == "n" or salida.lower() == "s":
                     break
                 else:
@@ -43,15 +64,15 @@ def carga_de_persona(opcion):
             if salida.lower() == "n":
                 break
 
-    if opcion == 2:  
-
+    if opcion == 2:
         with open("TrabajoFinal/Trabajo_final_TPI/Datos archivos.txt/clientes.txt", "r") as archivo:
             for linea in archivo:
-                nombre,telefono,email,direccion = linea.strip().split(",")
-                lista_personas.append(Personas(nombre,telefono,email,direccion))
-            print(lista_personas)
-        
-
+                print(linea.strip())
+                
+    if opcion == 4:
+        with open("TrabajoFinal/Trabajo_final_TPI/Datos archivos.txt/veterinarios.txt", "r") as archivo:
+            for linea in archivo:
+                print(linea.strip())
 
 def main():
     while True:
@@ -60,7 +81,6 @@ def main():
             break
         else:
             carga_de_persona(opcion)
-        
 
 if __name__ == "__main__":
     main()

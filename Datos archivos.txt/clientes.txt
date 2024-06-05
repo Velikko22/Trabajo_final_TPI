@@ -1,0 +1,2 @@
+Nombre: Capellino Julian, Tel: 3534200185, Email: juliancapellino@gmail.com, Direccion: teniente ibañez 1154 - Villa Maria, Cantidad de Mascotas: 1, Mascotas: ['kira'], ['gato'] 
+Nombre: Mandaio Julian, Tel: 3534333444, Email: mandaioJulian@gmail.com, Direccion: Callefantasia 123 - Villa Nueva, Cantidad de Mascotas: 2, Mascotas: ['Sol', 'Luna'], ['Perro', 'Gato']
