@@ -1,5 +1,5 @@
-from Trabajo_final_TPI.Clases.Mascota import Mascota
-from Trabajo_final_TPI.Clases.Raza import Raza
+from Clases.Mascota import Mascota
+from Clases.Raza import Raza
 
 from pathlib import Path
 lista_razas_objetos = []
