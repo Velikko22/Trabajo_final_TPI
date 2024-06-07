@@ -1,4 +1,2 @@
 NOMBREDIAGNOSTICOS, DESCRIPCIONDIAGNOSTICOS, CUIDADOSDIAGNOSTICOS, TRATAMIENTODIAGNOSTICO, VACUNASDIAGNOSTICO,STATEITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True
-ITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True
-ITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True
-ITU,ITU2,cuidarse,NombreDelTratamiento,NombreDeLaVacuna,True
+

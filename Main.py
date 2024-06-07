@@ -38,7 +38,6 @@ def ingresos_de_datos(opcion):
     if opcion == 3:
         cargo = input("Ingrese Cargo del Veterinario: ")
         return nombre, telefono, cargo
-
 def carga_de_persona(opcion):
     if opcion == 1 or opcion == 3:
         while True:
@@ -101,7 +100,6 @@ def menu_principal():
             menu_principal_abierto = False
         else:
             print("Opción no válida. Intente de nuevo.")
-
 def menu_Diagnostico():
     menu_Diagnostico_Abierto = True
     while menu_Diagnostico_Abierto:
@@ -111,10 +109,10 @@ def menu_Diagnostico():
         print("3. Modificar Diagnosticos") #FALTA
         print("4. Ver Tratamiento")
         print("5. Agregar Tratamiento")
-        print("3. Modificar Tratamiento")#FALTA
-        print("1. Ver Vacunas")
-        print("2. Agregar Vacunas")
-        print("3. Modificar Vacunas")#FALTA
+        print("6. Modificar Tratamiento")#FALTA
+        print("7. Ver Vacunas")
+        print("8. Agregar Vacunas")
+        print("9. Modificar Vacunas")#FALTA
         print("0. Volver al Menú Principal")
         opcion = input("Seleccione una opción: ")
 
@@ -130,11 +128,14 @@ def menu_Diagnostico():
             consultarTratamiento()
         elif opcion == '5':
             agregarTratamiento()
+        elif opcion == '7':
+            consultarVacunas()
+        elif opcion == '8':
+            agregarVacuna()
         elif opcion == '0':
             menu_Diagnostico_Abierto = False
         else:
             print("Opción no válida. Intente de nuevo.")
-
 def menu_personas():
     menu_personas_abierto = True
     while menu_personas_abierto:
@@ -155,7 +156,6 @@ def menu_personas():
             carga_de_persona(opcion)
         elif opcion == 0:
             menu_personas_abierto = False
-
 def menu_mascotas():
     menu_mascotas_abierto = True
     while menu_mascotas_abierto:
@@ -185,7 +185,6 @@ def menu_mascotas():
             menu_mascotas_abierto = False
         else:
             print("Opción no válida. Intente de nuevo.")
-
 def menu_razas():
     menu_razas_abierto = True
     while menu_razas_abierto:
@@ -216,7 +215,6 @@ def menu_razas():
             menu_razas_abierto = False
         else:
             print("Opción no válida. Intente de nuevo.")
-
 #endregion
 #region Busquedas
 def buscarRaza(tipo, raza):
@@ -246,7 +244,6 @@ def agregarMascota(tipo, raza):
         with lugar_y_nombre_archivo.open("w", encoding="UTF-8") as file:
             file.write(linea)
             print("Archivo creado y guardado.")
-
 def agregarMascotaUsuario(tipo, raza, nombre):
     continuar_carga = buscarRaza(tipo, raza)
     if continuar_carga:
@@ -263,7 +260,6 @@ def agregarMascotaUsuario(tipo, raza, nombre):
         with lugar_y_nombre_archivo.open("w", encoding="UTF-8") as file:
             file.write(linea)
             print("Archivo creado y guardado.")
-
 def agregarRaza(tipo,raza):
     no_continuar_carga = buscarRaza(tipo, raza)
     if no_continuar_carga:
@@ -289,18 +285,25 @@ def agregarRaza(tipo,raza):
             file.write(linea)
             file.flush()
         print("Archivo creado y guardado.")
-
 def agregarTratamiento():
-    a = Diagnostico.Tratamientos("NombreDelTratamiento", "DiasDelTratamiento")
+    nombreTratamiento = input("Dime el nombre del tratamiento: \n")
+    diasTratamiento = input("Dime los dias del tratamiento: \n")
+    a = Diagnostico.Tratamientos(nombreTratamiento, diasTratamiento)
     print(a.addTratamiento(a.getNombreTratamiento(), a.getDuracionTratamiento()))
-    
-
 def agregarVacuna():
-    a=Diagnostico.Vacuna("NombreDeLaVacuna", 4, 3, 10)
+    nombreVacuna = input("Dime el nombre de la vacuna: \n")
+    loteVacuna = int(input("Dime el numero de lote de la vacuna: \n"))
+    dosisVacuna = int(input("Dime el numero de dosis de la vacuna: \n"))
+    diasProximaVacuna = int(input("Dime cuantos dias para la proxima vacuna: \n"))
+    a=Diagnostico.Vacuna(nombreVacuna, loteVacuna, dosisVacuna, diasProximaVacuna)
+    a.addVacuna(a.getNombreVacuna(), a.getLoteVacuna(), a.getNumeroDosis(), a.getFechaDosis())
+    print("Vacuna Cargada con exito")
     return a
-
 def agregarDiagnostico(tratamiento, vacuna):
-    Diag = Diagnostico("NombreDiagnostico", "DescripcionDiagnostico", "CuidadosDiagnostico", tratamiento, vacuna)
+    nombreDiagnostico = input("Dime el nombre del Diagnostico: \n")
+    descripcionDiagnostico = input("Dime una descripcion del Diagnostico: \n")
+    cuidadosDiagnostico = input("Dime los cuidados del Diagnostico: \n")
+    Diag = Diagnostico(nombreDiagnostico, descripcionDiagnostico, cuidadosDiagnostico, tratamiento, vacuna)
     Diag.addDiagnostico(Diag.nombreDiag, Diag.descripcionDiag, Diag.cuidadosDiag, tratamiento, vacuna)
 #endregion
 #region Validaciones
@@ -329,7 +332,6 @@ def consultarMascota(id_mascota,propietario):
         lista_mascota_objetos.clear()
     else:
         print(f"El archivo {archivo_a_buscar} no existe en el directorio {RUTA_MASCOTAS}")
-
 def consultarRaza(tipo,nombre_raza):
     archivo_a_buscar = f"{tipo}_{nombre_raza}.txt"
     archivo_path = RUTA_RAZAS / archivo_a_buscar
@@ -346,7 +348,6 @@ def consultarRaza(tipo,nombre_raza):
         lista_razas_objetos.clear()
     else:
         print(f"El archivo {archivo_a_buscar} no existe en el directorio {RUTA_MASCOTAS}")
-
 def consultarRazasCargadas():
     archivos = list(RUTA_RAZAS.glob('*'))
     if archivos:
@@ -355,7 +356,6 @@ def consultarRazasCargadas():
             print(archivo.name)
     else:
         print(f"No se encontraron archivos en el directorio {RUTA_RAZAS}.")
-
 def consultarMascotasCargadas():
     archivos = list(RUTA_MASCOTAS.glob('*'))
     if archivos:
@@ -365,7 +365,6 @@ def consultarMascotasCargadas():
 
     else:
         print(f"No se encontraron archivos en el directorio {RUTA_MASCOTAS}.")
-
 def consultarDiagnostico():
     listadoDiag = Diagnostico.Diagnostico.getListadoDiagnostico()
     for i in listadoDiag:
@@ -378,7 +377,9 @@ def consultarTratamiento():
     for i in listadoTratamiento:
         print(i)
 def consultarVacunas():
-    Diagnostico.Diagnostico.getVacunasDiag
+    listadovacuna = Diagnostico.Vacuna.getListadoVacunas()
+    for i in listadovacuna:
+        print(i)
 #endregion
 #region Modificar
 def modificarMascota(id_mascota,propietario):
@@ -461,7 +462,6 @@ def modificarMascota(id_mascota,propietario):
 
             except ValueError:
                 print("Por favor, ingrese un número válido.")
-
 def modificarRaza(tipoAnimal, nombreRaza):
     archivo_a_buscar = f"{tipoAnimal}_{nombreRaza}.txt"
     archivo_path = RUTA_RAZAS / archivo_a_buscar
@@ -541,7 +541,6 @@ def modificarRaza(tipoAnimal, nombreRaza):
 
             except ValueError:
                 print("Por favor, ingrese un número válido.")
-
 def modVacuna():
     Diagnostico.Vacuna.modVacuna()
 def modTratamiento():

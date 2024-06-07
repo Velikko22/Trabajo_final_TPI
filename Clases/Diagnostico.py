@@ -87,7 +87,7 @@ class Vacuna:
     def addVacuna(self, newnombreVacuna, newloteVacuna, newnumeroDosis, newfechaDosis):
         try:
             with open("Datos archivos.txt/Vacunas.txt", 'a') as archivo:
-                nueva_linea = newnombreVacuna + "," + newloteVacuna + "," + newnombreVacuna + "," + str(newnumeroDosis) + "," + str(newfechaDosis) + "," +  + str(self.state) + "\n"
+                nueva_linea = str(newnombreVacuna) + "," + str(newloteVacuna) + "," + str(newnombreVacuna) + "," + str(newnumeroDosis) + "," + str(newfechaDosis) + "," + str(self.state) + "\n"
                 archivo.write(nueva_linea)
         except:
             return "Error al agregar la vacuna"
@@ -119,6 +119,22 @@ class Vacuna:
                         pass
         except:
             return "No se encontro el parametro cambiante"
+    def getListadoVacunas():
+        listadoTotal = []
+        with open ("Datos archivos.txt/Vacunas.txt", "r") as vacunas:
+            listado = vacunas.readlines()
+            for i in listado:
+                listadovacuna = i.strip().split(",")
+                if listadovacuna[0] == "TRATAMIENTO":
+                    pass
+                elif listadovacuna[0] == " ":
+                    pass
+                else:
+                    listadoTotal.append(listadovacuna[0])
+            if listadoTotal == None:
+                return "Agregar tratamiento"
+            else:
+                return listadoTotal
     def delVacuna(self):
         try:
             if self.state:
