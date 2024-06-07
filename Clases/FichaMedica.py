@@ -1,19 +1,35 @@
-from Mascota import Mascota
-from Veterinarios import Veterinario
 
-import datetime
+from Consulta import Consulta
 
 class FichaMedica:
     def __init__(self, identificador=1):
-        self.mascota = Mascota("perro", "caniche","150","yo", "Juli Capellino", "es Feo", "Activo")
-        self.veterinario = Veterinario("Yo", "1123453", "ayudante")
-        self.historial = None
         self.estado = True
         self.identificador = identificador
-        self.fecha = datetime.datetime.now()
-    
-    def addHistorialConsulta(self):
+
+    def crearFichaMedica(self):
+        #el nombre del archivo debe ser el nombre de cliente
         pass
+
+    def addHistorialConsulta(self):
+
+        #Comprobar si esta la ficha medica creada con el nombre del cliente
+        consulta = Consulta(cliente = "123_firu",mascota = "Firulais", veterinario = "Dr. López",diagnostico = "Diagnóstico de ejemplo",
+                            historialMedico = "Historial médico de ejemplo")
+        historial = consulta.crearNuevoHistorial()
+        nombre_archivo = f"{historial[3]}"
+
+        ruta = "../Datos archivos.txt/lista historial"
+        try:
+            with open(f"{ruta}//{nombre_archivo}.txt","a+", encoding="UTF-8") as file:
+                file.write(str(historial) + "\n")
+                print("Consulta Agregada con Éxito")
+        except:
+            print("No existe el archivo ")
+            with open(f"{ruta}//{nombre_archivo}.txt","a+", encoding="UTF-8") as file:
+                file.write(str(historial))
+                print("Consulta Creada y agregada con Éxito")
+
+
     def buscarIdentificador(self):
         pass
     def guardarArchivo(self):
@@ -28,5 +44,7 @@ class FichaMedica:
         return "Esta es la clase ficha"
 
 if __name__=="__main__":
-    a=FichaMedica(1)
-    print(a.getFecha())
+
+
+    ficha = FichaMedica()
+    ficha.addHistorialConsulta()

@@ -1,15 +1,27 @@
-import Diagnostico
+from Diagnostico import Diagnostico
+from Mascota import Mascota
+from Persona import Personas
+
+import datetime
 
 class Consulta:
-    def __init__(self, historialMedico):
+    def __init__(self, historialMedico, diagnostico, mascota, veterinario,cliente):
         self.historialMedico = historialMedico
-        self.tratamiento = Diagnostico.Tratamientos("NombreDelTratamiento", "DiasDelTratamiento")
-        self.vacuna = Diagnostico.Vacuna("NombreDeLaVacuna", 4, 3, 10)
-        self.diagnostico = Diagnostico.Diagnostico("NombreDiagnostico", "DescripcionDiagnostico", "CuidadosDiagnostico", self.tratamiento, self.vacuna)
+        self.diagnostico = diagnostico
+        self.mascota = mascota
+        self.veterinario = veterinario
+        self.cliente = cliente
+        self.fecha = datetime.datetime.now()
+        self.fecha_formateada = self.fecha.strftime("%d-%m-%Y %H:%M")
+
+
     def crearNuevoHistorial(self):
-        pass
+        lista_consulta = [self.fecha_formateada,self.mascota,self.veterinario,self.cliente,self.diagnostico,self.historialMedico]
+        return lista_consulta
+
     def eliminarHistorial(self):
         pass
+
     def modificarHistorial(self):
         pass
     def getHistorial(self):
