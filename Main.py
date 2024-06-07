@@ -123,7 +123,7 @@ def menu_Diagnostico():
             Tratamiento = agregarTratamiento()
             print(Diagnostico.Diagnostico("ITU", "ITU2", "cuidarse", Tratamiento, Vacuna).addDiagnostico("ITU", "ITU2", "cuidarse", Tratamiento, Vacuna))
         elif opcion == '3':
-            Diagnostico.Diagnostico.modDiagnostico()
+            print(Diagnostico.Diagnostico.modDiagnostico("self"))
         elif opcion == '4':
             consultarTratamiento()
         elif opcion == '5':
