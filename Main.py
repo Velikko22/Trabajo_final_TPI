@@ -24,14 +24,14 @@ def ingresos_de_datos(opcion):
         email = input("Ingrese email contacto: ")
         direccion = input("Ingrese direccion: ")
         cantidad = int(input("Ingrese la cantidad de mascotas: "))
-        #nombresMascota = []
-        #tipoMascota = []
+        nombresMascota = []
+        tipoMascota = []
         for i in range(cantidad):
             mascotanombreraza = str(input("Ingrese el nombre raza de la mascota: "))
             mascotatipo = str(input("Ingrese el tipo de mascota: "))
             agregarMascotaUsuario(mascotatipo, mascotanombreraza, nombre)
-#            nombresMascota.append(mascotanombreraza)
-#            tipoMascota.append(mascotatipo)
+            nombresMascota.append(mascotanombreraza)
+            tipoMascota.append(mascotatipo)
 
         return nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota
 
@@ -42,9 +42,10 @@ def carga_de_persona(opcion):
     if opcion == 1 or opcion == 3:
         while True:
             if opcion == 1:
+                print("ENTRO")
                 nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota = ingresos_de_datos(opcion)
                 cliente = Cliente(nombre, telefono, email, direccion, cantidad, nombresMascota, tipoMascota)
-                with open("Datos archivos.txt/clientes.txt", "a") as archivo:
+                with open("Datos archivos.txt//clientes.txt", "a") as archivo:
                     archivo.write(f"{cliente}\n")
 
             if opcion == 3:
@@ -123,7 +124,7 @@ def menu_Diagnostico():
             Tratamiento = agregarTratamiento()
             print(Diagnostico.Diagnostico("ITU", "ITU2", "cuidarse", Tratamiento, Vacuna).addDiagnostico("ITU", "ITU2", "cuidarse", Tratamiento, Vacuna))
         elif opcion == '3':
-            print(Diagnostico.Diagnostico.modDiagnostico("self"))
+            Diagnostico.Diagnostico.modDiagnostico()
         elif opcion == '4':
             consultarTratamiento()
         elif opcion == '5':
@@ -147,13 +148,15 @@ def menu_personas():
 
         opcion = int(input("Ingrese opcion: "))
         if opcion == 1:
-            ingresos_de_datos(opcion)
+            carga_de_persona(opcion)
         elif opcion == 2:
             carga_de_persona(opcion)
         elif opcion == 3:
             carga_de_persona(opcion)
         elif opcion == 4:
             carga_de_persona(opcion)
+        elif opcion == 5:
+            consultarCliente()
         elif opcion == 0:
             menu_personas_abierto = False
 def menu_mascotas():
@@ -303,7 +306,7 @@ def agregarDiagnostico(tratamiento, vacuna):
     nombreDiagnostico = input("Dime el nombre del Diagnostico: \n")
     descripcionDiagnostico = input("Dime una descripcion del Diagnostico: \n")
     cuidadosDiagnostico = input("Dime los cuidados del Diagnostico: \n")
-    Diag = Diagnostico(nombreDiagnostico, descripcionDiagnostico, cuidadosDiagnostico, tratamiento, vacuna)
+    Diag = Diagnostico.Diagnostico(nombreDiagnostico, descripcionDiagnostico, cuidadosDiagnostico, tratamiento, vacuna)
     Diag.addDiagnostico(Diag.nombreDiag, Diag.descripcionDiag, Diag.cuidadosDiag, tratamiento, vacuna)
 #endregion
 #region Validaciones
@@ -316,6 +319,16 @@ def validarRazasCargadas():
         print(f"No se encontraró la Raza, debe cargarla!")
 #endregion
 #region consultas
+
+def consultarCliente():
+    with open("datos archivos.txt//clientes.txt") as file:
+        archivo = file.readlines()
+    opcional_busqueda = str(input("Nombre Cliente "))
+    for line in archivo:
+        nombre_cliente = line.strip().split(",")
+        if nombre_cliente[0] == f"Nombre: {opcional_busqueda}":
+            print(nombre_cliente)
+
 def consultarMascota(id_mascota,propietario):
     archivo_a_buscar = f"{id_mascota}_{propietario}.txt"
     archivo_path = RUTA_MASCOTAS/archivo_a_buscar
