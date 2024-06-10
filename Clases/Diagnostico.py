@@ -19,7 +19,7 @@ class Diagnostico:
         except:
             return "Error al agregar Diagnostico"
     def modDiagnostico(self):
-        return "Falta Programar"
+        pass
     def delDiagnostico(self):
         try:
             if self.state:
