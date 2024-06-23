@@ -1,2 +1,3 @@
-Nombre: julian, Tel: 123, Email: mail, Direccion: direccion, Cantidad de Mascotas: 2, Mascotas: [], []
-Nombre: pedro, Tel: 1234567, Email: mailmail, Direccion: direccion1, Cantidad de Mascotas: 2, Mascotas: ['caniche', 'azul'], ['perro', 'loro']
+julian;123;mail@prueba1;calle unica 123;2;[];[]
+pedro;4567;mail2@prueba2;calle doble 123;2;[negrito, azulito];[perro, loro]
+homero;123;homero;nohay;2;['ayudante de santa', 'bola de nieve'];['perro', 'gato']

@@ -1,1 +1,3 @@
-
+paulo;35312345;cirujano
+pedro;543531234;clinico
+rodolfo;35312345;radiologia
