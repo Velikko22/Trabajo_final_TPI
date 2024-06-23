@@ -1,0 +1,2 @@
+Nombre: julian, Tel: 123, Email: mail, Direccion: direccion, Cantidad de Mascotas: 2, Mascotas: [], []
+Nombre: pedro, Tel: 1234567, Email: mailmail, Direccion: direccion1, Cantidad de Mascotas: 2, Mascotas: ['caniche', 'azul'], ['perro', 'loro']
