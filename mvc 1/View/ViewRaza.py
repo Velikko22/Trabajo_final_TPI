@@ -1,5 +1,4 @@
 class ViewRaza:
-
     def mostrarOpcionesMenuRaza(self):
         print("===========")
         print("[1] Mostrar Todas las Razas \n"
@@ -7,6 +6,7 @@ class ViewRaza:
               "[3] Modificar Raza \n"
               "[4] Agregar Raza \n"
               "[5] Eliminar Raza \n"
+              "[6] Mostrar todas las Mascotas \n"
               )
 
 

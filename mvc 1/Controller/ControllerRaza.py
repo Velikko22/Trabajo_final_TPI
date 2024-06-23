@@ -13,22 +13,20 @@ class ControllerRaza:
 
 
 
+
     def cargarArchivoRaza(self):
         archivos = list(RUTA_RAZAS.glob('*'))
         for archivo in archivos:
             with (open(archivo,"r",encoding="UTF-8") as file):
                 linea = file.readline()
                 tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, state = linea.strip().split(";")
-                self.lista_razas_objetos.append(Raza( tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, state))
+                self.lista_razas_objetos.append(Raza(tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, state))
 
-
-
-    def validarRaza(self,tipo, raza):
+    def validarRaza(self, tipo, raza):
         for animal in self.lista_razas_objetos:
             if animal.tipoAnimal == tipo and animal.nombreRaza == raza:
-               return True
-            else:
-                return False
+                return True
+        return False
 
 
     def validarIngresoState(self):
@@ -146,21 +144,4 @@ class ControllerRaza:
         self.vista.mostrarPantallaRazasDisponibles(self.lista_razas_objetos)
 
 
-    def mostrarMenu(self):
-        while True:
-            self.vista.mostrarOpcionesMenuRaza()
-            opcion_menu = int(input("Ingrese opcion "))
-            if opcion_menu == 1:
-                self.listarRazasDisponibles()
 
-            elif opcion_menu == 2:
-                self.buscarRaza()
-
-            elif opcion_menu == 3:
-                self.modificarRaza()
-
-            elif opcion_menu == 4:
-                self.agregarRaza()
-
-            elif opcion_menu == 5:
-                self.eliminarRaza()

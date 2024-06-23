@@ -1,0 +1,1 @@
+perro;estepario;grande;agresivo;largo;lobo carnivoro;alta;10;1

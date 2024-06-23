@@ -1,5 +1,5 @@
 class Mascota():
-    def __init__(self, tipoAnimalRaza, nombreRazaAnimal,identificador,propietario, nombreAnimal,  detalleMascota, stateMascota):
+    def __init__(self, tipoAnimalRaza, nombreRazaAnimal,identificador,propietario,nombreAnimal,detalleMascota,stateMascota):
         self.tipoAnimalRaza = tipoAnimalRaza
         self.nombreRazaAnimal = nombreRazaAnimal
         self.identificador = identificador
