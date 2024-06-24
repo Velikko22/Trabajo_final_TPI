@@ -1,3 +1,0 @@
-julian;123;mail@prueba1;calle unica 123;2;[];[]
-pedro;4567;mail2@prueba2;calle doble 123;2;[negrito, azulito];[perro, loro]
-homero;123;homero;nohay;2;['ayudante de santa', 'bola de nieve'];['perro', 'gato']
