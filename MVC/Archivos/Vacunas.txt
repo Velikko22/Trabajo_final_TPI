@@ -1,0 +1,3 @@
+quintuplefelina,12354,1,2024-06-26,1
+tripleviral,1234,1,2024-06-26,1
+sextuple,5444,3,2024-07-17,0
