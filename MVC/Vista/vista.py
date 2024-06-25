@@ -372,21 +372,61 @@ class Vista:
         opcion = input("Selecciona una opción: ")
         return int(opcion)
     
-    def consultarTratamiento(self):
-        print("Funcionalidad de consultar tratamiento no implementada aún.")
-    
-    def agregarTratamiento(self):
-        print("Funcionalidad de agregar tratamiento no implementada aún.")
-    
-    def modificarTratamiento(self):
-        print("Funcionalidad de modificar tratamiento no implementada aún.")
-    
-    def eliminarTratamiento(self):
-        print("Funcionalidad de eliminar tratamiento no implementada aún.")
+
+    def mostrarTratamientosPantalla(self,lista):
+        for elemento in lista:
+            print(lista)
+
+    def agregarTratamientoOpciones(self):
+        nombreTratamiento = input("Ingrese Nombre del Tratamiento: ").lower()
+        duracionTratamiento = input("Ingrese Duración del Tratamiento: ").lower()
+        state = int(input("Ingrese Estado del Tratamiento (1 para activo, 0 para inactivo): "))
+        return nombreTratamiento, duracionTratamiento, state
+
+
+    def tratamientoAModificar(self):
+        nombreTratamiento = input("Nombre del Tratamiento a modificar: ").lower()
+        return nombreTratamiento
+
+    def mostrarDatoActualTratamiento(self, tratamiento):
+        print(f"Nombre Tratamiento: {tratamiento.nombreTratamiento}, Duración: {tratamiento.duracionTratamiento}, Estado: {tratamiento.state} ")
+
+    def modificarDatosTratamiento(self, tratamiento):
+        print("Modificar datos del Tratamiento")
+        print("Dejar en blanco para conservar original")
+        nombreTratamiento = input(f"nuevo nombre tratamiento ({tratamiento.nombreTratamiento}): ") or tratamiento.nombreTratamiento
+        duracionTratamiento = input(f"nueva duración del tratamiento ({tratamiento.duracionTratamiento}): ") or tratamiento.duracionTratamiento
+        state = int(input(f"1 activo // 0 inactivo ({tratamiento.state}): ") or tratamiento.state)
+        return nombreTratamiento, duracionTratamiento, state
+
+    def eliminarDatosTratamiento(self, tratamiento):
+        print("Eliminando Tratamiento...")
+        print(tratamiento)
+        state = int(0)
+        return state
+
+
+    def tratamientoAEliminar(self):
+        nombreTratamiento = input("Nombre del tratamiento a eliminar: ").lower()
+        return nombreTratamiento
+
+    def tratamientoEliminadoConExito(self):
+        print("Tratamiento eliminado con éxito (estado cambiado a inactivo)!")
+
+    def tratamientoNoEncontrado(self):
+        print("Tratamiento no encontrado, eliminación fallida!")
+
+    def tratamientoCargaExitosa(self):
+        print("Tratamiento cargado con éxito!")
+
+    def tratamientoCargaFallida(self):
+        print("Tratamiento no encontrado, carga fallida!")
+    #endregion
 
 #endregion
 
-#region Vacunas Menu
+
+#region Vacuna Menu
     
     def vacunasMenu(self):
         print("Menú de Vacunas")
@@ -403,7 +443,7 @@ class Vista:
     def mostrarTodasVacunas(self, lista):
         for vacuna in lista:
             print(f"Nombre de la Vacuna: {vacuna.nombreVacuna}, Lote: {vacuna.loteVacuna}, Número de Dosis: {vacuna.numeroDosis}, "
-                  f"Días para Próxima Dosis: {vacuna.proximaDosis}")
+                  f"Días para Próxima Dosis: {vacuna.diasProximaDosis}")
 
     def agregarVacunaOpciones(self):
         nombreVacuna = input("Ingrese Nombre de la Vacuna: ").lower()
@@ -426,7 +466,7 @@ class Vista:
         nombreVacuna = input(f"nuevo nombre vacuna ({vacuna.nombreVacuna}): ") or vacuna.nombreVacuna
         loteVacuna = int(input(f"nuevo lote vacuna ({vacuna.loteVacuna}): ")) or vacuna.loteVacuna
         numeroDosis = int(input(f"nuevo número de dosis ({vacuna.numeroDosis}): ")) or vacuna.numeroDosis
-        diasProximaDosis = int(input(f" días para próxima dosis: ")) or vacuna.diasProximaDosis
+        diasProximaDosis = int(input(f"días para próxima dosis: ")) or vacuna.diasProximaDosis
         state = int(input(f"1 activo // 0 inactivo ({vacuna.state}): ") or vacuna.state)
         return nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state
 
@@ -455,8 +495,6 @@ class Vista:
 
     def vacunaNoEncontrada(self):
         print("Vacuna no encontrada, eliminación fallida!")
-
-    
 
 
 #endregion
