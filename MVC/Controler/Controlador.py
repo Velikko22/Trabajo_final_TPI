@@ -1,6 +1,7 @@
 # region Imports
 import os
 
+
 from MVC.Modelo.Cliente import Cliente
 from MVC.Modelo.Verinario import Veterinario
 from MVC.Modelo.Mascota import Mascota
@@ -480,6 +481,8 @@ class Controller:
     def consultar_Diagnostico(self):
         self.limpiar_consola()
         self.vista.consultarDiagnostico(self.lista_diagnostico)
+
+
     def agregar_Diagnostico(self):
         self.limpiar_consola()
         nombreDiag,descripcionDiag,cuidadosDiag,state = self.vista.agregarDiagnostico()
@@ -494,7 +497,7 @@ class Controller:
             diagnostico = Diagnostico(nombreDiag, descripcionDiag, cuidadosDiag, trata, vacu, True)
             self.lista_diagnostico.append(diagnostico)
         
-            with open("MVC/Archivos/Diagnosticos.txt", "a") as archivo:
+            with open("Archivos/Diagnosticos.txt", "a") as archivo:
                 archivo.write(f"{diagnostico}\n")
                 print(diagnostico)
             self.vista.cargaExitosa("diagnostico")
