@@ -2,13 +2,14 @@ from datetime import date, timedelta
 
 class Vacuna:
     
-    def __init__(self, nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis):
+    def __init__(self, nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state):
         self.nombreVacuna = nombreVacuna
         self.loteVacuna = int(loteVacuna)
         self.numeroDosis = int(numeroDosis)
         self.fechaDosis = date.today()
+        self.diasProximaDosis = diasProximaDosis
         self.proximaDosis = self.fechaDosis + timedelta(days=int(diasProximaDosis))
-        self.state = True
+        self.state = state
 
     def getNombreVacuna(self):
         return self.nombreVacuna
@@ -21,7 +22,10 @@ class Vacuna:
     
     def getFechaDosis(self):
         return self.fechaDosis
-    
+
+    def getstate(self):
+        return self.state
+
     def setNombreVacuna(self, newNombreVacuna):
         self.nombreVacuna = newNombreVacuna
     
@@ -30,12 +34,18 @@ class Vacuna:
     
     def setNumeroDosis(self, newNumeroDosis):
         self.numeroDosis = newNumeroDosis
-    
+
+    def setdiasProximaDosis(self, diasProximaDosis):
+        self.diasProximaDosis = diasProximaDosis
+
     def setFechaDosis(self, newFechaDosis):
         self.fechaDosis = newFechaDosis
+
+    def setstate(self, state):
+        self.state = state
     
     def __str__(self):
-        return "STR de la clase Vacuna,\nRecibe: Nombre de la vacuna(STR), Lote de la vacuna(INT), Numero de dosis de la vacuna(INT), Dias faltantes para la proxima dosis(INT)\nMetodos: addVacuna: agrega un vacuna\nmodVacuna: modifica alguna vacuna existente\ndelVacuna: delVacuna no elimina el elemento, solo cambia el estado para que no aparezca\n\nAdemas cuenta con los Getters y los Setters de cada atributo"
+        return f"{self.nombreVacuna}, {self.loteVacuna}, {self.numeroDosis}, {self.proximaDosis},{self.state}"
     
     def __repr__(self):
         return "REPR de la clase Vacuna"
