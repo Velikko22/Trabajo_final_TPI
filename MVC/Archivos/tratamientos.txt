@@ -1,0 +1,4 @@
+quiste,12,1
+cancer,1,0
+cancer,10,1
+gastritis,11,1
