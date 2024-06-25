@@ -11,6 +11,10 @@ class Raza:
         self.esperanzaVidaRaza = esperanzaVidaRaza
         self.state = int(state)
 
+    def razaActiva(self):
+        if self.state == 1:
+            return True
+
 
     def get_tipoAnimal(self):
         return self.tipoAnimal
