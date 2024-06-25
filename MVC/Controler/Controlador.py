@@ -1,13 +1,14 @@
 # region Imports
 import os
-from Modelo.Cliente import Cliente
-from Modelo.Verinario import Veterinario
-from Modelo.Mascota import Mascota
-from Modelo.Raza import Raza
-from Modelo.Diagnostico import Diagnostico
-from Modelo.Tratamiento import Tratamiento
-from Modelo.Vacuna import Vacuna
-from Vista.vista import Vista
+
+from MVC.Modelo.Cliente import Cliente
+from MVC.Modelo.Verinario import Veterinario
+from MVC.Modelo.Mascota import Mascota
+from MVC.Modelo.Raza import Raza
+from MVC.Modelo.Diagnostico import Diagnostico
+from MVC.Modelo.Tratamiento import Tratamiento
+from MVC.Modelo.Vacuna import Vacuna
+from MVC.Vista.vista import Vista
 
 
 # endregion
@@ -255,12 +256,12 @@ class Controller:
     # region Vacuna Menu
 
     def mostrarVacunas(self):
-        lista_aux = []
+        lista_aux_vacuna = []
         for vacuna in self.lista_vacuna:
             print(vacuna)
-            if vacuna.state == "1":
-                lista_aux.append(vacuna)
-        self.vista.mostrarTodasVacunas(lista_aux)
+            if vacuna.state == 1:
+                lista_aux_vacuna.append(vacuna)
+        self.vista.mostrarTodasVacunas(lista_aux_vacuna)
 
     def agregarVacuna(self):
         nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = self.vista.agregarVacunaOpciones()
@@ -289,14 +290,15 @@ class Controller:
             vacuna_encontrada.setNombreVacuna(nuevo_nombreVacuna)
             vacuna_encontrada.setLoteVacuna(nuevo_loteVacuna)
             vacuna_encontrada.setNumeroDosis(nuevo_numeroDosis)
-            vacuna_encontrada.setdiasProximaDosis = int(nuevo_diasProximaDosis)
+            vacuna_encontrada.setdiasProximaDosis = nuevo_diasProximaDosis
             vacuna_encontrada.setstate(nuevo_state)
+
+            print(self.lista_vacuna)
 
             with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
                 for vacuna in self.lista_vacuna:
                     linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.diasProximaDosis},{vacuna.state}\n"
                     file.write(linea)
-
             self.vista.vacunaCargaExitosa()
         else:
             self.vista.vacunaCargaFallida()
@@ -317,7 +319,7 @@ class Controller:
 
             with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
                 for vacuna in self.lista_vacuna:
-                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.proximaDosis},{vacuna.state}\n"
+                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.diasProximaDosis},{vacuna.state}\n"
                     file.write(linea)
 
             self.vista.vacunaEliminadaConExito()
