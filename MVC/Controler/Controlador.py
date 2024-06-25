@@ -131,51 +131,62 @@ class Controller:
 
     # endregion
 
-    # region Controlador Clientes
+#region Controlador Clientes
     def informacion_cliente(self):
         lista = self.lista_clientes
         self.vista.informacionCliente(lista)
-
+    
     def agregar_nuevo_cliente(self):
-        nuevoCliente = self.vista.agregarNuevocliente()
-        if any(cliente.nombre == nuevoCliente['nombre'] for cliente in self.lista_clientes):
+        nombre,telefono,email,direccion,cantidad,lista_nombreMascota,lista_tipoMascota = self.vista.agregarNuevocliente()
+        if any(cliente.nombre == nombre for cliente in self.lista_clientes):
             self.vista.mensajeError("El cliente ya existe.")
         else:
-            cliente = Cliente(**nuevoCliente)
+            cliente = Cliente(nombre,telefono,email,direccion,cantidad,lista_nombreMascota,lista_tipoMascota)
             self.lista_clientes.append(cliente)
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "a") as archivo:
-                archivo.write(f"{nuevoCliente}\n")
+            with open("MVC/Archivos/clientes.txt", "a") as archivo:
+                archivo.write(f"{cliente}\n")
             self.vista.cargaExitosa("cliente")
-
+            
+   
     def modificar_informacion_Cliente(self):
         nombre_cliente = input("Ingrese el nombre del cliente que desea modificar: ")
-
+    
         cliente_encontrado = None
         for cliente in self.lista_clientes:
             if cliente.nombre.lower() == nombre_cliente.lower():
                 cliente_encontrado = cliente
                 break
-
+    
         if cliente_encontrado:
-            nueva_info_cliente = self.vista.modificarInformacionCliente(cliente_encontrado)
-
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "r") as archivo:
-                lineas = archivo.readlines()
-
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "w") as archivo:
-                for linea in lineas:
-                    if nombre_cliente.lower() not in linea.lower():
-                        archivo.write(linea)
-
-            archivo.write(
-                f"{nueva_info_cliente['nombre']},{nueva_info_cliente['telefono']},{nueva_info_cliente['email']},{nueva_info_cliente['direccion']},{nueva_info_cliente['cantidad']},{','.join(nueva_info_cliente['lista_nombreMascota'])},{','.join(nueva_info_cliente['lista_tipoMascota'])}\n")
-
-            self.cargarDatosClientes()
-
+            cliente.nombre,nuevo_telefono,nuevo_email,nueva_direccion,cantidad_mascotas,nueva_lista_nombre_mascotas,nueva_lista_tipo_mascotas = self.vista.modificarInformacionCliente(cliente_encontrado)
+            cliente.telefono = nuevo_telefono
+            cliente.email = nuevo_email
+            cliente.direccion = nueva_direccion
+            cliente.cantidad = cantidad_mascotas
+            cliente.nombreMascota = nueva_lista_nombre_mascotas
+            cliente.tipoMascotas = nueva_lista_tipo_mascotas
+        
+        
+            with open("MVC/Archivos/clientes.txt", "w") as archivo:
+                for client in self.lista_clientes:
+                    archivo.write(str(client))
+        
         else:
             print(f"No se encontró ningún cliente con el nombre '{nombre_cliente}'")
 
-    # endregion
+    def eliminarCliente(self):
+        nombre_cliente = input("Ingrese el nombre del cliente que desea eliminar: ")
+        for cliente in self.lista_clientes:
+            if cliente.nombre.lower() == nombre_cliente.lower():
+                self.lista_clientes.remove(cliente)
+            else:
+                pass
+
+        with open("MVC/Archivos/clientes.txt", "w") as archivo:
+                for client in self.lista_clientes:
+                    archivo.write(str(client))
+        
+#endregion
 
     # region Controlador Mascota
     def mostrarMascotas(self):

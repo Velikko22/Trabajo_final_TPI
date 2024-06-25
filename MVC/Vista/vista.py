@@ -57,8 +57,8 @@ class Vista:
 
     # endregion
 
-    # region Cliente Menu
-
+#region Cliente Menu
+    
     def clientesMenu(self):
         print("Menú de Clientes")
         print("1. Consultar Información de Clientes")
@@ -70,11 +70,11 @@ class Vista:
         return int(opcion)
 
     def agregarNuevocliente(self):
-
+        
         print("Agregar Nuevo Cliente")
         self.lista_nombreMascota = []
         self.lista_tipoMascota = []
-
+        
         nombre = str(input("Nombre: "))
         telefono = str(input("Teléfono: "))
         email = str(input("Email: "))
@@ -85,61 +85,47 @@ class Vista:
             tipoMascotas = input("Tipo de Mascotas: ")
             self.lista_nombreMascota.append(nombreMascota)
             self.lista_tipoMascota.append(tipoMascotas)
-        return {
-            "nombre": nombre,
-            "telefono": telefono,
-            "email": email,
-            "direccion": direccion,
-            "cantidad": cantidad,
-            "nombreMascota": self.lista_nombreMascota,
-            "tipoMascotas": self.lista_tipoMascota
-        }
-
+        return nombre,telefono,email,direccion,cantidad,self.lista_nombreMascota,self.lista_tipoMascota
+    
     def informacionCliente(self, lista):
-        print("Información de Clientes")
-        if lista:
-            for cliente in lista:
-                print(cliente)
-                print("\n")
-        else:
-            print("No hay clientes para mostrar")
-
+            print("Información de Clientes")
+            if lista:
+                for cliente in lista:
+                    print(cliente)
+                    print("\n")
+            else:
+                print("No hay clientes para mostrar")
+        
+            
     def modificarInformacionCliente(self, cliente):
         print(f"Modificación de Información del Cliente: {cliente.nombre}")
         nuevo_telefono = input(f"Nuevo teléfono ({cliente.telefono}): ").strip() or cliente.telefono
         nuevo_email = input(f"Nuevo email ({cliente.email}): ").strip() or cliente.email
         nueva_direccion = input(f"Nueva dirección ({cliente.direccion}): ").strip() or cliente.direccion
-
+    
+    
         print("Mascotas Actuales:")
-        for i, mascota in enumerate(cliente.lista_nombreMascota):
-            print(f"{i + 1}. {mascota} ({cliente.lista_tipoMascota[i]})")
-
+        for i, mascota in enumerate(cliente.nombreMascota):
+            print(f"{i+1}. {mascota} ({cliente.tipoMascotas[i]})")
+    
+    
         nueva_lista_nombre_mascotas = []
         nueva_lista_tipo_mascotas = []
         cantidad_mascotas = int(input(f"Ingrese la cantidad de mascotas que tiene {cliente.nombre}: "))
-
+    
         for i in range(cantidad_mascotas):
-            nombre_mascota = input(f"Nombre de la mascota {i + 1}: ").strip()
-            tipo_mascota = input(f"Tipo de mascota {i + 1} (perro, gato, etc.): ").strip()
+            nombre_mascota = input(f"Nombre de la mascota {i+1}: ").strip()
+            tipo_mascota = input(f"Tipo de mascota {i+1} (perro, gato, etc.): ").strip()
             nueva_lista_nombre_mascotas.append(nombre_mascota)
             nueva_lista_tipo_mascotas.append(tipo_mascota)
-
-        nueva_info_cliente = {
-            'nombre': cliente.nombre,
-            'telefono': nuevo_telefono,
-            'email': nuevo_email,
-            'direccion': nueva_direccion,
-            'cantidad': cantidad_mascotas,
-            'lista_nombreMascota': nueva_lista_nombre_mascotas,
-            'lista_tipoMascota': nueva_lista_tipo_mascotas
-        }
-
-        return nueva_info_cliente
-
+        
+    
+        return cliente.nombre,nuevo_telefono,nuevo_email,nueva_direccion,cantidad_mascotas,nueva_lista_nombre_mascotas,nueva_lista_tipo_mascotas
+    
     def eliminarCliente(self):
         print("Funcionalidad de eliminar cliente no implementada aún.")
-
-    # endregion
+        
+#endregion
 
     # region Veterinario Menu
 

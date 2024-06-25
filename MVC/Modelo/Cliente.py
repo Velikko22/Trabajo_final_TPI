@@ -38,7 +38,7 @@ class Cliente(Persona):
         self.tipoMascotas = tipoMascota
 
     def __str__(self):
-        return f"Nombre: {self.nombre}, Tel: {self.telefono}, Email: {self.email}, Direccion: {self.direccion}, Cantidad de Mascotas: {self.cantidad}, Mascotas: {self.nombreMascota}, {self.tipoMascotas}"
+        return f"{self.nombre},{self.telefono},{self.email},{self.direccion},{self.cantidad},{self.nombreMascota},{self.tipoMascotas}"
 
     def __repr__(self):
         return self.__str__()
