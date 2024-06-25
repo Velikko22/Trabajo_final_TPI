@@ -1,3 +1,0 @@
-{'nombre': 'Capellino Julian', 'telefono': '3534200185', 'email': 'juli@gmail.com', 'direccion': 'Teniente Ibañez 1154', 'cantidad': 1, 'lista_nombreMascota': ['Kira'], 'lista_tipoMascota': ['Gato']}
-{'nombre': 'Pedro Sanchez', 'telefono': 12345, 'email': 'pedrito@g', 'direccion': 'calle fantasma 11', 'cantidad': 2, 'nombreMascota': 'juan', 'tipoMascotas': 'caballo'}
-{'nombre': 'Pedro Sanchez', 'telefono': '1234', 'email': 'pedroo@gm', 'direccion': 'dir2', 'cantidad': 2, 'nombreMascota': ['laucha', 'gallo'], 'tipoMascotas': ['raton', 'gallina']}

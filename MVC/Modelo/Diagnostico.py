@@ -1,13 +1,13 @@
 
 class Diagnostico:
     
-    def __init__(self, nombreDiag, descripcionDiag, cuidadosDiag, tratamientoDiag, vacunasDiag):
+    def __init__(self, nombreDiag, descripcionDiag, cuidadosDiag, tratamientoDiag, vacunasDiag, state = True):
         self.nombreDiag = nombreDiag
         self.descripcionDiag = descripcionDiag
         self.cuidadosDiag = cuidadosDiag
         self.tratamientoDiag = tratamientoDiag
         self.vacunasDiag = vacunasDiag
-        self.state = True
+        self.state = state
      
     def getNombreDiag(self):
         return self.nombreDiag
@@ -43,7 +43,7 @@ class Diagnostico:
         self.vacunasDiag = newVacunasDiag
     
     def __str__(self):
-        return "STR"
+        return f"{self.nombreDiag},{self.descripcionDiag},{self.cuidadosDiag},{self.tratamientoDiag.nombreTratamiento},{self.vacunasDiag.nombreVacuna},{self.state}"
     
     def __repr__(self):
         return "REPR"

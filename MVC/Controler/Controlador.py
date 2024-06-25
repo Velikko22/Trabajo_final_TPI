@@ -1,4 +1,5 @@
 # region Imports
+import os
 from Modelo.Cliente import Cliente
 from Modelo.Verinario import Veterinario
 from Modelo.Mascota import Mascota
@@ -23,20 +24,18 @@ class Controller:
         self.lista_vacuna = []
         self.vista = Vista()
 
+    def limpiar_consola(self):
+        try:
+            os.system("clear")
+        except:
+            os.system("cls")
     # region Carga de Archivos
     def cargaDatosClientes(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "r") as archivo:
+            with open("MVC/Archivos/clientes.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
-                datos = linea.strip().split(",")
-                nombre = str(datos[0])
-                telefono = str(datos[1])
-                email = str(datos[2])
-                direccion = str(datos[3])
-                cantidad = str(datos[4])
-                nombreMascota = str(datos[5])
-                tipoMascotas = str(datos[6])
+                nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas = linea.strip().split(",")
                 cliente = Cliente(nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas)
                 self.lista_clientes.append(cliente)
             self.vista.cargaExitosa("clientes")
@@ -45,7 +44,7 @@ class Controller:
 
     def cargaDatosVeterinarios(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/veterinarios.txt", "r") as archivo:
+            with open("MVC/Archivos/veterinarios.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -58,7 +57,7 @@ class Controller:
 
     def cargaDatosMascotas(self):
         try:
-            with open("Archivos/mascotas.txt", "r") as archivo:
+            with open("MVC/Archivos/mascotas.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -72,7 +71,7 @@ class Controller:
 
     def cargaDatosRaza(self):
         try:
-            with open("Archivos/raza.txt", "r") as archivo:
+            with open("MVC/Archivos/raza.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -86,7 +85,7 @@ class Controller:
 
     def cargaDatosDiagnostico(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/Diagnosticos.txt", "r") as archivo:
+            with open("MVC/Archivos/Diagnosticos.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -99,7 +98,7 @@ class Controller:
 
     def cargarDatosTratamientos(self):
         try:
-            with open("Archivos/tratamientos.txt", "r") as archivo:
+            with open("MVC/Archivos/tratamientos.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -112,7 +111,7 @@ class Controller:
 
     def cargaDatosVacunas(self):
         try:
-            with open("Archivos/Vacunas.txt", "r") as archivo:
+            with open("MVC/Archivos/Vacunas.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -475,6 +474,35 @@ class Controller:
 
     # endregion
 
+#region Diagnostico
+    def consultar_Diagnostico(self):
+        self.limpiar_consola()
+        self.vista.consultarDiagnostico(self.lista_diagnostico)
+    def agregar_Diagnostico(self):
+        self.limpiar_consola()
+        nombreDiag,descripcionDiag,cuidadosDiag,state = self.vista.agregarDiagnostico()
+
+        if any(diagnostico.nombreDiag == nombreDiag for diagnostico in self.lista_diagnostico):
+            self.vista.mensajeError("El Diagnostico ya existe.")
+        else:
+            nombreTrata, duracionTrata, stateTrata = self.vista.agregarTratamientoOpciones()
+            trata = Tratamiento(nombreTrata, duracionTrata, stateTrata)
+            nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = self.vista.agregarVacunaOpciones()
+            vacu = Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state)
+            diagnostico = Diagnostico(nombreDiag, descripcionDiag, cuidadosDiag, trata, vacu, True)
+            self.lista_diagnostico.append(diagnostico)
+        
+            with open("MVC/Archivos/Diagnosticos.txt", "a") as archivo:
+                archivo.write(f"{diagnostico}\n")
+                print(diagnostico)
+            self.vista.cargaExitosa("diagnostico")
+
+    def modificar_Diagnostico(self):
+        pass
+    def eliminar_Diagnostico(self):
+        pass
+#endregion
+
     def Inicializador(self):
         # Carga de archivos...
         self.cargaDatosClientes()
@@ -578,15 +606,20 @@ class Controller:
 
 
             elif opcion == 6:
+                self.limpiar_consola()
                 while True:
                     sub_opcion = self.vista.diagnosticoMenu()
                     if sub_opcion == 1:
-                        self.vista.consultarDiagnostico()
+                        self.limpiar_consola()
+                        self.consultar_Diagnostico()
                     elif sub_opcion == 2:
-                        self.vista.agregarDiagnostico()
+                        self.limpiar_consola()
+                        self.agregar_Diagnostico()
                     elif sub_opcion == 3:
+                        self.limpiar_consola()
                         self.vista.modificarDiagnostico()
                     elif sub_opcion == 4:
+                        self.limpiar_consola()
                         self.vista.eliminarDiagnostico()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()

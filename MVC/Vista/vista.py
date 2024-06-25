@@ -311,11 +311,20 @@ class Vista:
         opcion = input("Selecciona una opción: ")
         return int(opcion)
 
-    def consultarDiagnostico(self):
-        print("Funcionalidad de consultar diagnóstico no implementada aún.")
+    def consultarDiagnostico(self, lista):
+        if lista:
+            print("Diagnosticos Cargados")
+            for diagnostico in lista:
+                print(diagnostico.nombreDiag)
+                print("\n")
+        else:
+            print("No hay diagnosticos para mostrar")
 
     def agregarDiagnostico(self):
-        print("Funcionalidad de agregar diagnóstico no implementada aún.")
+        nombreDiag = input("Nombre del diagnostico: ")
+        descripcionDiag = input("Descripcion del diagnostico")
+        cuidadosDiag = input("Cuidados del diagnostico")
+        return nombreDiag,descripcionDiag,cuidadosDiag,True
 
     def modificarDiagnostico(self):
         print("Funcionalidad de modificar diagnóstico no implementada aún.")
