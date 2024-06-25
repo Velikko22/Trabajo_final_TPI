@@ -108,17 +108,18 @@ class Controller:
     
     def cargaDatosVacunas(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/Vacunas.txt", "r") as archivo:
+            with open("Archivos/Vacunas.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
-                nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis = datos
-                vacuna = Vacuna(nombreVacuna, int(loteVacuna), numeroDosis, diasProximaDosis)
+                nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state = datos
+                vacuna = Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state)
                 self.lista_vacuna.append(vacuna)
             self.vista.cargaExitosa("vacunas")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de vacunas: {str(e)}")
 #endregion
+
 
 #region Controlador Historial
     def consulta_Historial(self, nombreCliente, nombreMascota):
@@ -245,6 +246,85 @@ class Controller:
 
     #endregion
 
+#region Vacuna Menu
+
+    def mostrarVacunas(self):
+        lista_aux = []
+        for vacuna in self.lista_vacuna:
+            print(vacuna)
+            if vacuna.state == "1":
+                lista_aux.append(vacuna)
+        self.vista.mostrarTodasVacunas(lista_aux)
+
+    def agregarVacuna(self):
+        nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = self.vista.agregarVacunaOpciones()
+        cadena = f"{nombreVacuna},{loteVacuna},{numeroDosis},{diasProximaDosis},{state}"
+        linea = cadena + "\n"
+        self.lista_vacuna.append(
+            Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state)
+        )
+        with open("Archivos/vacunas.txt", "a", encoding="UTF-8") as file:
+            file.write(linea)
+        self.vista.mensajeVacunaAgregadaconExito(linea)
+
+
+    def modificarVacuna(self):
+        nombreVacuna = self.vista.vacunaAModificar()
+        vacuna_encontrada = None
+
+
+        for vacuna in self.lista_vacuna:
+            if vacuna.nombreVacuna == nombreVacuna:
+                vacuna_encontrada = vacuna
+                break
+
+        if vacuna_encontrada:
+            self.vista.mostrarDatoActualVacuna(vacuna_encontrada)
+            nuevo_nombreVacuna, nuevo_loteVacuna, nuevo_numeroDosis, nuevo_diasProximaDosis, nuevo_state = self.vista.modificarDatosVacuna(vacuna_encontrada)
+            vacuna_encontrada.setNombreVacuna(nuevo_nombreVacuna)
+            vacuna_encontrada.setLoteVacuna(nuevo_loteVacuna)
+            vacuna_encontrada.setNumeroDosis(nuevo_numeroDosis)
+            vacuna_encontrada.setdiasProximaDosis = int(nuevo_diasProximaDosis)
+            vacuna_encontrada.setstate(nuevo_state)
+
+
+            with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
+                for vacuna in self.lista_vacuna:
+                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.diasProximaDosis},{vacuna.state}\n"
+                    file.write(linea)
+
+            self.vista.vacunaCargaExitosa()
+        else:
+            self.vista.vacunaCargaFallida()
+
+
+    def eliminarVacuna(self):
+        nombreVacuna = self.vista.vacunaAEliminar()
+        vacuna_encontrada = None
+
+
+        for vacuna in self.lista_vacuna:
+            if vacuna.nombreVacuna == nombreVacuna:
+                vacuna_encontrada = vacuna
+                break
+
+        if vacuna_encontrada:
+            self.vista.mostrarDatoActualVacuna(vacuna_encontrada)
+            nuevo_state = self.vista.eliminarDatosVacuna(vacuna_encontrada)
+            vacuna_encontrada.setstate(nuevo_state)
+
+
+            with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
+                for vacuna in self.lista_vacuna:
+                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.proximaDosis},{vacuna.state}\n"
+                    file.write(linea)
+
+            self.vista.vacunaEliminadaConExito()
+        else:
+            self.vista.vacunaNoEncontrada()
+
+
+#endregion
 
 #region Raza Menu
     def mostrarRazas(self):
@@ -463,13 +543,13 @@ class Controller:
                 while True:
                     sub_opcion = self.vista.vacunasMenu()
                     if sub_opcion == 1:
-                        self.vista.consultarVacunas()
+                        self.mostrarVacunas()
                     elif sub_opcion == 2:
-                        self.vista.agregarVacunas()
+                        self.agregarVacuna()
                     elif sub_opcion == 3:
-                        self.vista.modificarVacunas()
+                        self.modificarVacuna()
                     elif sub_opcion == 4:
-                        self.vista.eliminarVacunas()
+                        self.eliminarVacuna()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
