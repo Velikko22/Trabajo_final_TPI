@@ -14,6 +14,8 @@ class Vista:
         print("¿Deseas agregar otro cliente? ([1] - SI [9] salir")
         eleccion = input("Elección: ")
         return int(eleccion)
+
+
     
 #endregion
     
@@ -23,7 +25,7 @@ class Vista:
         print("1. Historial")
         print("2. Clientes")
         print("3. Veterinarios")
-        print("4. Animales")
+        print("4. Mascotas")
         print("5. Razas")
         print("6. Diagnósticos")
         print("7. Tratamientos")
@@ -169,54 +171,167 @@ class Vista:
 
 #endregion
 
-#region Animales Menu
+#region Mascota Menu
     def animalesMenu(self):
         print("Menú de Animales")
-        print("1. Consultar Animales Internados")
-        print("2. Ingresar Nuevo Animal")
-        print("3. Modificar Estado de Animal")
-        print("4. Reegreso de Animal")
+        print("1. Consultar Todas las Mascotas")
+        print("2. Ingresar Nueva Mascota")
+        print("3. Modificar Mascota ")
+        print("4. Buscar Mascota ")
         print("9. Volver al Menú Principal")
         opcion = input("Selecciona una opción: ")
         return int(opcion)
     
-    def animalesInternados(self):
-        print("Funcionalidad de consultar animales internados no implementada aún.")
+    def mostrarTodasMascotas(self, lista):
+        for mascota in lista:
+            print(f"Tipo de Animal: {mascota.tipoAnimalRaza}, Raza: {mascota.nombreRazaAnimal},ID: {mascota.identificador},"
+                  f"Propietario: {mascota.propietario},Nombre Mascota: {mascota.nombreAnimal}, Detalles: {mascota.detalleMascota}")
     
-    def ingresoAnimal(self):
-        print("Funcionalidad de ingreso de animal no implementada aún.")
-    
-    def modificarEstadoAnimal(self):
-        print("Funcionalidad de modificar estado de animal no implementada aún.")
-    
-    def reegresoAnimal(self):
-        print("Funcionalidad de reegreso de animal no implementada aún.")
-        
+    def agregarMascotaOpciones(self):
+        identificador = input("Ingrese Identificador ").lower()
+        propietario = str(input("Ingrese Nombre Propietario ")).lower()
+        nombreAnimal = input("Ingrese Nombre Mascota ").lower()
+        detalleMascota = input("Ingrese Detalles Mascota ").lower()
+        stateMascota = 1
+        return identificador,propietario,nombreAnimal,detalleMascota,stateMascota
+
+    def mensajeMascotaAgregadaconExito(self,linea):
+        print(f"{linea} Mascota Agregada con Exito! ")
+
+    def IngresoTipoyRaza(self):
+        tipo = str(input("Ingrese tipo de Animal ")).lower()
+        raza = str(input("Ingrese nombre de Raza ")).lower()
+        return tipo,raza
+
+    def mensajeFaltaDato(self):
+        print("Falta la Raza, debe agregarla antes! ")
+
+
+    def mascotaAModificar(self):
+        propietario = input("Nombre del Propietario: ").lower()
+        nombreAnimal = input("Nombre de la Mascota: ").lower()
+        return propietario,nombreAnimal
+
+
+    def mostrarMascotaBuscada(self,mascota):
+        if mascota.mascotaActiva():
+            print(mascota)
+        elif mascota.stateMascota == 0 :
+            print("Mascota Inactiva o Borrada")
+
+
+    def mostrarDatoActualMascota(self,mascota):
+        print(mascota)
+
+
+    def mascotaCargaExitosa(self):
+        print("Mascota cargada con éxito!")
+
+
+    def mascotaCargaFallida(self):
+        print("Mascota no encontrada, carga fallida!")
+
+
+    def mascotaAModificar(self):
+        propietario = input("Nombre del Propietario: ").lower()
+        nombreAnimal = input("Nombre de la Mascota: ").lower()
+        return propietario, nombreAnimal
+
+
+    def mostrarDatoActualMascota(self,mascota):
+        print(mascota)
+
+
+
+    def modificarDatosMascotas(self, mascota):
+        print("Modificar datos de la Mascota")
+        print("Dejar en blanco para conservar original")
+        identificador = input(f"nuevo identificador ({mascota.identificador}): ") or mascota.identificador
+        nombreAnimal = input(f"nuevo nombre mascota ({mascota.nombreAnimal}): ") or mascota.nombreAnimal
+        detalleMascota = input(f"nuevo Detalle mascota ({mascota.detalleMascota}): ") or mascota.detalleMascota
+        stateMascota = input(f"1 activo // 0 inactivo-eliminar ({mascota.stateMascota}): ") or mascota.stateMascota
+        return identificador, nombreAnimal, detalleMascota, int(stateMascota)
+
+
+
 #endregion
 
 #region Raza Menu
     
     def razasMenu(self):
         print("Menú de Razas")
-        print("1. Consultar Raza de Animal")
+        print("1. Consultar Razas disponibles")
         print("2. Agregar Nueva Raza")
         print("3. Modificar Raza")
         print("4. Eliminar Raza")
         print("9. Volver al Menú Principal")
         opcion = input("Selecciona una opción: ")
         return int(opcion)
-    
-    def consultarRazaAnimal(self):
-        print("Funcionalidad de consultar raza de animal no implementada aún.")
-    
-    def agregarRaza(self):
-        print("Funcionalidad de agregar raza no implementada aún.")
-    
-    def modificarRaza(self):
-        print("Funcionalidad de modificar raza no implementada aún.")
-    
-    def eliminarRaza(self):
-        print("Funcionalidad de eliminar raza no implementada aún.")
+
+
+    def mostrarTodasRazas(self,lista_aux):
+        for raza in lista_aux:
+            print(f"Tipo Animal: {raza.tipoAnimal}, Nombre Raza: {raza.nombreRaza}, Tamaño Raza:{raza.tamanoRaza}, "
+              f"Personalidad Raza:{raza.personalidadRaza}, Pelaje Raza: {raza.pelajeRaza}, Cuidados Raza:{raza.cuidadosRaza} ")
+
+
+    def mensajeRazaAgregadaconExito(self,linea):
+        print(f"{linea} Raza Agregada con Exito! ")
+
+    def mensajeRazaFallida(self):
+        print("Carga Fallida, La Raza ya se encuentra en la lista de razas")
+
+
+    def razaAModificar(self):
+        tipoAnimal = input("Tipo Animal: ").lower()
+        nombreRaza = input("Nombre de la Raza: ").lower()
+        return tipoAnimal,nombreRaza
+
+    def mostrarDatoActualRaza(self,raza):
+        print(raza)
+
+    def modificarDatosRaza(self, raza):
+        print("Modificar datos de la Raza")
+        print("Dejar en blanco para conservar original")
+
+        tamanoRaza = input(f"nuevo tamaño raza ({raza.tamanoRaza}): ") or raza.tamanoRaza
+        personalidadRaza = input(f"nueva personalidad raza ({raza.personalidadRaza}): ") or raza.personalidadRaza
+        pelajeRaza = input(f"nuevo pelaje raza ({raza.pelajeRaza}): ") or raza.pelajeRaza
+        cuidadosRaza = input(f"nuevos cuidados raza ({raza.cuidadosRaza}): ") or raza.cuidadosRaza
+        energiaRaza = input(f"nueva energía raza ({raza.energiaRaza}): ") or raza.energiaRaza
+        esperanzaVidaRaza = input(
+            f"nueva esperanza de vida raza ({raza.esperanzaVidaRaza}): ") or raza.esperanzaVidaRaza
+        state = input(f"1 activo // 0 inactivo-eliminar ({raza.state}): ") or raza.state
+
+        return tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, int(state)
+
+
+    def agregarRazaOpciones(self):
+        tamanoRaza = input("Ingrese Tamaño de la Raza ").lower()
+        personalidadRaza = input("Ingrese Personalidad de la Raza ").lower()
+        pelajeRaza = input("Ingrese Tipo de Pelaje de la Raza ").lower()
+        cuidadosRaza = input("Ingrese Cuidados Necesarios para la Raza ").lower()
+        energiaRaza = input("Ingrese Nivel de Energía de la Raza ").lower()
+        esperanzaVidaRaza = input("Ingrese Esperanza de Vida de la Raza ").lower()
+        state = 1  # Asumiendo que el estado por defecto es activo
+
+        return tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, state
+
+
+    def razaCargaFallida(self):
+        print("Raza no encontrada, carga fallida!")
+
+
+    def eliminarDatosRaza(self, raza):
+        print("Eliminando Raza...")
+        print(raza)
+        state = int(0)
+        return state
+
+
+    def razaCargaExitosa(self):
+        print("Raza cargada con éxito!")
+
 #endregion
 
 #region Diagnostico Menu
