@@ -56,12 +56,12 @@ class Controller:
         
     def cargaDatosMascotas(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/mascotas.txt", "r") as archivo:
+            with open("Archivos/mascotas.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
                 tipoAnimalRaza, nombreRazaAnimal, identificador, propietario, nombreAnimal, detalleMascota, stateMascota = datos
-                mascota = Mascota(tipoAnimalRaza, nombreRazaAnimal, int(identificador), int(propietario), nombreAnimal, detalleMascota, int(stateMascota))
+                mascota = Mascota(tipoAnimalRaza, nombreRazaAnimal, identificador, propietario, nombreAnimal, detalleMascota, stateMascota)
                 self.lista_mascotas.append(mascota)
             self.vista.cargaExitosa("mascotas")
         except Exception as e:
@@ -69,7 +69,7 @@ class Controller:
         
     def cargaDatosRaza(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/raza.txt", "r") as archivo:
+            with open("Archivos/raza.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -175,6 +175,156 @@ class Controller:
         
 #endregion
 
+#region Controlador Mascota
+    def mostrarMascotas(self):
+        lista_aux = []
+        for mascota in self.lista_mascotas:
+            if mascota.mascotaActiva():
+                lista_aux.append(mascota)
+            self.vista.mostrarTodasMascotas(lista_aux)
+
+
+    def agregarMascota(self):
+        tipo,raza = self.vista.IngresoTipoyRaza()
+        if self.verificarAgregarTipoyRaza(tipo,raza):
+            tipoAnimal = tipo
+            nombreRaza = raza
+            identificador, propietario, nombreAnimal, detalleMascota, stateMascota = self.vista.agregarMascotaOpciones()
+            cadena =f"{tipoAnimal},{nombreRaza},{identificador},{propietario},{nombreAnimal},{detalleMascota},{stateMascota}"
+            linea = cadena + "\n"
+            self.lista_mascotas.append(Mascota(tipoAnimal, nombreRaza,identificador,propietario,nombreAnimal,detalleMascota,stateMascota))
+            with open("Archivos/mascotas.txt", "a", encoding="UTF-8") as file:
+                file.write(linea)
+                self.vista.mensajeMascotaAgregadaconExito(linea)
+        else:
+            self.vista.mensajeFaltaDato()
+
+
+    def verificarAgregarTipoyRaza(self,tipo,raza):
+        for animal in self.lista_razas:
+            if animal.tipoAnimal == tipo and animal.nombreRaza == raza:
+                return True
+        return False
+
+
+    def modificarMascota(self):
+        propietario, nombreAnimal = self.vista.mascotaAModificar()
+        mascota_encontrada = None
+
+        for mascota in self.lista_mascotas:
+            if mascota.propietario == propietario and mascota.nombreAnimal == nombreAnimal:
+                mascota_encontrada = mascota
+                break
+
+        if mascota_encontrada:
+            self.vista.mostrarDatoActualMascota(mascota_encontrada)
+            nuevo_identificador, nuevo_nombreAnimal, nuevo_detalleMascota, nuevo_stateMascota = self.vista.modificarDatosMascotas(
+                mascota_encontrada)
+            mascota_encontrada.set_identificador(nuevo_identificador)
+            mascota_encontrada.set_nombreAnimal(nuevo_nombreAnimal)
+            mascota_encontrada.set_historial(nuevo_detalleMascota)
+            mascota_encontrada.set_stateMascota(nuevo_stateMascota)
+
+            with open("Archivos/mascotas.txt", "w", encoding="UTF-8") as file:
+                for mascota in self.lista_mascotas:
+                    linea = f"{mascota.tipoAnimalRaza},{mascota.nombreRazaAnimal},{mascota.identificador},{mascota.propietario},{mascota.nombreAnimal},{mascota.detalleMascota},{mascota.stateMascota}\n"
+                    file.write(linea)
+
+            self.vista.mascotaCargaExitosa()
+        else:
+            self.vista.mascotaCargaFallida()
+
+
+    def buscarMascota(self):
+        propietario, nombreAnimal=self.vista.mascotaAModificar()
+        for mascota in self.lista_mascotas:
+            if mascota.propietario == propietario and mascota.nombreAnimal == nombreAnimal:
+                self.vista.mostrarMascotaBuscada(mascota)
+
+
+
+    #endregion
+
+
+#region Raza Menu
+    def mostrarRazas(self):
+        lista_aux = []
+        for raza in self.lista_razas:
+            if raza.razaActiva():
+                lista_aux.append(raza)
+        self.vista.mostrarTodasRazas(lista_aux)
+
+    def agregarRaza(self):
+        tipo, raza = self.vista.IngresoTipoyRaza()
+        if not self.verificarAgregarTipoyRaza(tipo, raza):
+            tipoAnimal = tipo
+            nombreRaza = raza
+            tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza,esperanzaVidaRaza, state = self.vista.agregarRazaOpciones()
+            cadena = f"{tipoAnimal},{nombreRaza},{tamanoRaza},{personalidadRaza},{pelajeRaza},{cuidadosRaza},{energiaRaza},{esperanzaVidaRaza},{state}"
+            linea = cadena + "\n"
+            self.lista_razas.append(
+                Raza(tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza,esperanzaVidaRaza,state))
+            with open("Archivos/raza.txt", "a", encoding="UTF-8") as file:
+                file.write(linea)
+                self.vista.mensajeRazaAgregadaconExito(linea)
+        else:
+            self.vista.mensajeRazaFallida()
+
+
+    def modificarRaza(self):
+        tipoAnimal, nombreRaza = self.vista.razaAModificar()
+        raza_encontrada = None
+
+
+        for raza in self.lista_razas:
+            if raza.tipoAnimal == tipoAnimal and raza.nombreRaza == nombreRaza:
+                raza_encontrada = raza
+                break
+
+        if raza_encontrada:
+            self.vista.mostrarDatoActualRaza(raza_encontrada)
+            nuevo_tamanoRaza, nuevo_personalidadRaza, nuevo_pelajeRaza, nuevo_cuidadosRaza, nuevo_energiaRaza,nuevo_esperanzaVidaRaza, nuevo_state = self.vista.modificarDatosRaza(raza_encontrada)
+
+            raza_encontrada.set_tamanoRaza(nuevo_tamanoRaza)
+            raza_encontrada.set_personalidadRaza(nuevo_personalidadRaza)
+            raza_encontrada.set_pelajeRaza(nuevo_pelajeRaza)
+            raza_encontrada.set_cuidadosRaza(nuevo_cuidadosRaza)
+            raza_encontrada.set_energiaRaza(nuevo_energiaRaza)
+            raza_encontrada.set_esperanzaVidaRaza(nuevo_esperanzaVidaRaza)
+            raza_encontrada.set_state(nuevo_state)
+
+            with open("Archivos/raza.txt", "w", encoding="UTF-8") as file:
+                for raza in self.lista_razas:
+                    linea = f"{raza.tipoAnimal},{raza.nombreRaza},{raza.tamanoRaza},{raza.personalidadRaza},{raza.pelajeRaza},{raza.cuidadosRaza},{raza.energiaRaza},{raza.esperanzaVidaRaza},{raza.state}\n"
+                    file.write(linea)
+
+            self.vista.mascotaCargaExitosa()
+        else:
+            self.vista.razaCargaFallida()
+
+
+    def eliminarRaza(self):
+        tipoAnimal, nombreRaza = self.vista.razaAModificar()
+        raza_encontrada = None
+        for raza in self.lista_razas:
+            if raza.tipoAnimal == tipoAnimal and raza.nombreRaza == nombreRaza:
+                raza_encontrada = raza
+                break
+        if raza_encontrada:
+            self.vista.mostrarDatoActualRaza(raza_encontrada)
+            nuevo_state=self.vista.eliminarDatosRaza(raza_encontrada)
+            raza_encontrada.set_state(nuevo_state)
+
+            with open("Archivos/raza.txt", "w", encoding="UTF-8") as file:
+                for raza in self.lista_razas:
+                    linea = f"{raza.tipoAnimal},{raza.nombreRaza},{raza.tamanoRaza},{raza.personalidadRaza},{raza.pelajeRaza},{raza.cuidadosRaza},{raza.energiaRaza},{raza.esperanzaVidaRaza},{raza.state}\n"
+                    file.write(linea)
+        else:
+            self.vista.razaCargaFallida()
+
+    #endregion
+
+
     def Inicializador(self):
         # Carga de archivos...
         self.cargaDatosClientes()
@@ -249,13 +399,13 @@ class Controller:
                 while True:
                     sub_opcion = self.vista.animalesMenu()
                     if sub_opcion == 1:
-                        self.vista.animalesInternados()
+                        self.mostrarMascotas()
                     elif sub_opcion == 2:
-                        self.vista.ingresoAnimal()
+                        self.agregarMascota()
                     elif sub_opcion == 3:
-                        self.vista.modificarEstadoAnimal()
+                        self.modificarMascota()
                     elif sub_opcion == 4:
-                        self.vista.reegresoAnimal()
+                        self.buscarMascota()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
@@ -265,13 +415,13 @@ class Controller:
                 while True:
                     sub_opcion = self.vista.razasMenu()
                     if sub_opcion == 1:
-                        self.vista.consultarRazaAnimal()
+                        self.mostrarRazas()
                     elif sub_opcion == 2:
-                        self.vista.agregarRaza()
+                        self.agregarRaza()
                     elif sub_opcion == 3:
-                        self.vista.modificarRaza()
+                        self.modificarRaza()
                     elif sub_opcion == 4:
-                        self.vista.eliminarRaza()
+                        self.eliminarRaza()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
