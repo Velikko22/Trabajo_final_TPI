@@ -1,3 +1,4 @@
 quintuplefelina,12354,1,2,1
 tripleviral,123,1,1,1
 sextuple,111111,2,7,1
+antiloco,124,1,30,1

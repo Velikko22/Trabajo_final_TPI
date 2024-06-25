@@ -33,7 +33,7 @@ class Controller:
     # region Carga de Archivos
     def cargaDatosClientes(self):
         try:
-            with open("MVC/Archivos/clientes.txt", "r") as archivo:
+            with open("Archivos/clientes.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas = linea.strip().split(",")
@@ -45,7 +45,7 @@ class Controller:
 
     def cargaDatosVeterinarios(self):
         try:
-            with open("MVC/Archivos/veterinarios.txt", "r") as archivo:
+            with open("Archivos/veterinarios.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -58,7 +58,7 @@ class Controller:
 
     def cargaDatosMascotas(self):
         try:
-            with open("MVC/Archivos/mascotas.txt", "r") as archivo:
+            with open("Archivos/mascotas.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -72,7 +72,7 @@ class Controller:
 
     def cargaDatosRaza(self):
         try:
-            with open("MVC/Archivos/raza.txt", "r") as archivo:
+            with open("Archivos/raza.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -86,7 +86,7 @@ class Controller:
 
     def cargaDatosDiagnostico(self):
         try:
-            with open("MVC/Archivos/Diagnosticos.txt", "r") as archivo:
+            with open("Archivos/Diagnosticos.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -99,7 +99,7 @@ class Controller:
 
     def cargarDatosTratamientos(self):
         try:
-            with open("MVC/Archivos/tratamientos.txt", "r") as archivo:
+            with open("Archivos/tratamientos.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -112,7 +112,7 @@ class Controller:
 
     def cargaDatosVacunas(self):
         try:
-            with open("MVC/Archivos/Vacunas.txt", "r") as archivo:
+            with open("Archivos/Vacunas.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -143,7 +143,7 @@ class Controller:
         else:
             cliente = Cliente(nombre,telefono,email,direccion,cantidad,lista_nombreMascota,lista_tipoMascota)
             self.lista_clientes.append(cliente)
-            with open("MVC/Archivos/clientes.txt", "a") as archivo:
+            with open("Archivos/clientes.txt", "a") as archivo:
                 archivo.write(f"{cliente}\n")
             self.vista.cargaExitosa("cliente")
             
@@ -167,7 +167,7 @@ class Controller:
             cliente.tipoMascotas = nueva_lista_tipo_mascotas
         
         
-            with open("MVC/Archivos/clientes.txt", "w") as archivo:
+            with open("Archivos/clientes.txt", "w") as archivo:
                 for client in self.lista_clientes:
                     archivo.write(str(client))
         

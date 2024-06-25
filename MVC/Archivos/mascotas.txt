@@ -4,3 +4,4 @@ perro,dogo,002,esteban,firulais,sindetalle,1
 gato,egipcio,004,rodrigo,pelado,sindetalle,1
 perro,mastin,005,rodolgo,pepito,sind,1
 perro,caniche,005,juan de los andes,rodrigao,loco,1
+perro,caniche,005,pepegrillo,pinocho,sindetalle,1

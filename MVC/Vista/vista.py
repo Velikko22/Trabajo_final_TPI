@@ -436,9 +436,12 @@ class Vista:
     def modificarDatosVacuna(self, vacuna):
         print("Modificar datos de la Vacuna")
         nombreVacuna = input(f"nuevo nombre vacuna ({vacuna.nombreVacuna}): ") or vacuna.nombreVacuna
-        loteVacuna = int(input(f"nuevo lote vacuna ({vacuna.loteVacuna}): ")) or vacuna.loteVacuna
-        numeroDosis = int(input(f"nuevo número de dosis ({vacuna.numeroDosis}): ")) or vacuna.numeroDosis
-        diasProximaDosis = int(input(f" días para próxima dosis: ")) or vacuna.diasProximaDosis
+        loteVacuna = input(f"nuevo lote vacuna ({vacuna.loteVacuna}): ") or vacuna.loteVacuna
+        numeroDosis_input = input(f"nuevo número de dosis ({vacuna.numeroDosis}): ")
+        numeroDosis = int(numeroDosis_input) if numeroDosis_input else vacuna.numeroDosis
+        #diasProximaDosis = int(input(f" días para próxima dosis: ")) or vacuna.diasProximaDosis
+        diasProximaDosis_input = input(f"días para próxima dosis ({vacuna.diasProximaDosis}): ")
+        diasProximaDosis = int(diasProximaDosis_input) if diasProximaDosis_input else vacuna.diasProximaDosis
         state = int(input(f"1 activo // 0 inactivo ({vacuna.state}): ") or vacuna.state)
         return nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state
 

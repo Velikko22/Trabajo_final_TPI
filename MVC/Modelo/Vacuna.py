@@ -4,7 +4,7 @@ class Vacuna:
     
     def __init__(self, nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state):
         self.nombreVacuna = nombreVacuna
-        self.loteVacuna = int(loteVacuna)
+        self.loteVacuna = loteVacuna
         self.numeroDosis = int(numeroDosis)
         self.fechaDosis = date.today()
         self.diasProximaDosis = diasProximaDosis

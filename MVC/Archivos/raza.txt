@@ -3,3 +3,4 @@ perro,beagle,mediano,curioso,corto,bajo,alta,14,1
 gato,siames,mediano,extrovertido,corto,bajo,alta,18,1
 perro,bulldogfrances,pequeno,jugueton,corto,moderado,media,11,1
 gato,mainecoon,chico,hostil,largo,alto,media,41,1
+perro,caniche,chico,denso,corto,ningun,alto,10,1
