@@ -398,16 +398,65 @@ class Vista:
         opcion = input("Selecciona una opción: ")
         return int(opcion)
 
-    def consultarVacunas(self):
-        print("Funcionalidad de consultar vacunas no implementada aún.")
+
+
+    def mostrarTodasVacunas(self, lista):
+        for vacuna in lista:
+            print(f"Nombre de la Vacuna: {vacuna.nombreVacuna}, Lote: {vacuna.loteVacuna}, Número de Dosis: {vacuna.numeroDosis}, "
+                  f"Días para Próxima Dosis: {vacuna.proximaDosis}")
+
+    def agregarVacunaOpciones(self):
+        nombreVacuna = input("Ingrese Nombre de la Vacuna: ").lower()
+        loteVacuna = input("Ingrese Lote de la Vacuna: ").lower()
+        numeroDosis = input("Ingrese Número de Dosis: ").lower()
+        diasProximaDosis = input("Ingrese Días para la Próxima Dosis: ").lower()
+        state=1
+        return nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state
+
+
+    def vacunaAModificar(self):
+        nombreVacuna = input("Nombre de la Vacuna a modificar: ").lower()
+        return nombreVacuna
+
+    def mostrarDatoActualVacuna(self, vacuna):
+        print(f"Nombre Vacuna: {vacuna.nombreVacuna}, Lote: {vacuna.loteVacuna}, Número de Dosis: {vacuna.numeroDosis}, Próxima Dosis: {vacuna.proximaDosis}, Estado: {vacuna.state}")
+
+    def modificarDatosVacuna(self, vacuna):
+        print("Modificar datos de la Vacuna")
+        nombreVacuna = input(f"nuevo nombre vacuna ({vacuna.nombreVacuna}): ") or vacuna.nombreVacuna
+        loteVacuna = int(input(f"nuevo lote vacuna ({vacuna.loteVacuna}): ")) or vacuna.loteVacuna
+        numeroDosis = int(input(f"nuevo número de dosis ({vacuna.numeroDosis}): ")) or vacuna.numeroDosis
+        diasProximaDosis = int(input(f" días para próxima dosis: ")) or vacuna.diasProximaDosis
+        state = int(input(f"1 activo // 0 inactivo ({vacuna.state}): ") or vacuna.state)
+        return nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state
+
+
+
+    def vacunaCargaExitosa(self):
+        print("Vacuna cargada con éxito!")
+
+    def vacunaCargaFallida(self):
+        print("Vacuna no encontrada, carga fallida!")
+
+    def mensajeVacunaAgregadaconExito(self, linea):
+        print(f"Vacuna agregada con exito: {linea}")
+    def vacunaAEliminar(self):
+        nombreVacuna = input("Nombre de la Vacuna a eliminar: ").lower()
+        return nombreVacuna
+
+    def eliminarDatosVacuna(self, vacuna):
+        print("Eliminando Vacuna...")
+        print(vacuna)
+        state = int(0)
+        return state
+
+    def vacunaEliminadaConExito(self):
+        print("Vacuna eliminada con éxito (estado cambiado a inactivo)!")
+
+    def vacunaNoEncontrada(self):
+        print("Vacuna no encontrada, eliminación fallida!")
+
     
-    def agregarVacunas(self):
-        print("Funcionalidad de agregar vacunas no implementada aún.")
-    
-    def modificarVacunas(self):
-        print("Funcionalidad de modificar vacunas no implementada aún.")
-    
-    def eliminarVacunas(self):
-        print("Funcionalidad de eliminar vacunas no implementada aún.")
+
 
 #endregion
