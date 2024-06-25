@@ -95,7 +95,7 @@ class Controller:
         
     def cargarDatosTratamientos(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/Tratamiento.txt", "r") as archivo:
+            with open("Archivos/tratamientos.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -249,12 +249,12 @@ class Controller:
 #region Vacuna Menu
 
     def mostrarVacunas(self):
-        lista_aux = []
+        lista_aux_vacuna = []
         for vacuna in self.lista_vacuna:
             print(vacuna)
-            if vacuna.state == "1":
-                lista_aux.append(vacuna)
-        self.vista.mostrarTodasVacunas(lista_aux)
+            if vacuna.state == 1:
+                lista_aux_vacuna.append(vacuna)
+        self.vista.mostrarTodasVacunas(lista_aux_vacuna)
 
     def agregarVacuna(self):
         nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = self.vista.agregarVacunaOpciones()
@@ -284,15 +284,17 @@ class Controller:
             vacuna_encontrada.setNombreVacuna(nuevo_nombreVacuna)
             vacuna_encontrada.setLoteVacuna(nuevo_loteVacuna)
             vacuna_encontrada.setNumeroDosis(nuevo_numeroDosis)
-            vacuna_encontrada.setdiasProximaDosis = int(nuevo_diasProximaDosis)
+            vacuna_encontrada.setdiasProximaDosis = nuevo_diasProximaDosis
             vacuna_encontrada.setstate(nuevo_state)
+
+
+            print(self.lista_vacuna)
 
 
             with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
                 for vacuna in self.lista_vacuna:
                     linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.diasProximaDosis},{vacuna.state}\n"
                     file.write(linea)
-
             self.vista.vacunaCargaExitosa()
         else:
             self.vista.vacunaCargaFallida()
@@ -316,7 +318,7 @@ class Controller:
 
             with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
                 for vacuna in self.lista_vacuna:
-                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.proximaDosis},{vacuna.state}\n"
+                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.diasProximaDosis},{vacuna.state}\n"
                     file.write(linea)
 
             self.vista.vacunaEliminadaConExito()
@@ -403,6 +405,83 @@ class Controller:
             self.vista.razaCargaFallida()
 
     #endregion
+
+#region Tratamiento Menu
+
+
+    def mostrarTratamientos(self):
+        lista_aux = []
+        for tratamiento in self.lista_tratamiento:
+            if tratamiento.tratamientoActivo():
+                lista_aux.append(tratamiento)
+        self.vista.mostrarTratamientosPantalla(lista_aux)
+
+    def agregarTratamiento(self):
+        nombreTratamiento, duracionTratamiento, state = self.vista.agregarTratamientoOpciones()
+        cadena = f"{nombreTratamiento},{duracionTratamiento},{state}"
+        linea = cadena + "\n"
+        self.lista_tratamiento.append(
+            Tratamiento(nombreTratamiento, duracionTratamiento, state)
+        )
+        with open("Archivos/tratamientos.txt", "a", encoding="UTF-8") as file:
+            file.write(linea)
+        self.vista.tratamientoCargaExitosa()
+
+    def modificarTratamiento(self):
+        nombreTratamiento = self.vista.tratamientoAModificar()
+        tratamiento_encontrado = None
+
+
+        for tratamiento in self.lista_tratamiento:
+            if tratamiento.nombreTratamiento == nombreTratamiento:
+                tratamiento_encontrado = tratamiento
+                break
+
+        if tratamiento_encontrado:
+            self.vista.mostrarDatoActualTratamiento(tratamiento_encontrado)
+            nuevo_nombreTratamiento, nueva_duracionTratamiento, nuevo_state = self.vista.modificarDatosTratamiento(
+                tratamiento_encontrado)
+            tratamiento_encontrado.setNombretratamiento(nuevo_nombreTratamiento)
+            tratamiento_encontrado.setDuracionTratamiento(nueva_duracionTratamiento)
+            tratamiento_encontrado.setState(nuevo_state)
+
+
+            with open("Archivos/tratamientos.txt", "w", encoding="UTF-8") as file:
+                for tratamiento in self.lista_tratamiento:
+                    linea = f"{tratamiento.nombreTratamiento},{tratamiento.duracionTratamiento},{tratamiento.state}\n"
+                    file.write(linea)
+
+            self.vista.tratamientoCargaExitosa()
+        else:
+            self.vista.tratamientoCargaFallida()
+
+    def eliminarTratamiento(self):
+        nombreTratamiento = self.vista.tratamientoAEliminar()
+        tratamiento_encontrado = None
+
+
+        for tratamiento in self.lista_tratamiento:
+            if tratamiento.nombreTratamiento == nombreTratamiento:
+                tratamiento_encontrado = tratamiento
+                break
+
+        if tratamiento_encontrado:
+            self.vista.mostrarDatoActualTratamiento(tratamiento_encontrado)
+            nuevo_state = self.vista.eliminarDatosTratamiento(tratamiento_encontrado)
+            tratamiento_encontrado.setState(nuevo_state)
+
+
+            with open("Archivos/tratamientos.txt", "w", encoding="UTF-8") as file:
+                for tratamiento in self.lista_tratamiento:
+                    linea = f"{tratamiento.nombreTratamiento},{tratamiento.duracionTratamiento},{tratamiento.state}\n"
+                    file.write(linea)
+
+            self.vista.tratamientoEliminadoConExito()
+        else:
+            self.vista.tratamientoNoEncontrado()
+
+    # endregion
+
 
 
     def Inicializador(self):
@@ -527,13 +606,13 @@ class Controller:
                 while True:
                     sub_opcion = self.vista.tratamientoMenu()
                     if sub_opcion == 1:
-                        self.vista.consultarTratamiento()
+                        self.mostrarTratamientos()
                     elif sub_opcion == 2:
-                        self.vista.agregarTratamiento()
+                        self.agregarTratamiento()
                     elif sub_opcion == 3:
-                        self.vista.modificarTratamiento()
+                        self. modificarTratamiento()
                     elif sub_opcion == 4:
-                        self.vista.eliminarTratamiento()
+                        self.eliminarTratamiento()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
@@ -557,9 +636,4 @@ class Controller:
             
             elif opcion == 9:
                 break
-
-
-
-
-
 
