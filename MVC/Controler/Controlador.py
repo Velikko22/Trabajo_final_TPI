@@ -1,16 +1,20 @@
-#region Imports
-from Modelo.Cliente import Cliente
-from Modelo.Verinario import Veterinario
-from Modelo.Mascota import Mascota
-from Modelo.Raza import Raza
-from Modelo.Diagnostico import Diagnostico
-from Modelo.Tratamiento import Tratamiento
-from Modelo.Vacuna import Vacuna
-from Vista.vista import Vista
-#endregion
+# region Imports
+import os
+
+from MVC.Modelo.Cliente import Cliente
+from MVC.Modelo.Verinario import Veterinario
+from MVC.Modelo.Mascota import Mascota
+from MVC.Modelo.Raza import Raza
+from MVC.Modelo.Diagnostico import Diagnostico
+from MVC.Modelo.Tratamiento import Tratamiento
+from MVC.Modelo.Vacuna import Vacuna
+from MVC.Vista.vista import Vista
+
+
+# endregion
 
 class Controller:
-    
+
     def __init__(self):
         self.lista_clientes = []
         self.lista_veterinarios = []
@@ -21,29 +25,27 @@ class Controller:
         self.lista_vacuna = []
         self.vista = Vista()
 
-#region Carga de Archivos
+    def limpiar_consola(self):
+        try:
+            os.system("clear")
+        except:
+            os.system("cls")
+    # region Carga de Archivos
     def cargaDatosClientes(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "r") as archivo:
+            with open("Archivos/clientes.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
-                datos = linea.strip().split(",")
-                nombre = str(datos[0])
-                telefono = str(datos[1])
-                email = str(datos[2])
-                direccion = str(datos[3])
-                cantidad = str(datos[4])
-                nombreMascota = str(datos[5])
-                tipoMascotas = str(datos[6])
+                nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas = linea.strip().split(",")
                 cliente = Cliente(nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas)
                 self.lista_clientes.append(cliente)
             self.vista.cargaExitosa("clientes")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de clientes: {str(e)}")
-    
+
     def cargaDatosVeterinarios(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/veterinarios.txt", "r") as archivo:
+            with open("Archivos/veterinarios.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -53,7 +55,7 @@ class Controller:
             self.vista.cargaExitosa("veterinarios")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de veterinarios: {str(e)}")
-        
+
     def cargaDatosMascotas(self):
         try:
             with open("Archivos/mascotas.txt", "r") as archivo:
@@ -61,12 +63,13 @@ class Controller:
             for linea in lineas:
                 datos = linea.strip().split(",")
                 tipoAnimalRaza, nombreRazaAnimal, identificador, propietario, nombreAnimal, detalleMascota, stateMascota = datos
-                mascota = Mascota(tipoAnimalRaza, nombreRazaAnimal, identificador, propietario, nombreAnimal, detalleMascota, stateMascota)
+                mascota = Mascota(tipoAnimalRaza, nombreRazaAnimal, identificador, propietario, nombreAnimal,
+                                  detalleMascota, stateMascota)
                 self.lista_mascotas.append(mascota)
             self.vista.cargaExitosa("mascotas")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de mascotas: {str(e)}")
-        
+
     def cargaDatosRaza(self):
         try:
             with open("Archivos/raza.txt", "r") as archivo:
@@ -74,15 +77,16 @@ class Controller:
             for linea in lineas:
                 datos = linea.strip().split(",")
                 tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, state = datos
-                raza = Raza(tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, int(state))
+                raza = Raza(tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza,
+                            esperanzaVidaRaza, int(state))
                 self.lista_razas.append(raza)
             self.vista.cargaExitosa("raza")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de raza: {str(e)}")
-        
+
     def cargaDatosDiagnostico(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/Diagnosticos.txt", "r") as archivo:
+            with open("Archivos/Diagnosticos.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -92,10 +96,10 @@ class Controller:
             self.vista.cargaExitosa("diagnostico")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de diagnóstico: {str(e)}")
-        
+
     def cargarDatosTratamientos(self):
         try:
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/Tratamiento.txt", "r") as archivo:
+            with open("Archivos/tratamientos.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
@@ -105,26 +109,27 @@ class Controller:
             self.vista.cargaExitosa("tratamientos")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de tratamientos: {str(e)}")
-    
+
     def cargaDatosVacunas(self):
         try:
             with open("Archivos/Vacunas.txt", "r") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
-                nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state = datos
-                vacuna = Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state)
+                nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = datos
+                vacuna = Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state)
                 self.lista_vacuna.append(vacuna)
             self.vista.cargaExitosa("vacunas")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de vacunas: {str(e)}")
-#endregion
 
+    # endregion
 
-#region Controlador Historial
+    # region Controlador Historial
     def consulta_Historial(self, nombreCliente, nombreMascota):
         pass
-#endregion
+
+    # endregion
 
 #region Controlador Clientes
     def informacion_cliente(self):
@@ -132,14 +137,14 @@ class Controller:
         self.vista.informacionCliente(lista)
     
     def agregar_nuevo_cliente(self):
-        nuevoCliente = self.vista.agregarNuevocliente()
-        if any(cliente.nombre == nuevoCliente['nombre'] for cliente in self.lista_clientes):
+        nombre,telefono,email,direccion,cantidad,lista_nombreMascota,lista_tipoMascota = self.vista.agregarNuevocliente()
+        if any(cliente.nombre == nombre for cliente in self.lista_clientes):
             self.vista.mensajeError("El cliente ya existe.")
         else:
-            cliente = Cliente(**nuevoCliente)
+            cliente = Cliente(nombre,telefono,email,direccion,cantidad,lista_nombreMascota,lista_tipoMascota)
             self.lista_clientes.append(cliente)
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "a") as archivo:
-                archivo.write(f"{nuevoCliente}\n")
+            with open("Archivos/clientes.txt", "a") as archivo:
+                archivo.write(f"{cliente}\n")
             self.vista.cargaExitosa("cliente")
             
    
@@ -153,30 +158,37 @@ class Controller:
                 break
     
         if cliente_encontrado:
-            nueva_info_cliente = self.vista.modificarInformacionCliente(cliente_encontrado)
+            cliente.nombre,nuevo_telefono,nuevo_email,nueva_direccion,cantidad_mascotas,nueva_lista_nombre_mascotas,nueva_lista_tipo_mascotas = self.vista.modificarInformacionCliente(cliente_encontrado)
+            cliente.telefono = nuevo_telefono
+            cliente.email = nuevo_email
+            cliente.direccion = nueva_direccion
+            cliente.cantidad = cantidad_mascotas
+            cliente.nombreMascota = nueva_lista_nombre_mascotas
+            cliente.tipoMascotas = nueva_lista_tipo_mascotas
         
         
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "r") as archivo:
-                lineas = archivo.readlines()
-        
-            with open("TrabajoFinal/Trabajo_final_TPI/MVC/Archivos/clientes.txt", "w") as archivo:
-                for linea in lineas:
-                    if nombre_cliente.lower() not in linea.lower():
-                        archivo.write(linea)
-            
-            archivo.write(f"{nueva_info_cliente['nombre']},{nueva_info_cliente['telefono']},{nueva_info_cliente['email']},{nueva_info_cliente['direccion']},{nueva_info_cliente['cantidad']},{','.join(nueva_info_cliente['lista_nombreMascota'])},{','.join(nueva_info_cliente['lista_tipoMascota'])}\n")
-        
-        
-            self.cargarDatosClientes()
+            with open("Archivos/clientes.txt", "w") as archivo:
+                for client in self.lista_clientes:
+                    archivo.write(str(client))
         
         else:
             print(f"No se encontró ningún cliente con el nombre '{nombre_cliente}'")
 
-        
+    def eliminarCliente(self):
+        nombre_cliente = input("Ingrese el nombre del cliente que desea eliminar: ")
+        for cliente in self.lista_clientes:
+            if cliente.nombre.lower() == nombre_cliente.lower():
+                self.lista_clientes.remove(cliente)
+            else:
+                pass
+
+        with open("MVC/Archivos/clientes.txt", "w") as archivo:
+                for client in self.lista_clientes:
+                    archivo.write(str(client))
         
 #endregion
 
-#region Controlador Mascota
+    # region Controlador Mascota
     def mostrarMascotas(self):
         lista_aux = []
         for mascota in self.lista_mascotas:
@@ -184,29 +196,27 @@ class Controller:
                 lista_aux.append(mascota)
             self.vista.mostrarTodasMascotas(lista_aux)
 
-
     def agregarMascota(self):
-        tipo,raza = self.vista.IngresoTipoyRaza()
-        if self.verificarAgregarTipoyRaza(tipo,raza):
+        tipo, raza = self.vista.IngresoTipoyRaza()
+        if self.verificarAgregarTipoyRaza(tipo, raza):
             tipoAnimal = tipo
             nombreRaza = raza
             identificador, propietario, nombreAnimal, detalleMascota, stateMascota = self.vista.agregarMascotaOpciones()
-            cadena =f"{tipoAnimal},{nombreRaza},{identificador},{propietario},{nombreAnimal},{detalleMascota},{stateMascota}"
+            cadena = f"{tipoAnimal},{nombreRaza},{identificador},{propietario},{nombreAnimal},{detalleMascota},{stateMascota}"
             linea = cadena + "\n"
-            self.lista_mascotas.append(Mascota(tipoAnimal, nombreRaza,identificador,propietario,nombreAnimal,detalleMascota,stateMascota))
+            self.lista_mascotas.append(
+                Mascota(tipoAnimal, nombreRaza, identificador, propietario, nombreAnimal, detalleMascota, stateMascota))
             with open("Archivos/mascotas.txt", "a", encoding="UTF-8") as file:
                 file.write(linea)
                 self.vista.mensajeMascotaAgregadaconExito(linea)
         else:
             self.vista.mensajeFaltaDato()
 
-
-    def verificarAgregarTipoyRaza(self,tipo,raza):
+    def verificarAgregarTipoyRaza(self, tipo, raza):
         for animal in self.lista_razas:
             if animal.tipoAnimal == tipo and animal.nombreRaza == raza:
                 return True
         return False
-
 
     def modificarMascota(self):
         propietario, nombreAnimal = self.vista.mascotaAModificar()
@@ -235,43 +245,38 @@ class Controller:
         else:
             self.vista.mascotaCargaFallida()
 
-
     def buscarMascota(self):
-        propietario, nombreAnimal=self.vista.mascotaAModificar()
+        propietario, nombreAnimal = self.vista.mascotaAModificar()
         for mascota in self.lista_mascotas:
             if mascota.propietario == propietario and mascota.nombreAnimal == nombreAnimal:
                 self.vista.mostrarMascotaBuscada(mascota)
 
+    # endregion
 
-
-    #endregion
-
-#region Vacuna Menu
+    # region Vacuna Menu
 
     def mostrarVacunas(self):
-        lista_aux = []
+        lista_aux_vacuna = []
         for vacuna in self.lista_vacuna:
             print(vacuna)
-            if vacuna.state == "1":
-                lista_aux.append(vacuna)
-        self.vista.mostrarTodasVacunas(lista_aux)
+            if vacuna.state == 1:
+                lista_aux_vacuna.append(vacuna)
+        self.vista.mostrarTodasVacunas(lista_aux_vacuna)
 
     def agregarVacuna(self):
         nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = self.vista.agregarVacunaOpciones()
         cadena = f"{nombreVacuna},{loteVacuna},{numeroDosis},{diasProximaDosis},{state}"
         linea = cadena + "\n"
         self.lista_vacuna.append(
-            Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis,state)
+            Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state)
         )
         with open("Archivos/vacunas.txt", "a", encoding="UTF-8") as file:
             file.write(linea)
         self.vista.mensajeVacunaAgregadaconExito(linea)
 
-
     def modificarVacuna(self):
         nombreVacuna = self.vista.vacunaAModificar()
         vacuna_encontrada = None
-
 
         for vacuna in self.lista_vacuna:
             if vacuna.nombreVacuna == nombreVacuna:
@@ -280,28 +285,27 @@ class Controller:
 
         if vacuna_encontrada:
             self.vista.mostrarDatoActualVacuna(vacuna_encontrada)
-            nuevo_nombreVacuna, nuevo_loteVacuna, nuevo_numeroDosis, nuevo_diasProximaDosis, nuevo_state = self.vista.modificarDatosVacuna(vacuna_encontrada)
+            nuevo_nombreVacuna, nuevo_loteVacuna, nuevo_numeroDosis, nuevo_diasProximaDosis, nuevo_state = self.vista.modificarDatosVacuna(
+                vacuna_encontrada)
             vacuna_encontrada.setNombreVacuna(nuevo_nombreVacuna)
             vacuna_encontrada.setLoteVacuna(nuevo_loteVacuna)
             vacuna_encontrada.setNumeroDosis(nuevo_numeroDosis)
-            vacuna_encontrada.setdiasProximaDosis = int(nuevo_diasProximaDosis)
+            vacuna_encontrada.setdiasProximaDosis = nuevo_diasProximaDosis
             vacuna_encontrada.setstate(nuevo_state)
 
+            print(self.lista_vacuna)
 
             with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
                 for vacuna in self.lista_vacuna:
                     linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.diasProximaDosis},{vacuna.state}\n"
                     file.write(linea)
-
             self.vista.vacunaCargaExitosa()
         else:
             self.vista.vacunaCargaFallida()
 
-
     def eliminarVacuna(self):
         nombreVacuna = self.vista.vacunaAEliminar()
         vacuna_encontrada = None
-
 
         for vacuna in self.lista_vacuna:
             if vacuna.nombreVacuna == nombreVacuna:
@@ -313,20 +317,18 @@ class Controller:
             nuevo_state = self.vista.eliminarDatosVacuna(vacuna_encontrada)
             vacuna_encontrada.setstate(nuevo_state)
 
-
             with open("Archivos/vacunas.txt", "w", encoding="UTF-8") as file:
                 for vacuna in self.lista_vacuna:
-                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.proximaDosis},{vacuna.state}\n"
+                    linea = f"{vacuna.nombreVacuna},{vacuna.loteVacuna},{vacuna.numeroDosis},{vacuna.diasProximaDosis},{vacuna.state}\n"
                     file.write(linea)
 
             self.vista.vacunaEliminadaConExito()
         else:
             self.vista.vacunaNoEncontrada()
 
+    # endregion
 
-#endregion
-
-#region Raza Menu
+    # region Raza Menu
     def mostrarRazas(self):
         lista_aux = []
         for raza in self.lista_razas:
@@ -339,22 +341,21 @@ class Controller:
         if not self.verificarAgregarTipoyRaza(tipo, raza):
             tipoAnimal = tipo
             nombreRaza = raza
-            tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza,esperanzaVidaRaza, state = self.vista.agregarRazaOpciones()
+            tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza, esperanzaVidaRaza, state = self.vista.agregarRazaOpciones()
             cadena = f"{tipoAnimal},{nombreRaza},{tamanoRaza},{personalidadRaza},{pelajeRaza},{cuidadosRaza},{energiaRaza},{esperanzaVidaRaza},{state}"
             linea = cadena + "\n"
             self.lista_razas.append(
-                Raza(tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza,esperanzaVidaRaza,state))
+                Raza(tipoAnimal, nombreRaza, tamanoRaza, personalidadRaza, pelajeRaza, cuidadosRaza, energiaRaza,
+                     esperanzaVidaRaza, state))
             with open("Archivos/raza.txt", "a", encoding="UTF-8") as file:
                 file.write(linea)
                 self.vista.mensajeRazaAgregadaconExito(linea)
         else:
             self.vista.mensajeRazaFallida()
 
-
     def modificarRaza(self):
         tipoAnimal, nombreRaza = self.vista.razaAModificar()
         raza_encontrada = None
-
 
         for raza in self.lista_razas:
             if raza.tipoAnimal == tipoAnimal and raza.nombreRaza == nombreRaza:
@@ -363,7 +364,8 @@ class Controller:
 
         if raza_encontrada:
             self.vista.mostrarDatoActualRaza(raza_encontrada)
-            nuevo_tamanoRaza, nuevo_personalidadRaza, nuevo_pelajeRaza, nuevo_cuidadosRaza, nuevo_energiaRaza,nuevo_esperanzaVidaRaza, nuevo_state = self.vista.modificarDatosRaza(raza_encontrada)
+            nuevo_tamanoRaza, nuevo_personalidadRaza, nuevo_pelajeRaza, nuevo_cuidadosRaza, nuevo_energiaRaza, nuevo_esperanzaVidaRaza, nuevo_state = self.vista.modificarDatosRaza(
+                raza_encontrada)
 
             raza_encontrada.set_tamanoRaza(nuevo_tamanoRaza)
             raza_encontrada.set_personalidadRaza(nuevo_personalidadRaza)
@@ -382,7 +384,6 @@ class Controller:
         else:
             self.vista.razaCargaFallida()
 
-
     def eliminarRaza(self):
         tipoAnimal, nombreRaza = self.vista.razaAModificar()
         raza_encontrada = None
@@ -392,7 +393,7 @@ class Controller:
                 break
         if raza_encontrada:
             self.vista.mostrarDatoActualRaza(raza_encontrada)
-            nuevo_state=self.vista.eliminarDatosRaza(raza_encontrada)
+            nuevo_state = self.vista.eliminarDatosRaza(raza_encontrada)
             raza_encontrada.set_state(nuevo_state)
 
             with open("Archivos/raza.txt", "w", encoding="UTF-8") as file:
@@ -402,8 +403,107 @@ class Controller:
         else:
             self.vista.razaCargaFallida()
 
-    #endregion
+    # endregion
 
+    # region Tratamiento Menu
+
+    def mostrarTratamientos(self):
+        lista_aux = []
+        for tratamiento in self.lista_tratamiento:
+            if tratamiento.tratamientoActivo():
+                lista_aux.append(tratamiento)
+        self.vista.mostrarTratamientosPantalla(lista_aux)
+
+    def agregarTratamiento(self):
+        nombreTratamiento, duracionTratamiento, state = self.vista.agregarTratamientoOpciones()
+        cadena = f"{nombreTratamiento},{duracionTratamiento},{state}"
+        linea = cadena + "\n"
+        self.lista_tratamiento.append(
+            Tratamiento(nombreTratamiento, duracionTratamiento, state)
+        )
+        with open("Archivos/tratamientos.txt", "a", encoding="UTF-8") as file:
+            file.write(linea)
+        self.vista.tratamientoCargaExitosa()
+
+    def modificarTratamiento(self):
+        nombreTratamiento = self.vista.tratamientoAModificar()
+        tratamiento_encontrado = None
+
+        for tratamiento in self.lista_tratamiento:
+            if tratamiento.nombreTratamiento == nombreTratamiento:
+                tratamiento_encontrado = tratamiento
+                break
+
+        if tratamiento_encontrado:
+            self.vista.mostrarDatoActualTratamiento(tratamiento_encontrado)
+            nuevo_nombreTratamiento, nueva_duracionTratamiento, nuevo_state = self.vista.modificarDatosTratamiento(
+                tratamiento_encontrado)
+            tratamiento_encontrado.setNombretratamiento(nuevo_nombreTratamiento)
+            tratamiento_encontrado.setDuracionTratamiento(nueva_duracionTratamiento)
+            tratamiento_encontrado.setState(nuevo_state)
+
+            with open("Archivos/tratamientos.txt", "w", encoding="UTF-8") as file:
+                for tratamiento in self.lista_tratamiento:
+                    linea = f"{tratamiento.nombreTratamiento},{tratamiento.duracionTratamiento},{tratamiento.state}\n"
+                    file.write(linea)
+
+            self.vista.tratamientoCargaExitosa()
+        else:
+            self.vista.tratamientoCargaFallida()
+
+    def eliminarTratamiento(self):
+        nombreTratamiento = self.vista.tratamientoAEliminar()
+        tratamiento_encontrado = None
+
+        for tratamiento in self.lista_tratamiento:
+            if tratamiento.nombreTratamiento == nombreTratamiento:
+                tratamiento_encontrado = tratamiento
+                break
+
+        if tratamiento_encontrado:
+            self.vista.mostrarDatoActualTratamiento(tratamiento_encontrado)
+            nuevo_state = self.vista.eliminarDatosTratamiento(tratamiento_encontrado)
+            tratamiento_encontrado.setState(nuevo_state)
+
+            with open("Archivos/tratamientos.txt", "w", encoding="UTF-8") as file:
+                for tratamiento in self.lista_tratamiento:
+                    linea = f"{tratamiento.nombreTratamiento},{tratamiento.duracionTratamiento},{tratamiento.state}\n"
+                    file.write(linea)
+
+            self.vista.tratamientoEliminadoConExito()
+        else:
+            self.vista.tratamientoNoEncontrado()
+
+    # endregion
+
+#region Diagnostico
+    def consultar_Diagnostico(self):
+        self.limpiar_consola()
+        self.vista.consultarDiagnostico(self.lista_diagnostico)
+    def agregar_Diagnostico(self):
+        self.limpiar_consola()
+        nombreDiag,descripcionDiag,cuidadosDiag,state = self.vista.agregarDiagnostico()
+
+        if any(diagnostico.nombreDiag == nombreDiag for diagnostico in self.lista_diagnostico):
+            self.vista.mensajeError("El Diagnostico ya existe.")
+        else:
+            nombreTrata, duracionTrata, stateTrata = self.vista.agregarTratamientoOpciones()
+            trata = Tratamiento(nombreTrata, duracionTrata, stateTrata)
+            nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = self.vista.agregarVacunaOpciones()
+            vacu = Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state)
+            diagnostico = Diagnostico(nombreDiag, descripcionDiag, cuidadosDiag, trata, vacu, True)
+            self.lista_diagnostico.append(diagnostico)
+        
+            with open("MVC/Archivos/Diagnosticos.txt", "a") as archivo:
+                archivo.write(f"{diagnostico}\n")
+                print(diagnostico)
+            self.vista.cargaExitosa("diagnostico")
+
+    def modificar_Diagnostico(self):
+        pass
+    def eliminar_Diagnostico(self):
+        pass
+#endregion
 
     def Inicializador(self):
         # Carga de archivos...
@@ -414,14 +514,14 @@ class Controller:
         self.cargaDatosDiagnostico()
         self.cargarDatosTratamientos()
         self.cargaDatosVacunas()
-        
+
         # Menú principal...
         while True:
             opcion = self.vista.principalMenu()
             if opcion == 1:
                 while True:
                     sub_opcion = self.vista.historialMenu()
-                    
+
                     if sub_opcion == 1:
                         nombreCliente, nombreMascota = self.vista.consultarHistorial()
                         self.consulta_Historial(nombreCliente, nombreMascota)
@@ -432,33 +532,33 @@ class Controller:
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 2:
                 while True:
                     sub_opcion = self.vista.clientesMenu()
-                    
+
                     if sub_opcion == 1:
                         self.informacion_cliente()
-                    
+
                     elif sub_opcion == 2:
                         while True:
                             self.agregar_nuevo_cliente()
                             eleccion = self.vista.mensajeRepeticion()
                             if eleccion == 9:
                                 break
-                    
+
                     elif sub_opcion == 3:
                         self.modificar_informacion_Cliente()
-                        
-                    
+
+
                     elif sub_opcion == 4:
                         self.vista.eliminarCliente()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 3:
                 while True:
                     sub_opcion = self.vista.veterinariosMenu()
@@ -473,8 +573,8 @@ class Controller:
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 4:
                 while True:
                     sub_opcion = self.vista.animalesMenu()
@@ -489,8 +589,8 @@ class Controller:
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 5:
                 while True:
                     sub_opcion = self.vista.razasMenu()
@@ -505,40 +605,45 @@ class Controller:
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 6:
+                self.limpiar_consola()
                 while True:
                     sub_opcion = self.vista.diagnosticoMenu()
                     if sub_opcion == 1:
-                        self.vista.consultarDiagnostico()
+                        self.limpiar_consola()
+                        self.consultar_Diagnostico()
                     elif sub_opcion == 2:
-                        self.vista.agregarDiagnostico()
+                        self.limpiar_consola()
+                        self.agregar_Diagnostico()
                     elif sub_opcion == 3:
+                        self.limpiar_consola()
                         self.vista.modificarDiagnostico()
                     elif sub_opcion == 4:
+                        self.limpiar_consola()
                         self.vista.eliminarDiagnostico()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 7:
                 while True:
                     sub_opcion = self.vista.tratamientoMenu()
                     if sub_opcion == 1:
-                        self.vista.consultarTratamiento()
+                        self.mostrarTratamientos()
                     elif sub_opcion == 2:
-                        self.vista.agregarTratamiento()
+                        self.agregarTratamiento()
                     elif sub_opcion == 3:
-                        self.vista.modificarTratamiento()
+                        self.modificarTratamiento()
                     elif sub_opcion == 4:
-                        self.vista.eliminarTratamiento()
+                        self.eliminarTratamiento()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 8:
                 while True:
                     sub_opcion = self.vista.vacunasMenu()
@@ -553,13 +658,7 @@ class Controller:
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
-            
-            
+
+
             elif opcion == 9:
                 break
-
-
-
-
-
-
