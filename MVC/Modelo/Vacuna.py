@@ -9,7 +9,7 @@ class Vacuna:
         self.fechaDosis = date.today()
         self.diasProximaDosis = diasProximaDosis
         self.proximaDosis = self.fechaDosis + timedelta(days=int(diasProximaDosis))
-        self.state = state
+        self.state = int(state)
 
     def getNombreVacuna(self):
         return self.nombreVacuna
@@ -48,4 +48,4 @@ class Vacuna:
         return f"{self.nombreVacuna}, {self.loteVacuna}, {self.numeroDosis}, {self.proximaDosis},{self.state}"
     
     def __repr__(self):
-        return "REPR de la clase Vacuna"
+        return f"{self.nombreVacuna}, {self.loteVacuna}, {self.numeroDosis}, {self.proximaDosis},{self.state}"
