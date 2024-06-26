@@ -23,9 +23,11 @@ class Vista:
 
     # region Principal Menu
     def principalMenu(self):
+        print("\n===============")
         print("Menú Principal")
+        print("===============")
         print("0. Estadisticas")
-        print("1. Historial")
+        print("1. Nueva Consulta / Ficha Medica")
         print("2. Clientes")
         print("3. Veterinarios")
         print("4. Mascotas")
@@ -34,6 +36,7 @@ class Vista:
         print("7. Tratamientos")
         print("8. Vacunas")
         print("9. Salir")
+        print("===============\n")
         opcion = input("Selecciona una opción: ")
         return int(opcion)
 
@@ -42,6 +45,7 @@ class Vista:
     #region Historal Menu
 
     def estadisticasMenu(self):
+        print("============")
         print("Menú de Estadisticas")
         print("1. Cantidad Consultas de una Mascota")
         print("2. Cantidad de Tratamientos Aplicados ")
@@ -52,32 +56,32 @@ class Vista:
         return int(opcion)
 
     def historialMenu(self):
+        print("============")
         print("Menú de Ficha Medica")
         print("1. Nueva Consulta Veterinaria")
         print("2. Buscar una Ficha de Paciente ")
-        print("3. Pendiente ")
+        print("3. Agregar Cliente")
         print("9. Volver al Menú Principal")
         opcion = input("Selecciona una opción: ")
         return int(opcion)
 
 
 
-    def consultarHistorial(self):
-        nombreCliente = input("Nombre del Cliente: ")
-        nombreMascota = input("Nombre de la Mascota: ")
-        return nombreCliente, nombreMascota
 
-    def modificarHistorial(self):
-        print("Funcionalidad de modificar historial no implementada aún.")
 
-    def eliminarhistorial(self):
-        print("Funcionalidad de eliminar historial no implementada aún.")
+    def ingresopropietarioYMascota(self):
+        propietario = input("Ingrese el nombre del propietario: ")
+        nombreMascota = input("Ingrese el nombre de la mascota: ")
+        return propietario, nombreMascota
+
+
 
     #endregion
 
     #region Cliente Menu
     
     def clientesMenu(self):
+        print("============")
         print("Menú de Clientes")
         print("1. Consultar Información de Clientes")
         print("2. Agregar Nuevo Cliente")
@@ -88,11 +92,10 @@ class Vista:
         return int(opcion)
 
     def agregarNuevocliente(self):
-        
         print("Agregar Nuevo Cliente")
-        self.lista_nombreMascota = []
-        self.lista_tipoMascota = []
-        
+        lista_nombreMascota = []
+        lista_tipoMascota = []
+
         nombre = str(input("Nombre: "))
         telefono = str(input("Teléfono: "))
         email = str(input("Email: "))
@@ -100,11 +103,24 @@ class Vista:
         cantidad = int(input("Cantidad de Mascotas: "))
         for c in range(cantidad):
             nombreMascota = input("Nombre de la Mascota: ")
-            tipoMascotas = input("Tipo de Mascotas: ")
-            self.lista_nombreMascota.append(nombreMascota)
-            self.lista_tipoMascota.append(tipoMascotas)
-        return nombre,telefono,email,direccion,cantidad,self.lista_nombreMascota,self.lista_tipoMascota
-    
+            tipoMascota = input("Tipo de Mascota: ")
+            lista_nombreMascota.append(nombreMascota)
+            lista_tipoMascota.append(tipoMascota)
+        return nombre, telefono, email, direccion, cantidad, lista_nombreMascota, lista_tipoMascota
+
+    def IngresoRaza(self, tipo):
+        return input(f"Ingrese la raza del {tipo}: ").lower()
+
+    def IngresoIdentificador(self, propietario, nombreAnimal):
+        return input(f"Ingrese el identificador para {nombreAnimal} del propietario {propietario}: ").lower()
+
+    def IngresoDetalleMascota(self, nombreAnimal):
+        return input(f"Ingrese los detalles de {nombreAnimal}: ").lower()
+
+    def mensajeMascotaAgregadaconExito(self, linea):
+        print(f"Mascota agregada con éxito: {linea}")
+
+
     def informacionCliente(self, lista):
             print("Información de Clientes")
             if lista:
@@ -197,6 +213,7 @@ class Vista:
 
     # region Mascota Menu
     def animalesMenu(self):
+        print("============")
         print("Menú de Animales")
         print("1. Consultar Todas las Mascotas")
         print("2. Ingresar Nueva Mascota")
@@ -212,13 +229,12 @@ class Vista:
                 f"Tipo de Animal: {mascota.tipoAnimalRaza}, Raza: {mascota.nombreRazaAnimal},ID: {mascota.identificador},"
                 f"Propietario: {mascota.propietario},Nombre Mascota: {mascota.nombreAnimal}, Detalles: {mascota.detalleMascota}")
 
-    def agregarMascotaOpciones(self):
+    def agregarMascotaOpciones(self, propietario):
         identificador = input("Ingrese Identificador ").lower()
-        propietario = str(input("Ingrese Nombre Propietario ")).lower()
-        nombreAnimal = input("Ingrese Nombre Mascota ").lower()
+        nombreAnimal = input(f"Ingrese Nombre de la Mascota de {propietario}: ").lower()
         detalleMascota = input("Ingrese Detalles Mascota ").lower()
         stateMascota = 1
-        return identificador, propietario, nombreAnimal, detalleMascota, stateMascota
+        return identificador, nombreAnimal, detalleMascota, stateMascota
 
     def mensajeMascotaAgregadaconExito(self, linea):
         print(f"{linea} Mascota Agregada con Exito! ")
@@ -241,6 +257,12 @@ class Vista:
             print(mascota)
         elif mascota.stateMascota == 0:
             print("Mascota Inactiva o Borrada")
+
+    def IngresoPropietario(self):
+        return input("Ingrese el nombre del propietario: ").lower()
+
+    def mostrarMascotaBuscada2(self, nombreMascota, propietario):
+        print(f"Mascota encontrada: {nombreMascota} del propietario {propietario}")
 
     def mostrarDatoActualMascota(self, mascota):
         print(mascota)
@@ -273,6 +295,7 @@ class Vista:
     # region Raza Menu
 
     def razasMenu(self):
+        print("============")
         print("Menú de Razas")
         print("1. Consultar Razas disponibles")
         print("2. Agregar Nueva Raza")
@@ -344,6 +367,7 @@ class Vista:
     #region Diagnostico Menu
 
     def diagnosticoMenu(self):
+        print("============")
         print("Menú de Diagnósticos")
         print("1. Consultar Diagnóstico")
         print("2. Agregar Nuevo Diagnóstico")
@@ -355,15 +379,7 @@ class Vista:
 
         # region Diagnostico Menu
 
-    def diagnosticoMenu(self):
-        print("Menú de Diagnósticos")
-        print("1. Consultar Diagnóstico")
-        print("2. Agregar Nuevo Diagnóstico")
-        print("3. Modificar Diagnóstico")
-        print("4. Eliminar Diagnóstico")
-        print("9. Volver al Menú Principal")
-        opcion = input("Selecciona una opción: ")
-        return int(opcion)
+
 
     def consultarDiagnostico(self, lista):
         print("Funcionalidad de consultar diagnóstico no implementada aún.")
@@ -453,6 +469,7 @@ class Vista:
     # region Vacuna Menu
 
     def vacunasMenu(self):
+        print("============")
         print("Menú de Vacunas")
         print("1. Consultar Vacunas")
         print("2. Agregar Nueva Vacuna")
@@ -611,4 +628,4 @@ class Vista:
             razas_str = ", ".join(razas)
             print(f"{diagnostico}: {razas_str}")
 
-#endregion
+    #endregion

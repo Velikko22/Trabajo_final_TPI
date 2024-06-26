@@ -1,4 +1,4 @@
-from Modelo.Persona import Persona
+from MVC.Modelo.Persona import Persona
 
 class Cliente(Persona):
     def __init__(self, nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas):
@@ -36,6 +36,18 @@ class Cliente(Persona):
 
     def setTipoMascota(self, tipoMascota):
         self.tipoMascotas = tipoMascota
+
+    def agregarNombreMascota(self, nombreMascota):
+        if isinstance(self.nombreMascota, list):
+            self.nombreMascota.append(nombreMascota)
+        else:
+            self.nombreMascota = [self.nombreMascota, nombreMascota]
+
+    def agregarTipoMascota(self, tipoMascota):
+        if isinstance(self.tipoMascotas, list):
+            self.tipoMascotas.append(tipoMascota)
+        else:
+            self.tipoMascotas = [self.tipoMascotas, tipoMascota]
 
     def __str__(self):
         return f"{self.nombre},{self.telefono},{self.email},{self.direccion},{self.cantidad},{self.nombreMascota},{self.tipoMascotas}"

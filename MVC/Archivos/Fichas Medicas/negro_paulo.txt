@@ -1,4 +1,2 @@
 perro,caniche,negro,paulo
-123123213;ricardo;cirrosis;actividad fisica;antirabica;dolores
-112112;roque;sed;agua;antirabica;sin
-99999999;fernando;diarrea;dieta;antiloco;sin
+2024-06-06;fernando;gastrocolitis;inmovilizacion;no;observacion

@@ -7,13 +7,20 @@
     <list default="true" id="fa7ed577-163a-4e2a-946c-d716168a7ad7" name="Changes" comment="Se modifico Controllador Vacuna">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Archivos/Diagnosticos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/Diagnosticos.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/negro_paulo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/negro_paulo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/firulai_roberto.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/firulin_roberto1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/loquito_estefanio.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/negro_paulo.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Archivos/Vacunas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/Vacunas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/clientes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/clientes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/contador.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/mascotas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/mascotas.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Archivos/tratamientos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/tratamientos.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Archivos/veterinarios.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/veterinarios.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Controler/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Controler/Controlador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Modelo/Diagnostico.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Modelo/Diagnostico.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Modelo/Cliente.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Modelo/Cliente.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Vista/vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Vista/vista.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/copia/mvc 1/Controller/ControllerMenuRazaMascota.py" beforeDir="false" afterPath="$PROJECT_DIR$/copia/mvc 1/Controller/ControllerMenuRazaMascota.py" afterDir="false" />
     </list>
     <list id="e103c107-7047-4c8a-85cc-7c24d9f44518" name="Changes by Capellino Julian" comment="Changes by Capellino Julian" />
     <list id="97c788d5-83a9-432d-8325-56b02eab30d5" name="Changes by julia" comment="" />
@@ -32,18 +39,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Paulozzt"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Paulozzt&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Velikko22/Trabajo_final_TPI",
-    "accountId": "72ad2782-d3b7-4d64-a722-b36dcce518f3"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Velikko22/Trabajo_final_TPI&quot;,
+    &quot;accountId&quot;: &quot;72ad2782-d3b7-4d64-a722-b36dcce518f3&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -52,15 +59,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Paulo/PycharmProjects/TPI Final 1"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Paulo/PycharmProjects/TPI Final 1&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TPI Final 1" />
@@ -146,7 +153,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719373941776</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Se modifico Controllador Vacuna">
+      <option name="closed" value="true" />
+      <created>1719383128753</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719383128753</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,8 +176,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se modifico Controllador Vacuna" />
     <MESSAGE value="Changes by Capellino Julian" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by Capellino Julian" />
+    <MESSAGE value="Se modifico Controllador Vacuna" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se modifico Controllador Vacuna" />
   </component>
 </project>

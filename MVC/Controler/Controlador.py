@@ -54,17 +54,41 @@ class Controller:
 
     # region Carga de Archivos
 
-    def cargaDatosClientes(self):
+    def cargarDatosClientes(self):
         try:
-            with open("Archivos/clientes.txt", "r") as archivo:
+            with open("Archivos/clientes.txt", "r", encoding="UTF-8") as archivo:
                 lineas = archivo.readlines()
             for linea in lineas:
-                nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas = linea.strip().split(",")
+                partes = linea.strip().split(";")
+                if len(partes) != 7:
+                    raise ValueError(f"Línea con formato incorrecto: {linea}")
+
+                nombre, telefono, email, direccion, cantidad = partes[:5]
+                cantidad = int(cantidad)
+
+                # Convertir las listas desde las cadenas
+                nombreMascota = partes[5].strip("[]").split(", ")
+                tipoMascotas = partes[6].strip("[]").split(", ")
+
+                # Quitar comillas simples de los elementos de las listas
+                nombreMascota = [item.strip("'") for item in nombreMascota]
+                tipoMascotas = [item.strip("'") for item in tipoMascotas]
+
                 cliente = Cliente(nombre, telefono, email, direccion, cantidad, nombreMascota, tipoMascotas)
                 self.lista_clientes.append(cliente)
             self.vista.cargaExitosa("clientes")
         except Exception as e:
             self.vista.mensajeError(f"Error cargando datos de clientes: {str(e)}")
+
+    def actualizarArchivoClientes(self):
+        with open("Archivos/clientes.txt", "w", encoding="UTF-8") as archivo:
+            for cliente in self.lista_clientes:
+                nombres_mascotas = ",".join(cliente.getNombreMascotas()) if isinstance(cliente.getNombreMascotas(),
+                                                                                       list) else cliente.getNombreMascotas()
+                tipos_mascotas = ",".join(cliente.getTipoMascota()) if isinstance(cliente.getTipoMascota(),
+                                                                                  list) else cliente.getTipoMascota()
+                linea_cliente = f"{cliente.nombre};{cliente.telefono};{cliente.email};{cliente.direccion};{cliente.cantidad};[{nombres_mascotas}];[{tipos_mascotas}]"
+                archivo.write(f"{linea_cliente}\n")
 
     def cargaDatosVeterinarios(self):
         try:
@@ -153,17 +177,35 @@ class Controller:
     #region Controlador Clientes
     def informacion_cliente(self):
         self.vista.consultarLista(self.lista_clientes)
-    
+
     def agregar_nuevo_cliente(self):
-        nombre,telefono,email,direccion,cantidad,lista_nombreMascota,lista_tipoMascota = self.vista.agregarNuevocliente()
+        nombre, telefono, email, direccion, cantidad, lista_nombreMascota, lista_tipoMascota = self.vista.agregarNuevocliente()
         if any(cliente.nombre == nombre for cliente in self.lista_clientes):
             self.vista.mensajeError("El cliente ya existe.")
         else:
-            cliente = Cliente(nombre,telefono,email,direccion,cantidad,lista_nombreMascota,lista_tipoMascota)
+            cliente = Cliente(nombre, telefono, email, direccion, cantidad, lista_nombreMascota, lista_tipoMascota)
+            linea_cliente = f"{nombre};{telefono};{email};{direccion};{cantidad};{lista_nombreMascota};{lista_tipoMascota}"
             self.lista_clientes.append(cliente)
             with open("Archivos/clientes.txt", "a") as archivo:
-                archivo.write(f"{cliente}\n")
+                archivo.write(f"{linea_cliente}\n")
             self.vista.cargaExitosa("cliente")
+
+
+            for i in range(cantidad):
+                tipo = lista_tipoMascota[i]
+                raza = self.vista.IngresoRaza(tipo)
+                identificador = self.vista.IngresoIdentificador(nombre, lista_nombreMascota[i])
+                propietario = nombre
+                nombreAnimal = lista_nombreMascota[i]
+                detalleMascota = self.vista.IngresoDetalleMascota(nombreAnimal)
+                stateMascota = 1
+                cadena_mascota = f"{tipo},{raza},{identificador},{propietario},{nombreAnimal},{detalleMascota},{stateMascota}"
+                linea_mascota = cadena_mascota + "\n"
+                self.lista_mascotas.append(
+                    Mascota(tipo, raza, identificador, propietario, nombreAnimal, detalleMascota, stateMascota))
+                with open("Archivos/mascotas.txt", "a", encoding="UTF-8") as file:
+                    file.write(linea_mascota)
+                self.vista.mensajeMascotaAgregadaconExito(linea_mascota)
             
    
     def modificar_informacion_Cliente(self):
@@ -204,7 +246,7 @@ class Controller:
                 for client in self.lista_clientes:
                     archivo.write(str(client))
         
-#endregion
+    #endregion
 
     # region Controlador Mascota
     def mostrarMascotas(self):
@@ -217,18 +259,46 @@ class Controller:
     def agregarMascota(self):
         tipo, raza = self.vista.IngresoTipoyRaza()
         if self.verificarAgregarTipoyRaza(tipo, raza):
+            propietario = self.vista.IngresoPropietario()
+            cliente_existe = False
+            for cliente in self.lista_clientes:
+                if cliente.nombre == propietario:
+                    cliente_existe = True
+                    break
+
+            if not cliente_existe:
+                self.vista.mostrarMensaje("El cliente no existe. Agregue el cliente primero.")
+                return
+
             tipoAnimal = tipo
             nombreRaza = raza
-            identificador, propietario, nombreAnimal, detalleMascota, stateMascota = self.vista.agregarMascotaOpciones()
+            identificador, nombreAnimal, detalleMascota, stateMascota = self.vista.agregarMascotaOpciones(propietario)
             cadena = f"{tipoAnimal},{nombreRaza},{identificador},{propietario},{nombreAnimal},{detalleMascota},{stateMascota}"
             linea = cadena + "\n"
+
+            # Agregar la mascota a la lista de mascotas
             self.lista_mascotas.append(
                 Mascota(tipoAnimal, nombreRaza, identificador, propietario, nombreAnimal, detalleMascota, stateMascota))
             with open("Archivos/mascotas.txt", "a", encoding="UTF-8") as file:
                 file.write(linea)
                 self.vista.mensajeMascotaAgregadaconExito(linea)
+
+            # Actualizar la información del cliente en la lista
+            for cliente in self.lista_clientes:
+                if cliente.nombre == propietario:
+                    cliente.cantidad = int(cliente.cantidad) + 1
+                    # Usar métodos existentes para agregar nombres y tipos de mascotas
+                    cliente.agregarNombreMascota(nombreAnimal)
+                    cliente.agregarTipoMascota(tipoAnimal)
+
+                    # Actualizar el archivo de clientes
+                    self.actualizarArchivoClientes()
+                    break
         else:
             self.vista.mensajeFaltaDato()
+
+
+
 
     def verificarAgregarTipoyRaza(self, tipo, raza):
         for animal in self.lista_razas:
@@ -277,12 +347,26 @@ class Controller:
                 return True,propietario,nombreAnimal
         return False,None,None
 
+
     def buscarMascotaValidada2(self,propietario,nombreAnimal):
         for mascota in self.lista_mascotas:
             if mascota.propietario == propietario and mascota.nombreAnimal == nombreAnimal and mascota.mascotaActiva():
                 self.vista.mostrarMascotaBuscada(mascota)
                 return True
         return False
+
+    def mascotaPropietarioValidador3(self, propietario, nombreAnimal):
+        cliente_existe = False
+        mascota_existe = False
+        for cliente in self.lista_clientes:
+            if cliente.nombre == propietario:
+                cliente_existe = True
+                nombreMascotas = cliente.getNombreMascotas()
+                if nombreAnimal in nombreMascotas:
+                    mascota_existe = True
+                    self.vista.mostrarMascotaBuscada2(nombreAnimal, propietario)
+                    break
+        return cliente_existe, mascota_existe
 
     # endregion
 
@@ -665,25 +749,33 @@ class Controller:
     #region FichaMedica
 
     def manejarFichasMedicas(self):
-        propietario = input("Ingrese el nombre del propietario: ")
-        nombreMascota = input("Ingrese el nombre de la mascota: ")
+        propietario, nombreMascota = self.vista.ingresopropietarioYMascota()
+
+
+        cliente_existe, mascota_existe = self.mascotaPropietarioValidador3(propietario, nombreMascota)
+        if not cliente_existe:
+            self.vista.mostrarMensaje("No se encontró el cliente. Volviendo al menú anterior.")
+            return
+        if cliente_existe and not mascota_existe:
+            self.vista.mostrarMensaje("Cliente existe, Mascota no existe! Agregue la mascota.")
+            return
 
         ficha_existe, ruta_ficha = self.buscarFichaMedica(propietario, nombreMascota)
         if ficha_existe:
-            lista_del_dia = self.generarNuevaConsulta(propietario,nombreMascota)
+            lista_del_dia = self.generarNuevaConsulta(propietario, nombreMascota)
             if lista_del_dia:
                 self.agregarConsultaAFicha(ruta_ficha, lista_del_dia)
         else:
             self.vista.mostrarMensaje("No se encontró la ficha médica.")
             crear_archivo = input("¿Desea crear una nueva ficha médica? [s/n]: ").lower()
             if crear_archivo == 's':
-                self.agregarMascota()
-                self.cargaDatosMascotas()
-                continuar  = self.buscarMascotaValidada2(propietario, nombreMascota)
-                if not continuar:
-                    print("Mascota no ENCONTRADA! Cargar Mascota ")
+                cliente_existe, mascota_existe = self.mascotaPropietarioValidador3(propietario, nombreMascota)
+                if not mascota_existe:
+                    self.vista.mostrarMensaje("Mascota no ENCONTRADA! Cargar Mascota ")
                     return
+
                 ruta_ficha.touch()
+                self.crearEncabezadoFichaMedica(ruta_ficha, propietario, nombreMascota)
                 lista_del_dia = self.generarNuevaConsulta(propietario, nombreMascota)
                 if lista_del_dia:
                     self.agregarConsultaAFicha(ruta_ficha, lista_del_dia)
@@ -727,7 +819,6 @@ class Controller:
         tipo_mascota, raza, nombre_mascota, nombre_propietario = encabezado
         self.vista.mostrarEncabezadoFicha(tipo_mascota, raza, nombre_mascota, nombre_propietario)
 
-
         consultas = []
         for linea in lineas[1:]:
             consulta = linea.strip().split(";")
@@ -737,7 +828,25 @@ class Controller:
 
         self.vista.mostrarConsultasFicha(consultas)
 
+    def crearEncabezadoFichaMedica(self, ruta_ficha, propietario, nombreMascota):
 
+        cliente = next((cliente for cliente in self.lista_clientes if cliente.nombre == propietario), None)
+        mascota = next((mascota for mascota in self.lista_mascotas if
+                        mascota.propietario == propietario and mascota.nombreAnimal == nombreMascota), None)
+
+        if cliente and mascota:
+            tipo = mascota.tipoAnimalRaza
+            raza = mascota.nombreRazaAnimal
+            identificador = mascota.identificador
+
+
+            encabezado = f"{tipo},{raza},{nombreMascota},{propietario}\n"
+
+            with open(ruta_ficha, "w", encoding="UTF-8") as archivo:
+                archivo.write(encabezado)
+        else:
+            self.vista.mostrarMensaje(
+                "Error al crear el encabezado de la ficha médica. No se encontró el cliente o la mascota.")
 
     #endregion
 
@@ -808,7 +917,7 @@ class Controller:
     #region Menu Controlador
     def Inicializador(self):
         # Carga de archivos...
-        self.cargaDatosClientes()
+        self.cargarDatosClientes()
         self.cargaDatosVeterinarios()
         self.cargaDatosMascotas()
         self.cargaDatosRaza()
@@ -848,7 +957,7 @@ class Controller:
                     elif sub_opcion == 2:
                         self.buscarUnaFicha()
                     elif sub_opcion == 3:
-                        self.manejarFichasMedicas()
+                        self.agregar_nuevo_cliente()
                     elif sub_opcion == 9:
                         self.vista.mensajeVolviendoAlMenu()
                         break
@@ -1047,4 +1156,4 @@ class Controller:
 
 
 
-#endregion
+    #endregion

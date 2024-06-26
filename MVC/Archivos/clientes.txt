@@ -1,0 +1,3 @@
+paulo;3811111;paulo@mail;calle 111;2;['negro', 'murcielago'];['perro', 'gato']
+melanie;3541111122;m@mail;calle 233;1;['mumi'];['gato']
+esteban;800123;esteban@mail;direccion;1;['garfield'];['perro']

@@ -1,10 +1,6 @@
-reposo,12,1
-antihistaminicos,1,0
-radiofrecuencia,10,1
-rehabilitacion,11,1
-dieta,10,1
-antiespasmos1,10,1
-esquizofrenia,200,1
-muleta,10,1
-actividad fisica,10,1
-agua,100,1
+farmacologico,5,1
+extraccion diente,1,1
+quimioterapia,30,1
+inmovilización,40,1
+sutura herida,1,1
+inmovilizacion,99,1

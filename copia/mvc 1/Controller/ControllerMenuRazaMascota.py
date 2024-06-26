@@ -1,6 +1,6 @@
-from View.ViewMenuRazaMascota import ViewMenuRazaMascota
-from Controller.ControllerRaza import ControllerRaza
-from Controller.ControllerMascota import ControllerMascota
+from MVC.View.ViewMenuRazaMascota import ViewMenuRazaMascota
+from MVC.Controller.ControllerRaza import ControllerRaza
+from MVC.Controller.ControllerMascota import ControllerMascota
 
 class ControllerMenuRazaMascota:
     def __init__(self):
