@@ -8,7 +8,13 @@ class Diagnostico:
         self.tratamientoDiag = tratamientoDiag
         self.vacunasDiag = vacunasDiag
         self.state = state
-     
+
+    numeroDiagnostico = None
+    def getNumDiag(self):
+        return self.numeroDiagnostico
+
+    def setNumDiag(self,numeroDiagnostico):
+        self.numeroDiagnostico = numeroDiagnostico
     def getNombreDiag(self):
         return self.nombreDiag
     
@@ -46,5 +52,6 @@ class Diagnostico:
         return f"{self.nombreDiag},{self.descripcionDiag},{self.cuidadosDiag},{self.tratamientoDiag.nombreTratamiento},{self.vacunasDiag.nombreVacuna},{self.state}"
     
     def __repr__(self):
-        return "REPR"
+        return f"{self.nombreDiag},{self.descripcionDiag},{self.cuidadosDiag},{self.tratamientoDiag},{self.vacunasDiag},{self.state}"
+
 

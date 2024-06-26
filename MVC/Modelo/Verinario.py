@@ -1,9 +1,10 @@
-from Modelo.Persona import Persona
+from MVC.Modelo.Persona import Persona
 
 class Veterinario(Persona):
-    def __init__(self, nombre, telefono, cargo):
+    def __init__(self, nombre, telefono, cargo, estado):
         super().__init__(nombre, telefono)
         self.cargo = cargo
+        self.state = estado
 
     def getNombreVeterinario(self):
         return self.nombre

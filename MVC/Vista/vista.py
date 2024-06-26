@@ -1,6 +1,6 @@
 class Vista:
 
-    # region Mensajes Extras
+    #region Mensajes Extras
     def cargaExitosa(self, tipo_dato):
         print(f"Datos de {tipo_dato} cargados exitosamente.")
 
@@ -15,7 +15,11 @@ class Vista:
         eleccion = input("Elección: ")
         return int(eleccion)
 
-    # endregion
+    def consultarLista(self, lista):
+        for elemento in lista:
+            print(elemento)
+
+    #endregion
 
     # region Principal Menu
     def principalMenu(self):
@@ -34,7 +38,7 @@ class Vista:
 
     # endregion
 
-    # region Historal Menu
+    #region Historal Menu
     def historialMenu(self):
         print("Menú de Historial")
         print("1. Consultar Historial")
@@ -43,6 +47,18 @@ class Vista:
         print("9. Volver al Menú Principal")
         opcion = input("Selecciona una opción: ")
         return int(opcion)
+
+    def listaHistoriales(self,cliente, mascota, diagnosticoMascota, tratamientoMascota, vacunas):
+        self.nombreCliente = cliente
+        self.nombremascota = mascota
+        self.diagnosticoMascota = diagnosticoMascota
+        self.tratamientoMascota = tratamientoMascota
+        self.vacunas = Vacunas
+        self.proximaConsulta = str(input("Indique proxima consulta: "))
+
+
+
+        return historial
 
     def consultarHistorial(self):
         nombreCliente = input("Nombre del Cliente: ")
@@ -55,9 +71,9 @@ class Vista:
     def eliminarhistorial(self):
         print("Funcionalidad de eliminar historial no implementada aún.")
 
-    # endregion
+    #endregion
 
-#region Cliente Menu
+    #region Cliente Menu
     
     def clientesMenu(self):
         print("Menú de Clientes")
@@ -127,7 +143,7 @@ class Vista:
         
 #endregion
 
-    # region Veterinario Menu
+    #region Veterinario Menu
 
     def veterinariosMenu(self):
         print("Menú de Veterinarios")
@@ -143,13 +159,34 @@ class Vista:
         print("Funcionalidad de consultar lista de veterinarios no implementada aún.")
 
     def agregarNuevoVeterinario(self):
-        print("Funcionalidad de agregar nuevo veterinario no implementada aún.")
+        nombre = input("Nombre del veterinario: ")
+        telefono = input("Telefono del veterinario: ")
+        cargo = input("Cargo del veterinario: ")
+        estado = True
+        return nombre, telefono, cargo, estado
 
-    def modificarEstadoVeterinario(self):
-        print("Funcionalidad de modificar estado de veterinario no implementada aún.")
+        def modificarEstadoVeterinario(self):
+            return input("Ingrese el nombre del veterinario que desea conocer el estado: ")
+
+        def mostrarMensaje(self, mensaje):
+            print(mensaje)
+
+        def pedirOpcionModificar(self, estado):
+            print(f"El estado del veterinario es {estado}. ¿Desea Modificarlo?")
+            print("[1] - SI / [2] - NO")
+            opcion = input("Ingrese opción: ")
+            if opcion == '1':
+                if estado:
+                    estado = False
+                else:
+                    estado = True
+            return estado
 
     def eliminarVeterinario(self):
-        print("Funcionalidad de eliminar veterinario no implementada aún.")
+        return input("Ingrese el nombre del veterinario que desea eliminar: ")
+
+    def mostrarMensaje(self, mensaje):
+        print(mensaje)
 
     # endregion
 
@@ -299,7 +336,19 @@ class Vista:
 
     # endregion
 
-    # region Diagnostico Menu
+    #region Diagnostico Menu
+
+    def diagnosticoMenu(self):
+        print("Menú de Diagnósticos")
+        print("1. Consultar Diagnóstico")
+        print("2. Agregar Nuevo Diagnóstico")
+        print("3. Modificar Diagnóstico")
+        print("4. Eliminar Diagnóstico")
+        print("9. Volver al Menú Principal")
+        opcion = input("Selecciona una opción: ")
+        return int(opcion)
+
+        # region Diagnostico Menu
 
     def diagnosticoMenu(self):
         print("Menú de Diagnósticos")
@@ -312,6 +361,7 @@ class Vista:
         return int(opcion)
 
     def consultarDiagnostico(self, lista):
+        print("Funcionalidad de consultar diagnóstico no implementada aún.")
         if lista:
             print("Diagnosticos Cargados")
             for diagnostico in lista:
@@ -324,17 +374,14 @@ class Vista:
         nombreDiag = input("Nombre del diagnostico: ")
         descripcionDiag = input("Descripcion del diagnostico")
         cuidadosDiag = input("Cuidados del diagnostico")
-        return nombreDiag,descripcionDiag,cuidadosDiag,True
+        return nombreDiag, descripcionDiag, cuidadosDiag, True
 
     def modificarDiagnostico(self):
         print("Funcionalidad de modificar diagnóstico no implementada aún.")
 
-    def eliminarDiagnostico(self):
-        print("Funcionalidad de eliminar diagnóstico no implementada aún.")
-
     # endregion
 
-    # region Tratamiento Menu
+    #region Tratamiento Menu
 
     def tratamientoMenu(self):
         print("Menú de Tratamientos")
@@ -395,9 +442,7 @@ class Vista:
     def tratamientoCargaFallida(self):
         print("Tratamiento no encontrado, carga fallida!")
 
-    # endregion
-
-    # endregion
+#endregion
 
     # region Vacuna Menu
 
@@ -470,4 +515,45 @@ class Vista:
     def vacunaNoEncontrada(self):
         print("Vacuna no encontrada, eliminación fallida!")
 
-# endregion
+    # endregion
+
+    #region Consulta
+    def fechaHoy(self):
+        fecha= input("Ingrese Fecha ")
+        return fecha
+
+    def veterinarioNombre(self):
+        veterinario_nombre=input("Ingrese Nombre Veterinario ")
+        return veterinario_nombre
+
+    def MensajeVeterinarioInexistente(self):
+        print("No existe ese veterinario, debe cargarlo ")
+
+    def DiagnosticoNombre(self):
+        nombre_diagnostico = input("Ingrese Nombre Diagnostico ")
+        return nombre_diagnostico
+
+    def TratamientoNombre(self):
+        return input("Ingrese el nombre del tratamiento: ")
+
+    def mensajeDiagnosticoEncontrado(self):
+        print("Diagnistico Encontrado ")
+
+    def MensajeDiagnisticoInexistente(self):
+        print("Diangnostico inexistente cargar Diagnostico ")
+
+    def mensajeTratamientoEncontrado(self):
+        print("Diangnostico inexistente cargar Diagnostico ")
+
+    def VacunaNombre(self):
+        vacuna_nombre = input("Nombre Vacuna")
+        return vacuna_nombre
+
+    def IngresoObservacion(self):
+        observacion = input("Ingrese observacion ")
+        return observacion
+
+    def mostrarMensaje(self, mensaje):
+        print(mensaje)
+
+    #endregion

@@ -1,6 +1,5 @@
 from Controler.Controlador import Controller
 
-
 def main():
     controlador = Controller()
     controlador.Inicializador()

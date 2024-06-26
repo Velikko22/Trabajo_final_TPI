@@ -1,0 +1,2 @@
+perro,caniche,negro,paulo
+999999;doctor2;zxc;antiloco;nueva consulta
