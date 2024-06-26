@@ -1,4 +1,10 @@
-quiste,12,1
-cancer,1,0
-cancer,10,1
-gastritis,11,1
+reposo,12,1
+antihistaminicos,1,0
+radiofrecuencia,10,1
+rehabilitacion,11,1
+dieta,10,1
+antiespasmos1,10,1
+esquizofrenia,200,1
+muleta,10,1
+actividad fisica,10,1
+agua,100,1

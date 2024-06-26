@@ -24,6 +24,7 @@ class Vista:
     # region Principal Menu
     def principalMenu(self):
         print("Menú Principal")
+        print("0. Estadisticas")
         print("1. Historial")
         print("2. Clientes")
         print("3. Veterinarios")
@@ -39,26 +40,27 @@ class Vista:
     # endregion
 
     #region Historal Menu
-    def historialMenu(self):
-        print("Menú de Historial")
-        print("1. Consultar Historial")
-        print("2. Modificar Historial")
-        print("3. Eliminar Historial")
+
+    def estadisticasMenu(self):
+        print("Menú de Estadisticas")
+        print("1. Cantidad Consultas de una Mascota")
+        print("2. Cantidad de Tratamientos Aplicados ")
+        print("3. Ranking Diagnosticos ")
+        print("4. Diagnósticos por Raza")
         print("9. Volver al Menú Principal")
         opcion = input("Selecciona una opción: ")
         return int(opcion)
 
-    def listaHistoriales(self,cliente, mascota, diagnosticoMascota, tratamientoMascota, vacunas):
-        self.nombreCliente = cliente
-        self.nombremascota = mascota
-        self.diagnosticoMascota = diagnosticoMascota
-        self.tratamientoMascota = tratamientoMascota
-        self.vacunas = Vacunas
-        self.proximaConsulta = str(input("Indique proxima consulta: "))
+    def historialMenu(self):
+        print("Menú de Ficha Medica")
+        print("1. Nueva Consulta Veterinaria")
+        print("2. Buscar una Ficha de Paciente ")
+        print("3. Pendiente ")
+        print("9. Volver al Menú Principal")
+        opcion = input("Selecciona una opción: ")
+        return int(opcion)
 
 
-
-        return historial
 
     def consultarHistorial(self):
         nombreCliente = input("Nombre del Cliente: ")
@@ -165,28 +167,31 @@ class Vista:
         estado = True
         return nombre, telefono, cargo, estado
 
-        def modificarEstadoVeterinario(self):
-            return input("Ingrese el nombre del veterinario que desea conocer el estado: ")
+    def modificarEstadoVeterinario(self):
+        return input("Ingrese el nombre del veterinario que desea conocer el estado: ")
 
-        def mostrarMensaje(self, mensaje):
-            print(mensaje)
+    def mostrarMensaje(self, mensaje):
+      print(mensaje)
 
-        def pedirOpcionModificar(self, estado):
-            print(f"El estado del veterinario es {estado}. ¿Desea Modificarlo?")
-            print("[1] - SI / [2] - NO")
-            opcion = input("Ingrese opción: ")
-            if opcion == '1':
-                if estado:
-                    estado = False
-                else:
-                    estado = True
-            return estado
+    def pedirOpcionModificar(self, estado):
+        print(f"El estado del veterinario es {estado}. ¿Desea Modificarlo?")
+        print("[1] - SI / [2] - NO")
+        opcion = input("Ingrese opción: ")
+        if opcion == '1':
+            if estado:
+                estado = False
+            else:
+                estado = True
+        return estado
 
     def eliminarVeterinario(self):
         return input("Ingrese el nombre del veterinario que desea eliminar: ")
 
     def mostrarMensaje(self, mensaje):
         print(mensaje)
+
+
+
 
     # endregion
 
@@ -374,7 +379,8 @@ class Vista:
         nombreDiag = input("Nombre del diagnostico: ")
         descripcionDiag = input("Descripcion del diagnostico")
         cuidadosDiag = input("Cuidados del diagnostico")
-        return nombreDiag, descripcionDiag, cuidadosDiag, True
+        state=1
+        return nombreDiag, descripcionDiag, cuidadosDiag, state
 
     def modificarDiagnostico(self):
         print("Funcionalidad de modificar diagnóstico no implementada aún.")
@@ -519,7 +525,7 @@ class Vista:
 
     #region Consulta
     def fechaHoy(self):
-        fecha= input("Ingrese Fecha ")
+        fecha= input("Ingrese Fecha AAAA-MM-DD")
         return fecha
 
     def veterinarioNombre(self):
@@ -537,13 +543,13 @@ class Vista:
         return input("Ingrese el nombre del tratamiento: ")
 
     def mensajeDiagnosticoEncontrado(self):
-        print("Diagnistico Encontrado ")
+        print("Diagnostico Encontrado ")
 
     def MensajeDiagnisticoInexistente(self):
-        print("Diangnostico inexistente cargar Diagnostico ")
+        print("Diagnostico inexistente Cargar Diagnostico ")
 
     def mensajeTratamientoEncontrado(self):
-        print("Diangnostico inexistente cargar Diagnostico ")
+        print("Tratamiento ENCONTRADO! ")
 
     def VacunaNombre(self):
         vacuna_nombre = input("Nombre Vacuna")
@@ -556,4 +562,53 @@ class Vista:
     def mostrarMensaje(self, mensaje):
         print(mensaje)
 
+    def agregarNuevoOpcion(self, parametro):
+        while True:
+            print(f"Desea cargar nuevo {parametro}? y/n")
+            opcion = input("Ingrese opción: ").lower()
+            if opcion in ['y', 'n']:
+                return opcion
+            else:
+                print("Entrada no válida. Por favor, ingrese 'y' para sí o 'n' para no.")
+
+
+    def mostrarEncabezadoFicha(self, tipo_mascota, raza, nombre_mascota, nombre_propietario):
+        print("Encabezado de la ficha médica:")
+        print(f"Tipo de mascota: {tipo_mascota}")
+        print(f"Raza: {raza}")
+        print(f"Nombre de la mascota: {nombre_mascota}")
+        print(f"Nombre del propietario: {nombre_propietario}")
+        print("\nConsultas:")
+
+    def mostrarConsultasFicha(self, consultas):
+        for consulta in consultas:
+            fecha, medico, diagnostico, tratamiento, vacuna, observacion = consulta
+            print(f"Fecha: {fecha}")
+            print(f"Medico: {medico}")
+            print(f"Diagnóstico: {diagnostico}")
+            print(f"Tratamiento: {tratamiento}")
+            print(f"Vacuna: {vacuna}")
+            print(f"Observación: {observacion}")
+            print("----------")
+
     #endregion
+
+# region Estadisticas
+
+    def mostrarCantidadConsultasConSeparador(self, cantidad):
+        print(f"Consultas hechas: {cantidad}")
+        print("----------")
+
+    def mostrarRankingDiagnosticos(self, ranking):
+        print("Ranking de Diagnósticos:")
+        for diagnostico, cantidad in ranking:
+            print(f"{diagnostico}: {cantidad}")
+
+
+    def mostrarDiagnosticosPorRaza(self, diagnosticos_razas):
+        print("Diagnósticos por Raza:")
+        for diagnostico, razas in diagnosticos_razas.items():
+            razas_str = ", ".join(razas)
+            print(f"{diagnostico}: {razas_str}")
+
+#endregion

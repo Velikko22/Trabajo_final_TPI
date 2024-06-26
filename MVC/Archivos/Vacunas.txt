@@ -2,3 +2,8 @@ quintuplefelina,12354,1,2,1
 tripleviral,123,1,1,1
 sextuple,111111,2,7,1
 antiloco,124,1,30,1
+antirabica,123,1,1,1
+antirabica,123,1,1,1
+simple,2222,1,1,1
+antiespasmos,123,1,1,1
+no,123,1,1,1

@@ -5,30 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa7ed577-163a-4e2a-946c-d716168a7ad7" name="Changes" comment="Se modifico Controllador Vacuna">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Archivos/Diagnosticos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/Diagnosticos.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Archivos/mascotas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/mascotas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/negro_paulo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/Fichas Medicas/negro_paulo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/Vacunas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/Vacunas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVC/Archivos/tratamientos.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/tratamientos.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Archivos/veterinarios.txt" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Archivos/veterinarios.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Controler/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Controler/Controlador.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Modelo/Diagnostico.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Modelo/Diagnostico.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Modelo/Verinario.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Modelo/Verinario.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVC/Vista/vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Vista/vista.py" afterDir="false" />
     </list>
-    <list id="e103c107-7047-4c8a-85cc-7c24d9f44518" name="Changes by Capellino Julian" comment="">
-      <change beforePath="$PROJECT_DIR$/MVC/Controler/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Controler/Controlador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Vista/vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Vista/vista.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/main.py" afterDir="false" />
-    </list>
-    <list id="97c788d5-83a9-432d-8325-56b02eab30d5" name="Changes by julia" comment="">
-      <change beforePath="$PROJECT_DIR$/MVC/Controler/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Controler/Controlador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Modelo/Diagnostico.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Modelo/Diagnostico.py" afterDir="false" />
-    </list>
-    <list id="e7b988d8-24af-4fcf-b93a-78ecd77984fc" name="Changes by toti" comment="">
-      <change beforePath="$PROJECT_DIR$/MVC/Controler/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Controler/Controlador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Modelo/Verinario.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Modelo/Verinario.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MVC/Vista/vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/MVC/Vista/vista.py" afterDir="false" />
-    </list>
+    <list id="e103c107-7047-4c8a-85cc-7c24d9f44518" name="Changes by Capellino Julian" comment="Changes by Capellino Julian" />
+    <list id="97c788d5-83a9-432d-8325-56b02eab30d5" name="Changes by julia" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,87 +44,6 @@
     "accountId": "72ad2782-d3b7-4d64-a722-b36dcce518f3"
   }
 }]]></component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/MVC/Modelo/Diagnostico.py">
-      <ranges>
-        <range start1="10" end1="11" start2="10" end2="17" changelist="97c788d5-83a9-432d-8325-56b02eab30d5" />
-        <range start1="48" end1="49" start2="54" end2="56" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/MVC/Modelo/Verinario.py">
-      <ranges>
-        <range start1="0" end1="1" start2="0" end2="1" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="3" end1="4" start2="3" end2="4" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="6" end1="6" start2="6" end2="7" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/MVC/Controler/Controlador.py">
-      <ranges>
-        <range start1="0" end1="1" start2="0" end2="1" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="2" end1="2" start2="2" end2="3" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="13" end1="14" start2="14" end2="14" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="17" end1="18" start2="17" end2="19" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="26" end1="26" start2="27" end2="28" changelist="97c788d5-83a9-432d-8325-56b02eab30d5" />
-        <range start1="27" end1="27" start2="29" end2="31" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="28" end1="28" start2="32" end2="46" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="30" end1="32" start2="48" end2="48" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="33" end1="33" start2="49" end2="54" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="34" end1="34" start2="55" end2="56" changelist="97c788d5-83a9-432d-8325-56b02eab30d5" />
-        <range start1="52" end1="54" start2="74" end2="76" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="93" end1="95" start2="115" end2="117" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="129" end1="130" start2="151" end2="152" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="131" end1="131" start2="153" end2="154" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="134" end1="135" start2="157" end2="158" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="136" end1="138" start2="159" end2="160" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="197" end1="198" start2="219" end2="220" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="253" end1="253" start2="275" end2="290" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="261" end1="262" start2="298" end2="298" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="479" end1="480" start2="515" end2="516" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="482" end1="485" start2="518" end2="519" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="495" end1="496" start2="529" end2="530" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="498" end1="499" start2="532" end2="533" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="510" end1="510" start2="544" end2="741" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="519" end1="519" start2="750" end2="751" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="533" end1="534" start2="765" end2="766" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="537" end1="538" start2="769" end2="769" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="568" end1="569" start2="799" end2="800" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="570" end1="571" start2="801" end2="802" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="572" end1="573" start2="803" end2="804" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="574" end1="575" start2="805" end2="806" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="578" end1="579" start2="809" end2="809" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="594" end1="595" start2="824" end2="824" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="610" end1="611" start2="839" end2="839" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="624" end1="625" start2="852" end2="853" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="631" end1="632" start2="859" end2="859" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="647" end1="648" start2="874" end2="874" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="663" end1="664" start2="889" end2="889" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="667" end1="668" start2="892" end2="893" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/MVC/Vista/vista.py">
-      <ranges>
-        <range start1="2" end1="3" start2="2" end2="3" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="16" end1="16" start2="16" end2="20" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="17" end1="18" start2="21" end2="22" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="36" end1="37" start2="40" end2="41" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="46" end1="46" start2="50" end2="62" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="57" end1="58" start2="73" end2="74" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="59" end1="60" start2="75" end2="76" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="129" end1="130" start2="145" end2="146" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="145" end1="146" start2="161" end2="166" changelist="e7b988d8-24af-4fcf-b93a-78ecd77984fc" />
-        <range start1="147" end1="149" start2="167" end2="183" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="151" end1="152" start2="185" end2="189" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="301" end1="302" start2="338" end2="339" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="313" end1="313" start2="350" end2="362" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="314" end1="314" start2="363" end2="364" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="326" end1="327" start2="376" end2="377" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="331" end1="334" start2="381" end2="381" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="336" end1="337" start2="383" end2="384" changelist="fa7ed577-163a-4e2a-946c-d716168a7ad7" />
-        <range start1="397" end1="400" start2="444" end2="445" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-        <range start1="472" end1="473" start2="517" end2="559" changelist="e103c107-7047-4c8a-85cc-7c24d9f44518" />
-      </ranges>
-    </file>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -231,7 +138,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719341526936</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Se modifico Controllador Vacuna">
+      <option name="closed" value="true" />
+      <created>1719373941776</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719373941776</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -247,6 +162,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se modifico Controllador Vacuna" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se modifico Controllador Vacuna" />
+    <MESSAGE value="Changes by Capellino Julian" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Capellino Julian" />
   </component>
 </project>

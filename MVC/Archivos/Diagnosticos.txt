@@ -1,1 +1,7 @@
-zxc,zxc,zxc,10,10,True
+gastritis,dolor de panza,dieta,1
+fracturaRadio,hueso roto radio,enyesar,1
+diarrea,movilidad intestinal,hidratarse,1
+famelico,sinhambre,darcomida,1
+inestabilidad,lento caminar,correr,1
+cirrosis,higado con dolor,no tomar,1
+sed,tengo seee,tomar agua,1

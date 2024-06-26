@@ -1,7 +1,7 @@
     # region Imports
 import os
 from pathlib import Path
-
+from collections import Counter, defaultdict
 
 from MVC.Modelo.Cliente import Cliente
 from MVC.Modelo.Verinario import Veterinario
@@ -113,8 +113,8 @@ class Controller:
                 lineas = archivo.readlines()
             for linea in lineas:
                 datos = linea.strip().split(",")
-                nombreDiag, descripcionDiag, cuidadosDiag, tratamientoDiag, vacunasDiag, state = datos
-                diagnostico = Diagnostico(nombreDiag, descripcionDiag, cuidadosDiag, tratamientoDiag, vacunasDiag, state)
+                nombreDiag, descripcionDiag, cuidadosDiag, state = datos
+                diagnostico = Diagnostico(nombreDiag, descripcionDiag, cuidadosDiag)
                 self.lista_diagnostico.append(diagnostico)
             self.vista.cargaExitosa("diagnostico")
         except Exception as e:
@@ -148,12 +148,7 @@ class Controller:
 
     # endregion
 
-    # region Controlador Historial
-    def Historial(self):
-        pass
 
-
-    # endregion
 
     #region Controlador Clientes
     def informacion_cliente(self):
@@ -307,9 +302,17 @@ class Controller:
         self.lista_vacuna.append(
             Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state)
         )
+        vacuna = Vacuna(Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state))
         with open("Archivos/vacunas.txt", "a", encoding="UTF-8") as file:
             file.write(linea)
         self.vista.mensajeVacunaAgregadaconExito(linea)
+        return vacuna
+
+
+
+
+
+
 
     def modificarVacuna(self):
         nombreVacuna = self.vista.vacunaAModificar()
@@ -460,7 +463,20 @@ class Controller:
         )
         with open("Archivos/tratamientos.txt", "a", encoding="UTF-8") as file:
             file.write(linea)
+        print(self.lista_tratamiento)
         self.vista.tratamientoCargaExitosa()
+
+    def agregarTratamiento2(self):
+        nombreTratamiento, duracionTratamiento, state = self.vista.agregarTratamientoOpciones()
+        tratamiento = Tratamiento(nombreTratamiento, duracionTratamiento, state)
+        self.lista_tratamiento.append(tratamiento)
+
+        with open("Archivos/tratamientos.txt", "a", encoding="UTF-8") as file:
+            file.write(f"{nombreTratamiento},{duracionTratamiento},{state}\n")
+
+        self.vista.tratamientoCargaExitosa()
+        return tratamiento
+
 
     def modificarTratamiento(self):
         nombreTratamiento = self.vista.tratamientoAModificar()
@@ -524,17 +540,12 @@ class Controller:
         if any(diagnostico.nombreDiag == nombreDiag for diagnostico in self.lista_diagnostico):
             self.vista.mensajeError("El Diagnostico ya existe.")
         else:
-            nombreTrata, duracionTrata, stateTrata = self.vista.agregarTratamientoOpciones()
-            trata = Tratamiento(nombreTrata, duracionTrata, stateTrata)
-            nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, state = self.vista.agregarVacunaOpciones()
-            vacu = Vacuna(nombreVacuna, loteVacuna, numeroDosis, diasProximaDosis, True)
-            diagnostico = Diagnostico(nombreDiag, descripcionDiag, cuidadosDiag, trata, vacu, True)
+            diagnostico = Diagnostico(nombreDiag, descripcionDiag, cuidadosDiag, state)
             self.lista_diagnostico.append(diagnostico)
-
             with open("Archivos/Diagnosticos.txt", "a") as archivo:
                 archivo.write(f"{diagnostico}\n")
-                print(diagnostico)
             self.vista.cargaExitosa("diagnostico")
+            return diagnostico
 
     def modificar_Diagnostico(self):
         pass
@@ -555,24 +566,46 @@ class Controller:
 
         veterinario = self.atencionVeterinario()
         if not veterinario:
-            return
+            opcion = self.vista.agregarNuevoOpcion("veterinario")
+            if opcion == "y":
+                nuevo_veterinario = self.agregar_Nuevo_Veterinario()
+                veterinario = nuevo_veterinario
+            elif opcion == "n":
+                return
+
 
         diagnostico = self.diagosticoNombre()
         if not diagnostico:
-            return
+            opcion = self.vista.agregarNuevoOpcion("diagnóstico")
+            if opcion == "y":
+                nuevo_diagnostico = self.agregar_Diagnostico()
+                diagnostico = nuevo_diagnostico
+            elif opcion == "n":
+                return
 
         tratamiento = self.tratamientoNombre()
         if not tratamiento:
-            return
+            opcion = self.vista.agregarNuevoOpcion("tratamiento")
+            if opcion == "y":
+                nuevo_tratamiento = self.agregarTratamiento2()
+                tratamiento = nuevo_tratamiento
+                print(tratamiento)
+            elif opcion == "n":
+                return
 
         vacuna = self.vacunaNombre()
         if not vacuna:
-            return
+            opcion = self.vista.agregarNuevoOpcion("vacuna")
+            if opcion == "y":
+                nuevo_vacuna = self.agregarVacuna()
+                vacuna = nuevo_vacuna
+            elif opcion == "n":
+                return
 
         observaciones = self.observaciones()
 
         lista_del_dia.append(
-            (fecha, veterinario.nombre, diagnostico.nombreDiag,tratamiento.nombreTratamiento, vacuna.nombreVacuna,
+            (fecha, veterinario.nombre, diagnostico.getNombreDiag(),tratamiento.getNombreTratamiento(), vacuna.nombreVacuna,
              observaciones)
         )
         return lista_del_dia
@@ -670,8 +703,41 @@ class Controller:
         ruta_archivo = self.ruta_fichas_medicas / archivo_ficha
         return ruta_archivo.exists(), ruta_archivo
 
-    def agregar_ficha(self):
-        pass
+    def buscarUnaFicha(self):
+        propietario = input("Ingrese el nombre del propietario: ")
+        nombreMascota = input("Ingrese el nombre de la mascota: ")
+
+        ficha_existe, ruta_ficha = self.buscarFichaMedica(propietario, nombreMascota)
+        if ficha_existe:
+            self.mostrarContenidoFicha(ruta_ficha)
+        else:
+            self.vista.mostrarMensaje("No se encontró la ficha médica. Volviendo al menú anterior.")
+            return
+
+    def mostrarContenidoFicha(self, ruta_ficha):
+        with open(ruta_ficha, "r", encoding="UTF-8") as archivo:
+            lineas = archivo.readlines()
+
+        if not lineas:
+            self.vista.mostrarMensaje("La ficha médica está vacía.")
+            return
+
+
+        encabezado = lineas[0].strip().split(",")
+        tipo_mascota, raza, nombre_mascota, nombre_propietario = encabezado
+        self.vista.mostrarEncabezadoFicha(tipo_mascota, raza, nombre_mascota, nombre_propietario)
+
+
+        consultas = []
+        for linea in lineas[1:]:
+            consulta = linea.strip().split(";")
+            fecha, medico, diagnostico, tratamiento, vacuna, *observacion = consulta
+            observacion = observacion[0] if observacion else "N/A"
+            consultas.append((fecha, medico, diagnostico, tratamiento, vacuna, observacion))
+
+        self.vista.mostrarConsultasFicha(consultas)
+
+
 
     #endregion
 
@@ -685,6 +751,7 @@ class Controller:
         nombre, telefono, cargo, estado = self.vista.agregarNuevoVeterinario()
         veterinario = Veterinario(nombre, telefono, cargo, estado)
         self.lista_veterinarios.append(veterinario)
+        return veterinario
 
         with open("Archivos/veterinarios.txt", "a") as archivo:
             archivo.write(f"{nombre},{telefono},{cargo},{estado}\n")
@@ -753,15 +820,33 @@ class Controller:
         # Menú principal...
         while True:
             opcion = self.vista.principalMenu()
-            if opcion == 1:
+
+
+
+            if opcion == 0:
+                while True:
+                    sub_opcion = self.vista.estadisticasMenu()
+                    if sub_opcion == 1:
+                        self.mostrarEncabezadoYConsultas()
+                    elif sub_opcion == 2:
+                        self.buscarUnaFicha()
+                    elif sub_opcion == 3:
+                        self.rankingDiagnosticos()
+                    elif sub_opcion == 4:
+                        self.diagnosticosPorRaza()
+                    elif sub_opcion == 9:
+                        self.vista.mensajeVolviendoAlMenu()
+                        break
+
+
+            elif opcion == 1:
                 while True:
                     sub_opcion = self.vista.historialMenu()
 
                     if sub_opcion == 1:
-                        nombreCliente, nombreMascota = self.vista.consultarHistorial()
-                        self.consulta_Historial(nombreCliente, nombreMascota)
+                        self.manejarFichasMedicas()
                     elif sub_opcion == 2:
-                        self.vista.modificarHistorial()
+                        self.buscarUnaFicha()
                     elif sub_opcion == 3:
                         self.manejarFichasMedicas()
                     elif sub_opcion == 9:
@@ -891,3 +976,75 @@ class Controller:
             elif opcion == 9:
                 break
     #endregion
+
+#region Estadisticas
+    def mostrarEncabezadoYConsultas(self):
+        propietario = input("Ingrese el nombre del propietario: ")
+        nombreMascota = input("Ingrese el nombre de la mascota: ")
+
+        ficha_existe, ruta_ficha = self.buscarFichaMedica(propietario, nombreMascota)
+        if ficha_existe:
+            self.mostrarContenidoEncabezadoYConsultas(ruta_ficha)
+        else:
+            self.vista.mostrarMensaje("No se encontró la ficha médica. Volviendo al menú anterior.")
+            return
+
+    def mostrarContenidoEncabezadoYConsultas(self, ruta_ficha):
+        with open(ruta_ficha, "r", encoding="UTF-8") as archivo:
+            lineas = archivo.readlines()
+
+        if not lineas:
+            self.vista.mostrarMensaje("La ficha médica está vacía.")
+            return
+
+
+        encabezado = lineas[0].strip().split(",")
+        tipo_mascota, raza, nombre_mascota, nombre_propietario = encabezado
+        self.vista.mostrarEncabezadoFicha(tipo_mascota, raza, nombre_mascota, nombre_propietario)
+
+
+        cantidad_consultas = len(lineas) - 1
+        self.vista.mostrarCantidadConsultasConSeparador(cantidad_consultas)
+
+    def rankingDiagnosticos(self):
+        diagnostico_counter = Counter()
+
+        for ficha_path in self.ruta_fichas_medicas.glob("*.txt"):
+            with ficha_path.open("r", encoding="UTF-8") as archivo:
+                lineas = archivo.readlines()
+                if len(lineas) <= 1:
+                    continue
+
+                for linea in lineas[1:]:
+                    consulta = linea.strip().split(";")
+                    diagnostico = consulta[2]
+                    if any(diagnostico == diag.getNombreDiag() for diag in self.lista_diagnostico):
+                        diagnostico_counter[diagnostico] += 1
+
+        ranking = diagnostico_counter.most_common()
+        self.vista.mostrarRankingDiagnosticos(ranking)
+
+
+    def diagnosticosPorRaza(self):
+        diagnosticos_razas = defaultdict(set)
+
+        for ficha_path in self.ruta_fichas_medicas.glob("*.txt"):
+            with ficha_path.open("r", encoding="UTF-8") as archivo:
+                lineas = archivo.readlines()
+                if len(lineas) <= 1:
+                    continue
+
+                encabezado = lineas[0].strip().split(",")
+                raza = encabezado[1]
+
+                for linea in lineas[1:]:
+                    consulta = linea.strip().split(";")
+                    diagnostico = consulta[2]
+                    if any(diagnostico == diag.getNombreDiag() for diag in self.lista_diagnostico):
+                        diagnosticos_razas[diagnostico].add(raza)
+
+        self.vista.mostrarDiagnosticosPorRaza(diagnosticos_razas)
+
+
+
+#endregion
